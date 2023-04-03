@@ -23,18 +23,18 @@
 					click en Login.<br>Si eres nuevo usuario regístrate haciendo
 					click en Registro.
 				</p>
-				<form>
+				<form action="principal.jsp" method="post">
 					<div class="mb-3">
 						<label for="inputuser" class="form-label">Usuario</label> <input
-							id="inputuser" name="user" type="text" class="form-control">
+							id="inputuser" name="usuario" type="text" class="form-control"/>
 					</div>
 					<div class="mb-3">
 						<label for="inputpass" class="form-label">Contraseña</label> <input
-							id="inputpass" name="pass" type="password" class="form-control">
+							id="inputpass" name="pass" type="password" class="form-control" maxlength=6/>
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary me-2">Login</button>
-						<button type="submit" class="btn btn-primary">Registro</button>
+						<input type="submit" class="btn btn-primary me-2" value="Login"/>
+						<a class="btn btn-primary" href="registro.jsp">Registro</a>
 					</div>
 				</form>
 			</div>
