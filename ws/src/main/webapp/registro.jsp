@@ -20,14 +20,14 @@
 				<h5 class="card-title text-center">Registro de nuevo usuario</h5>
 				<p class="card-text">Regístrate con un nombre de usuario y
 					password.</p>
-				<form action="" method="post">
+				<form action="registrousuario.jsp" method="post">
 					<div class="mb-3">
 						<label for="inputuser" class="form-label">Usuario</label> <input
-							id="inputuser" name="user" type="text" class="form-control" />
+							id="inputuser" name="newusuario" type="text" class="form-control" />
 					</div>
 					<div class="mb-3">
 						<label for="inputpass" class="form-label">Contraseña</label> <input
-							id="inputpass" name="pass" type="password" class="form-control"
+							id="inputpass" name="newpass" type="password" class="form-control"
 							aria-describedby="inputpass1" maxlength=6 />
 						<div id="inputpass1" class="form-text">Teclea una clave de 6
 							caracteres</div>
