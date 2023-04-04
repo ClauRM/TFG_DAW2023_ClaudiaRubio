@@ -28,8 +28,10 @@ public class Controlador extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// metodo que se ejecuta tras recibir datos por metodo get
+		// getRequestDispatcher("Controlador?accion=Acceso")
 		
-		// metodo que se ejecuta tras 
 		String accion = request.getParameter("accion"); // parametro que se recibe cuando hay un usuario en el servlet
 		// validarUsuario
 
@@ -50,7 +52,7 @@ public class Controlador extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// muestra lo que se recibe por el metodo doGet como resultado (pagina web)
 		doGet(request, response);
 	}
 

@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>CronoMed</title>
-<!-- estilos bootstrap -->
+<!-- ESTILOS BOOTSTRAP -->
 <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
 </head>
 

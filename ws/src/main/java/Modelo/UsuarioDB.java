@@ -31,7 +31,7 @@ public class UsuarioDB {
 			while (resultSet.next()){
 				user.setIdusuario(resultSet.getInt("idusuario"));
 				user.setNombre(resultSet.getString("nombre")); //nombre de la columna
-				user.setNombre(resultSet.getString("password")); //nombre de la columna
+				user.setPassword(resultSet.getString("password")); //nombre de la columna
 			}
 
 		} catch (Exception e) {

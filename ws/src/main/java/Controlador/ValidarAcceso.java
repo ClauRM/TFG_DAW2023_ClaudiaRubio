@@ -58,7 +58,9 @@ public class ValidarAcceso extends HttpServlet {
 			user = usuarioDB.validarUsuario(usuario, pass); // metodo para validar si el usuario esta en la tabla
 
 			if (user.getNombre() != null && user.getNombre() != "") { // si el nombre es diferente de null
-				// enviar los datos al controlador.java
+				// envio el nombre del usuario a la ventana principal
+				request.setAttribute("usuario", user); //setAttribute(nombre, objeto que queremos almacenar) 
+				// envio los datos al controlador.java que dara el acceso a la ventana principal
 				request.getRequestDispatcher("Controlador?accion=Acceso").forward(request, response);
 			} else {
 				// en caso contrario redireccionar a la misma pagina
