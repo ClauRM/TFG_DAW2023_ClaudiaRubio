@@ -23,7 +23,8 @@
 					click en Login.<br>Si eres nuevo usuario regístrate haciendo
 					click en Registro.
 				</p>
-				<form action="principal.jsp" method="post">
+				<!-- FORMULARIO DE ACCESO -->
+				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet Validar.java -->
 					<div class="mb-3">
 						<label for="inputuser" class="form-label">Usuario</label> <input
 							id="inputuser" name="usuario" type="text" class="form-control"/>
@@ -33,7 +34,7 @@
 							id="inputpass" name="pass" type="password" class="form-control" maxlength=6/>
 					</div>
 					<div class="text-center">
-						<input type="submit" class="btn btn-primary me-2" value="Login"/>
+						<input type="submit" class="btn btn-primary me-2" name="login" value="Login"/>
 						<a class="btn btn-primary" href="registro.jsp">Registro</a>
 					</div>
 				</form>

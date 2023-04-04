@@ -9,9 +9,6 @@
 <body>
 	<h1>Hola Mundo</h1>
 
-	<%
-	String usuario = request.getParameter("usuario");
-	String pass = request.getParameter("pass");
-	%>
+	
 </body>
 </html>
