@@ -14,25 +14,29 @@
 	<div
 		class="container h-100 d-flex justify-content-center align-items-center">
 		<!-- CARD DE NUEVO REGISTRO DE USUARIO -->
-		<div class="card" style="width: 18rem;">
+		<div class="card" style="width: 24rem;">
 			<h4 class="card-title text-center mt-2">Bienvenido a CronoMed</h4>
 			<img src="..." class="card-img-top" alt="CronoMed">
 			<div class="card-body">
 				<h5 class="card-title text-center">Registro de nuevo usuario</h5>
 				<p class="card-text">Regístrate con un nombre de usuario y password.</p>
 				<!-- DESARROLLAR NUEVO USUARIO CON SERVLET EN EL ACTION -->
-				<form action="..." method="post"> 
-					<div class="mb-3">
+				<form action="ValidarAcceso" method="post"> 
+					<div class="mb-2">
 						<label for="inputuser" class="form-label">Usuario</label> 
-						<input id="inputuser" name="newusuario" type="text" class="form-control" />
+						<input id="inputuser" name="usuario" type="text" class="form-control" />
 					</div>
-					<div class="mb-3">
+					<div class="mb-2">
+						<label for="inputemail" class="form-label">Email</label> 
+						<input id="inputemail" name="email" type="text" class="form-control" />
+					</div>
+					<div class="mb-2">
 						<label for="inputpass" class="form-label">Contraseña</label> 
-						<input id="inputpass" name="newpass" type="password" class="form-control" aria-describedby="inputpass1" maxlength=6 />
+						<input id="inputpass" name="pass" type="password" class="form-control" aria-describedby="inputpass1" maxlength=6 />
 						<div id="inputpass1" class="form-text">Teclea una clave de 6 caracteres</div>
 					</div>
 					<div class="d-flex justify-content-center">
-						<input type="submit" class="btn btn-primary me-2" value="Registro" />
+						<input type="submit" class="btn btn-primary me-2" name="accion" value="Registro" />
 					</div>
 					<!-- LINK A LA VENTANA DE LOGIN PARA USUARIOS REGISTRADOS -->
 					<div class="border-top mt-3">
