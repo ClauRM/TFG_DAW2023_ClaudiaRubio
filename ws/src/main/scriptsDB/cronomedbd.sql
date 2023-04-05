@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-04-2023 a las 09:27:29
+-- Tiempo de generación: 05-04-2023 a las 11:33:56
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -30,8 +30,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `medicamentos` (
   `idmedicamento` int(3) NOT NULL,
   `medicamento` varchar(60) NOT NULL,
-  `composicion` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla con los nombres y composición de los medicamentos';
+  `composicion` int(3) NOT NULL,
+  `unidad` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el registro de medicamentos';
+
+--
+-- Volcado de datos para la tabla `medicamentos`
+--
+
+INSERT INTO `medicamentos` (`idmedicamento`, `medicamento`, `composicion`, `unidad`) VALUES
+(1, 'paracetamol', 100, 'mg/ml'),
+(2, 'ibuprofeno', 20, 'mg/ml'),
+(3, 'aerius', 1, 'mg/ml'),
+(4, 'ibuprofeno', 40, 'mg/ml');
 
 -- --------------------------------------------------------
 
@@ -46,8 +57,9 @@ CREATE TABLE `tratamientos` (
   `paciente` varchar(30) NOT NULL,
   `dosis` int(2) NOT NULL,
   `horas` int(2) NOT NULL,
-  `tratamiento` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para registro de los tratamientos';
+  `tratamiento` text NOT NULL,
+  `observaciones` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el registro de tratamientos';
 
 -- --------------------------------------------------------
 
@@ -58,6 +70,7 @@ CREATE TABLE `tratamientos` (
 CREATE TABLE `usuarios` (
   `idusuario` int(3) NOT NULL,
   `nombre` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `password` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para registro de usuarios';
 
@@ -65,11 +78,8 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`idusuario`, `nombre`, `password`) VALUES
-(1, 'claudia', '111111'),
-(2, 'mateo', 'Mateo1'),
-(3, 'victor', 'Victor'),
-(4, 'Pepe', 'Pepe21');
+INSERT INTO `usuarios` (`idusuario`, `nombre`, `email`, `password`) VALUES
+(1, 'claudia', 'claudia@email.com', '111111');
 
 --
 -- Índices para tablas volcadas
@@ -93,11 +103,17 @@ ALTER TABLE `tratamientos`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`idusuario`) USING BTREE;
+  ADD PRIMARY KEY (`idusuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `medicamentos`
+--
+ALTER TABLE `medicamentos`
+  MODIFY `idmedicamento` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tratamientos`
@@ -109,7 +125,7 @@ ALTER TABLE `tratamientos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idusuario` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas

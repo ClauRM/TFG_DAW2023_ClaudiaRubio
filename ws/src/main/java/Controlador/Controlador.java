@@ -30,20 +30,38 @@ public class Controlador extends HttpServlet {
 			throws ServletException, IOException {
 
 		// metodo que se ejecuta tras recibir datos por metodo get
-		// getRequestDispatcher("Controlador?accion=Acceso")
-		
+		// getRequestDispatcher("Controlador?menu=Acceso")
+
+		String menu = request.getParameter("menu"); // parametro que se recibe cuando hay un usuario en el servlet
+
 		String accion = request.getParameter("accion"); // parametro que se recibe cuando hay un usuario en el servlet
 		// validarUsuario
 
-		switch (accion) {
-		case "Acceso": // nombre que recibe la accion si hay usuario
-			request.getRequestDispatcher("principal.jsp").forward(request, response); // si hay acceso redirige a la
-																						// ventana principal
-			break;
-		default:
-			throw new AssertionError();
-
+		// distribucion en funcion de que valor trae la clave menu del
+		// getRequestDispatcher()
+		// dentro de cada menu se evalua la accion del getRequestDispatcher()
+		if (menu.equalsIgnoreCase("Acceso")) {
+			// si hay acceso redirige a la ventana principal
+			request.getRequestDispatcher("principal.jsp").forward(request, response);
 		}
+
+		if (menu.equalsIgnoreCase("home")) {
+			request.getRequestDispatcher("home.jsp").forward(request, response);
+		}
+		
+		if (menu.equalsIgnoreCase("medicamentos")) {
+			request.getRequestDispatcher("medicamentos.jsp").forward(request, response);
+		}
+		
+		if (menu.equalsIgnoreCase("enCurso")) {
+			request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
+		
+		}
+		
+		if (menu.equalsIgnoreCase("finalizados")) {
+			request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
+		}
+
 	}
 
 	/**

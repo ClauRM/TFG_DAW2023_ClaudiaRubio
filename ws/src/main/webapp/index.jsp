@@ -13,7 +13,7 @@
 <body class="h-100">
 	<div
 		class="container h-100 d-flex justify-content-center align-items-center">
-		<div class="card" style="width: 18rem;">
+		<div class="card" style="width: 24rem;">
 			<h4 class="card-title text-center mt-2">Bienvenido a CronoMed</h4>
 			<img src="..." class="card-img-top" alt="CronoMed">
 			<div class="card-body">
@@ -24,7 +24,7 @@
 					click en Registro.
 				</p>
 				<!-- FORMULARIO DE ACCESO -->
-				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet Validar.java -->
+				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
 					<div class="mb-3">
 						<label for="inputuser" class="form-label">Usuario</label> <input
 							id="inputuser" name="usuario" type="text" class="form-control"/>
@@ -34,7 +34,7 @@
 							id="inputpass" name="pass" type="password" class="form-control" maxlength=6/>
 					</div>
 					<div class="text-center">
-						<input type="submit" class="btn btn-primary me-2" name="login" value="Login"/>
+						<input type="submit" class="btn btn-primary me-2" name="accion" value="Login"/>
 						<a class="btn btn-primary" href="registro.jsp">Registro</a>
 					</div>
 				</form>

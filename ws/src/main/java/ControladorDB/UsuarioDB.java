@@ -1,43 +1,67 @@
-package Modelo;
+package ControladorDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Controlador.Conexion;
+import Modelo.Usuario;
 
 public class UsuarioDB {
-	Conexion conexion = new Conexion(); // objeto de la clase Conexion que he creado
-	Connection conection; // variable de tipo conection
-	PreparedStatement prepareStatement; // variable de tipo prepareStatement
-	ResultSet resultSet; // variable de tipo resultSet
+
+	GestorDB gestorDB = new GestorDB(); // objeto de la clase GestorDB.java
 
 	// metodo para validar el login de un usuariio comparando contra la BD
 	public Usuario validarUsuario(String nombre, String password) {
 		
+		Connection conection; // objeto de la clase Connection
+		PreparedStatement prepareStatement; // variable de tipo prepareStatement
+		ResultSet resultSet; // variable de tipo resultSet
+		
 		Usuario user = new Usuario();// creo el objeto usuario de la clase que he creado
 		String consulta = "SELECT * FROM usuarios WHERE nombre=? AND password=?"; // consulta para localizar al usuario
 																					// en la bd
+		
 		try {
-			conection = conexion.conexion(); // establecer la conexion, la variable conetion va a ser igual a mi objeto
-			prepareStatement = conection.prepareStatement(consulta); // prepare statement es igual a la conexion con
-																		// paramentro la consulta
-			// asigno los valores de los parametros de la consulta
+			conection = gestorDB.abrirConexion(); // establecer la conexion
+			prepareStatement = conection.prepareStatement(consulta);
+			//indico cuales son los parametos de la consulta
 			prepareStatement.setString(1, nombre);
 			prepareStatement.setString(2, password);
-			// resulSet
+			//ejecuto query
 			resultSet = prepareStatement.executeQuery();
-			//mientras que haya datos en el resultado de la consulta, recorrerla
-			while (resultSet.next()){
-				user.setIdusuario(resultSet.getInt("idusuario"));
-				user.setNombre(resultSet.getString("nombre")); //nombre de la columna
-				user.setPassword(resultSet.getString("password")); //nombre de la columna
+			
+			// mientras que haya datos en el resultado de la consulta, recorrerla
+			while (resultSet.next()) {
+				user.setIdusuario(resultSet.getInt("idusuario"));// nombre de la columna en la base de datos
+				user.setNombre(resultSet.getString("nombre"));
+				user.setEmail(resultSet.getString("email"));
+				user.setPassword(resultSet.getString("password"));
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return user;
 	}
 
+	// NUEVO USUARIO
+
+	public void insertarUsuario(Usuario usuario) {
+
+		int resultado = 0; // resultado de ejecutar la consulta de insercion: 1 ok - 2 nada
+
+		// VALIDAR nombre, email , password
+
+		resultado = gestorDB.insertarUsuarioDB(usuario);
+
+		if (resultado == 1) {
+			// ANALIZAR SI res ES EL OK DE LA TRABSACCION
+			// si E ok CONTINUA7
+		} else {
+			// sI ES ko VULVE PANTALLA
+			// sino se queda en la misma pagina
+		}
+
+	}
 }

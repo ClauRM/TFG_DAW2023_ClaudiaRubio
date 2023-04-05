@@ -17,10 +17,11 @@
 			<img src="" alt="" width="30" height="24">
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="#">CronoMed</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="#">Medicamentos</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="#">Nuevo tratamiento</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="#">Tratamientos en curso</a></li>
+				<!-- al pulsar sobre cada parte del menu el Controlador se encarga de redirigir y el target se encarga de mostrar la vista en el iframe -->
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=home" target="iframe">CronoMed</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=medicamentos" target="iframe">Medicamentos</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=enCurso" target="iframe">Gestión de tratamientos</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=finalizados" target="iframe">Tratamientos finalizados</a></li>
 				</ul>
 			</div>
 			<!-- DESPLEGABLE DE USUARIO -->
@@ -28,12 +29,19 @@
 				<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${usuario.getNombre()}</button>
 				<ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuButton1">
 					<li><a class="dropdown-item" href="#"><img alt="60" width="60" src="img/user.png"></a></li>
-    				<li><a class="dropdown-item" href="#">usuario</a></li>
+    				<li><a class="dropdown-item" href="#">${usuario.getEmail()}</a></li>
     				<li><hr class="dropdown-divider"></li>
-    				<li><a class="dropdown-item" href="#">Salir</a></li>
+    				<!-- FORMULARIO DE SALIDA -->
+    				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
+    					<input type="submit" class="dropdown-item" name="accion" value="Salir" />
+    				</form>
   				</ul>
 			</div>
 		</div>
 	</nav>
+	<!-- VENTANA DE ACCIONES -->
+	<div class="mt-4" style="height: 80%;">
+		<iframe name="iframe" style="height: 100%; width: 100%"></iframe>	
+	</div>
 </body>
 </html>
