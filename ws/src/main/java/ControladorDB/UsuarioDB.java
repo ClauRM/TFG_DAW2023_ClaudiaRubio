@@ -49,7 +49,7 @@ public class UsuarioDB {
 
 	public void insertarUsuario(Usuario usuario) {
 
-		int resultado = 0; // resultado de ejecutar la consulta de insercion: 1 ok - 2 nada
+		int resultado = 0; // resultado de ejecutar la consulta de insercion: 1 ok | 2 nada
 
 		// VALIDAR nombre, email , password
 

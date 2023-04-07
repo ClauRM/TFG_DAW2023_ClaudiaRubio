@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2023 a las 11:33:56
+-- Tiempo de generación: 07-04-2023 a las 11:55:07
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -29,20 +29,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `medicamentos` (
   `idmedicamento` int(3) NOT NULL,
-  `medicamento` varchar(60) NOT NULL,
-  `composicion` int(3) NOT NULL,
-  `unidad` varchar(20) NOT NULL
+  `medicamento` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el registro de medicamentos';
 
 --
 -- Volcado de datos para la tabla `medicamentos`
 --
 
-INSERT INTO `medicamentos` (`idmedicamento`, `medicamento`, `composicion`, `unidad`) VALUES
-(1, 'paracetamol', 100, 'mg/ml'),
-(2, 'ibuprofeno', 20, 'mg/ml'),
-(3, 'aerius', 1, 'mg/ml'),
-(4, 'ibuprofeno', 40, 'mg/ml');
+INSERT INTO `medicamentos` (`idmedicamento`, `medicamento`) VALUES
+(1, 'paracetamol 100 mg/ml'),
+(2, 'ibuprofeno 20 mg/ml'),
+(3, 'aerius 0,5 mg/ml'),
+(4, 'ibuprofeno 40 mg/ml');
 
 -- --------------------------------------------------------
 
@@ -58,8 +56,17 @@ CREATE TABLE `tratamientos` (
   `dosis` int(2) NOT NULL,
   `horas` int(2) NOT NULL,
   `tratamiento` text NOT NULL,
-  `observaciones` varchar(50) NOT NULL
+  `observaciones` varchar(50) NOT NULL,
+  `activo` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el registro de tratamientos';
+
+--
+-- Volcado de datos para la tabla `tratamientos`
+--
+
+INSERT INTO `tratamientos` (`idtratamiento`, `fidusuario`, `fidmedicamento`, `paciente`, `dosis`, `horas`, `tratamiento`, `observaciones`, `activo`) VALUES
+(1, 1, 1, 'mateo', 3, 6, '', 'solo si hay fiebre', 1),
+(2, 1, 1, 'victor', 4, 6, '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -79,7 +86,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idusuario`, `nombre`, `email`, `password`) VALUES
-(1, 'claudia', 'claudia@email.com', '111111');
+(1, 'claudia', 'claudia@email.com', '111111'),
+(2, 'mateo', 'mateo@email.com', 'Mateo1');
 
 --
 -- Índices para tablas volcadas
@@ -119,13 +127,13 @@ ALTER TABLE `medicamentos`
 -- AUTO_INCREMENT de la tabla `tratamientos`
 --
 ALTER TABLE `tratamientos`
-  MODIFY `idtratamiento` int(3) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtratamiento` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idusuario` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

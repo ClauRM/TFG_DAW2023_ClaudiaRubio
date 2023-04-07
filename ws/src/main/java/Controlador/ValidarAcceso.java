@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import ControladorDB.UsuarioDB;
 import Modelo.Usuario;
@@ -48,6 +49,7 @@ public class ValidarAcceso extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession sesion = request.getSession();
 		String accion = request.getParameter("accion"); // nombre del boton que realiza la accion
 
 		// valores capturador del formulario
@@ -63,6 +65,7 @@ public class ValidarAcceso extends HttpServlet {
 			if (user.getNombre() != null && user.getNombre() != "") { // si el nombre es diferente de null
 				// envio el nombre del usuario a la ventana principal
 				request.setAttribute("usuario", user); // setAttribute(nombre, objeto que queremos almacenar)
+				sesion.setAttribute("usuario", usuario);
 				// envio los datos al controlador.java que dara el acceso a la ventana principal
 				request.getRequestDispatcher("Controlador?menu=Acceso").forward(request, response);
 			} else {

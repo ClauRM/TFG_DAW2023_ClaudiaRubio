@@ -13,16 +13,12 @@
 <body class="h-100">
 	<div
 		class="container h-100 d-flex justify-content-center align-items-center">
-		<div class="card" style="width: 24rem;">
-			<h4 class="card-title text-center mt-2">Bienvenido a CronoMed</h4>
-			<img src="..." class="card-img-top" alt="CronoMed">
+		<div class="card" style="width: 20rem;">
+			<div class="card-img-top d-flex justify-content-center">
+				<img src="img/cronomed.png" alt="CronoMed" height="150" width="150">
+			</div>
 			<div class="card-body">
-				<h5 class="card-title text-center">Login</h5>
-				<p class="card-text">
-					Si ya estás registrado, accede con tu usuario y password, haciendo
-					click en Login.<br>Si eres nuevo usuario regístrate haciendo
-					click en Registro.
-				</p>
+				<h4 class="card-title text-center">Iniciar Sesión</h4>
 				<!-- FORMULARIO DE ACCESO -->
 				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
 					<div class="mb-3">
@@ -35,7 +31,10 @@
 					</div>
 					<div class="text-center">
 						<input type="submit" class="btn btn-primary me-2" name="accion" value="Login"/>
-						<a class="btn btn-primary" href="registro.jsp">Registro</a>
+						</div>
+					<div class="border-top text-center mt-3">
+						<p>¿No estás registrado?</p>
+						<a class="btn btn-secondary" href="registro.jsp">Registrarse</a>
 					</div>
 				</form>
 			</div>

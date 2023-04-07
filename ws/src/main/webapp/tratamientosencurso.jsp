@@ -39,7 +39,7 @@
 						<label>Observaciones</label>
 						<input type="text" name="observaciones" class="form-control">	
 					</div>	
-					<input type="submit" name="accion" value="Añadir" class="btn btn-primary mt-3">			
+					<input type="submit" name="menu" value="Añadir" class="btn btn-primary mt-3">			
 				</form>
 			</div>
 		</div>

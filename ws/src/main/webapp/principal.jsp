@@ -3,18 +3,20 @@
 <!DOCTYPE html>
 <html class="h-100">
 <head>
-<meta charset="ISO-8859-1">
-<title>CronoMed</title>
-<!-- estilos bootstrap -->
-<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
-<!-- javascript -->
-<script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>CronoMed</title>
+	<!-- estilos bootstrap -->
+	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+	<!-- javascript -->
+	<script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	<!--favicon-->
+	<link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body class="h-100">
 	<!-- MENU DE NAVEGACION -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
 		<div class="container-fluid">
-			<img src="" alt="" width="30" height="24">
+			<img src="img/cronomed.png" alt="" width="50" height="44">
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 				<!-- al pulsar sobre cada parte del menu el Controlador se encarga de redirigir y el target se encarga de mostrar la vista en el iframe -->
@@ -26,7 +28,7 @@
 			</div>
 			<!-- DESPLEGABLE DE USUARIO -->
 			<div style="margin-rigth: 20px" class="dropdown">
-				<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${usuario.getNombre()}</button>
+				<button class="btn btn-primary dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${usuario.getNombre()}</button>
 				<ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuButton1">
 					<li><a class="dropdown-item" href="#"><img alt="60" width="60" src="img/user.png"></a></li>
     				<li><a class="dropdown-item" href="#">${usuario.getEmail()}</a></li>
@@ -40,8 +42,12 @@
 		</div>
 	</nav>
 	<!-- VENTANA DE ACCIONES -->
-	<div class="mt-4" style="height: 80%;">
+	<div class="mt-4" style="height: 85%;">
 		<iframe name="iframe" style="height: 100%; width: 100%"></iframe>	
 	</div>
+	<!-- PIE DE PAGINA -->
+	    <div>
+        	<h6 class="text-center bg-primary text-white pt-2 pb-2">Claudia Rubio &copy; Todos los derechos reservados</h6>
+    	</div>
 </body>
 </html>

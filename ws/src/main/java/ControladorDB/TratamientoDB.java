@@ -50,8 +50,7 @@ public class TratamientoDB {
 				tratamiento.setActivo(resultSet.getInt("activo"));
 				// para los datos del medicamento, creo un nuevo objeto
 				tratamiento.setMedicamento(
-						new Medicamento(resultSet.getInt("idmedicamento"), resultSet.getString("medicamento"),
-								resultSet.getInt("composicion"), resultSet.getString("unidad")));
+						new Medicamento(resultSet.getInt("idmedicamento"), resultSet.getString("medicamento")));
 				// para los datos del usuario, creo un nuevo objeto
 				tratamiento.setUsuario(new Usuario(resultSet.getInt("idusuario"), resultSet.getString("nombre"),
 						resultSet.getString("email"), resultSet.getString("password")));

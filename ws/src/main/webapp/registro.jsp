@@ -14,12 +14,12 @@
 	<div
 		class="container h-100 d-flex justify-content-center align-items-center">
 		<!-- CARD DE NUEVO REGISTRO DE USUARIO -->
-		<div class="card" style="width: 24rem;">
-			<h4 class="card-title text-center mt-2">Bienvenido a CronoMed</h4>
-			<img src="..." class="card-img-top" alt="CronoMed">
+		<div class="card" style="width: 20rem;">
+			<div class="card-img-top d-flex justify-content-center">
+				<img src="img/cronomed.png" alt="CronoMed" height="150" width="150">
+			</div>
 			<div class="card-body">
-				<h5 class="card-title text-center">Registro de nuevo usuario</h5>
-				<p class="card-text">Regístrate con un nombre de usuario y password.</p>
+				<h4 class="card-title text-center">Registro de nuevo usuario</h4>
 				<!-- DESARROLLAR NUEVO USUARIO CON SERVLET EN EL ACTION -->
 				<form action="ValidarAcceso" method="post"> 
 					<div class="mb-2">
@@ -39,11 +39,9 @@
 						<input type="submit" class="btn btn-primary me-2" name="accion" value="Registro" />
 					</div>
 					<!-- LINK A LA VENTANA DE LOGIN PARA USUARIOS REGISTRADOS -->
-					<div class="border-top mt-3">
-						<p class="card-text">Si ya estás registrado, accede haciendo Login.</p>
-					</div>
-					<div class="d-flex justify-content-center">
-						<a class="text-center btn btn-primary mt-3" href="index.jsp">Login</a>
+					<div class="border-top text-center mt-3">
+						<p>Si ya estás registrado, haz Login</p>
+						<a class="text-center btn btn-secondary" href="index.jsp">Login</a>
 					</div>
 				</form>
 			</div>
