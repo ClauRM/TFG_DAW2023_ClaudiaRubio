@@ -53,7 +53,7 @@ public class GestorDB {
 				e.printStackTrace();
 			}
 			
-		cerrarConexion();
+		//cerrarConexion();
 		
 		return resultSet;
 	}

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*,java.lang.*" %>
+<%@ page import="Modelo.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<!-- 
+ List<Tratamiento> lista = request.getAttribute("tratamientos");
+ Iterator<Tratamiento> itTratamientos =lista.iterator();
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +26,7 @@
 		<!-- CONTENEDOR DEL FORMULARIO -->
 		<div class="card col-sm-4 px-3">
 			<div class="card-body">
-				<form action="">
+				<form action="Acciones" method="post"> <!-- se redirecciona al Servlet Acciones -->
 					<div class="form-group">
 						<label>Medicamento</label>
 						<input type="text" name="medicamento" class="form-control">		
@@ -39,7 +48,7 @@
 						<label>Observaciones</label>
 						<input type="text" name="observaciones" class="form-control">	
 					</div>	
-					<input type="submit" name="menu" value="Añadir" class="btn btn-primary mt-3">			
+					<input type="submit" name="accion" value="Añadir" class="btn btn-primary mt-3">			
 				</form>
 			</div>
 		</div>
@@ -56,13 +65,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
+                <tr>
+                </tr>
+					<c:forEach items="${tratamientos}" var="tratamiento">
+						<tr>
+							<td>${tratamiento.getMedicamento().getMedicamento()} </td>
+							<td>${tratamiento.getPaciente()} </td>
+							<td>${tratamiento.getDosis()} </td>
+							<td>Cada ${tratamiento.getHoras()} hrs.</td>
+							<td>${tratamiento.getObservaciones()} </td>
+							<td>
+								<a>Modificar</a>
+								<a>Eliminar</a>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

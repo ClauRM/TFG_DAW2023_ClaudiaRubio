@@ -30,7 +30,7 @@
     		<div class="text-center my-3 border">
 	       		<p>Si no deseas realizar ninguna acción, pulsa para cerrar la sesión</p>
 	        	<input type="submit" class="btn btn-secondary my-3" name="accion" value="Salir" />
-    		</div>
+   		</div>
     	</form>
 	</div>
 </body>

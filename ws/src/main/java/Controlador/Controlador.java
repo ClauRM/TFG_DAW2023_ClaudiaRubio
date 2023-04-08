@@ -1,11 +1,17 @@
 package Controlador;
 
 import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ControladorDB.TratamientoDB;
+import Modelo.Tratamiento;
 
 /**
  * Servlet implementation class Controlador
@@ -13,6 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Controlador")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	//instancias de clases
+	Tratamiento tratamiento = new Tratamiento();
+	TratamientoDB tratamientoDB = new TratamientoDB();
+	
+	//Variable listado
+	List listado;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -30,16 +43,15 @@ public class Controlador extends HttpServlet {
 			throws ServletException, IOException {
 
 		// metodo que se ejecuta tras recibir datos por metodo get
-		// getRequestDispatcher("Controlador?menu=Acceso")
+		// getRequestDispatcher("Controlador?accion=Acceso")
 
-		String menu = request.getParameter("menu"); // parametro que se recibe cuando hay un usuario en el servlet
-
-		String accion = request.getParameter("accion"); // parametro que se recibe cuando hay un usuario en el servlet
-		// validarUsuario
+		String menu = request.getParameter("menu"); // parametro que se recibe cuando se hace submit para llamar al
+													// servlet
+		String accion = request.getParameter("accion");
 
 		// distribucion en funcion de que valor trae la clave menu del
-		// getRequestDispatcher()
-		// dentro de cada menu se evalua la accion del getRequestDispatcher()
+		// ejemplo, href="Controlador?menu=home"
+
 		if (menu.equalsIgnoreCase("Acceso")) {
 			// si hay acceso redirige a la ventana principal
 			request.getRequestDispatcher("principal.jsp").forward(request, response);
@@ -48,16 +60,35 @@ public class Controlador extends HttpServlet {
 		if (menu.equalsIgnoreCase("home")) {
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
-		
+
 		if (menu.equalsIgnoreCase("medicamentos")) {
 			request.getRequestDispatcher("medicamentos.jsp").forward(request, response);
 		}
-		
+
 		if (menu.equalsIgnoreCase("enCurso")) {
-			request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
-		
+			// en el menu gestion se encuentra el CRUD completo
+			switch (accion) {
+			case "listar":
+				// almaceno en el listado el resultado de ejecutar la consulta listar
+				listado = tratamientoDB.listar(); 
+				// envio los datos a la vista de tabla
+				request.setAttribute("tratamientos", listado); //nommbre con el que se envia y que datos se envian
+				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
+				break;
+			case "aniadir":
+				break;
+			case "modificar":
+				break;
+			case "eliminar":
+				break;
+			default:
+				throw new AssertionError();
+			}
+
+			//request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
+
 		}
-		
+
 		if (menu.equalsIgnoreCase("finalizados")) {
 			request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
 		}
