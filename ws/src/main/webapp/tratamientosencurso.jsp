@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page language="java" import="java.util.*,java.lang.*" %>
-<%@ page import="Modelo.*" %>
+<%@ page import="modelo.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!-- 
@@ -28,16 +28,20 @@
 			<div class="card-body">
 				<form action="Acciones" method="post"> <!-- se redirecciona al Servlet Acciones -->
 					<div class="form-group">
-						<label>Medicamento</label>
-						<input type="text" name="medicamento" class="form-control">		
-						<input type="hidden" name="idMedicamento" class="form-control">	
+						<label>Seleccione un medicamento</label>
+						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
+						<select name="select" class="form-select">
+							<c:forEach items="${medicamentos}" var="medicamento">
+						  		<option class="text-uppercase" value="${medicamento.getIdmedicamento()}">${medicamento.getMedicamento()}</option>
+						  	</c:forEach>
+						</select>
 					</div>
 					<div class="form-group">
-						<label>Paciente</label>
+						<label>Nombre del paciente</label>
 						<input type="text" name="paciente" class="form-control">	
 					</div>
 					<div class="form-group">
-						<label>Dosis</label>
+						<label>Dosis en unidades</label>
 						<input type="number" name="dosis" class="form-control">	
 					</div>
 					<div class="form-group">
@@ -65,9 +69,7 @@
 					</tr>
 				</thead>
 				<tbody>
-                <tr>
-                </tr>
-					<c:forEach items="${tratamientos}" var="tratamiento">
+                	<c:forEach items="${tratamientos}" var="tratamiento">
 						<tr>
 							<td>${tratamiento.getMedicamento().getMedicamento()} </td>
 							<td>${tratamiento.getPaciente()} </td>

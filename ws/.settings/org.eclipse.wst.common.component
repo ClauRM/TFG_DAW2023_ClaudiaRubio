@@ -2,6 +2,9 @@
     <wb-module deploy-name="CronoMed">
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="jstl-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CronoMed/src/main/webapp/WEB-INF/lib/jstl-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="CronoMed"/>
         <property name="java-output-path" value="/CronoMed/build/classes"/>
     </wb-module>

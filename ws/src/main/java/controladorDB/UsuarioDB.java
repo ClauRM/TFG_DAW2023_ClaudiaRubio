@@ -1,31 +1,31 @@
-package ControladorDB;
+package controladorDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Modelo.Usuario;
+import modelo.Usuario;
 
 public class UsuarioDB {
 
 	GestorDB gestorDB = new GestorDB(); // objeto de la clase GestorDB.java
 
 	// metodo para validar el login de un usuariio comparando contra la BD
-	public Usuario validarUsuario(String nombre, String password) {
+	public Usuario validarUsuario(String email, String password) {
 		
 		Connection conection; // objeto de la clase Connection
 		PreparedStatement prepareStatement; // variable de tipo prepareStatement
 		ResultSet resultSet; // variable de tipo resultSet
 		
 		Usuario user = new Usuario();// creo el objeto usuario de la clase que he creado
-		String consulta = "SELECT * FROM usuarios WHERE nombre=? AND password=?"; // consulta para localizar al usuario
+		String consulta = "SELECT * FROM usuarios WHERE email=? AND password=?"; // consulta para localizar al usuario
 																					// en la bd
 		
 		try {
 			conection = gestorDB.abrirConexion(); // establecer la conexion
 			prepareStatement = conection.prepareStatement(consulta);
 			//indico cuales son los parametos de la consulta
-			prepareStatement.setString(1, nombre);
+			prepareStatement.setString(1, email);
 			prepareStatement.setString(2, password);
 			//ejecuto query
 			resultSet = prepareStatement.executeQuery();

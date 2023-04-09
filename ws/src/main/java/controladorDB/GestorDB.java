@@ -1,8 +1,8 @@
-package ControladorDB;
+package controladorDB;
 
 import java.sql.*;
 
-import Modelo.Usuario;
+import modelo.Usuario;
 
 public class GestorDB {
 

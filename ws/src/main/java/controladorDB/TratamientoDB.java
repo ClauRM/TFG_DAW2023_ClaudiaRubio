@@ -1,4 +1,4 @@
-package ControladorDB;
+package controladorDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Modelo.Medicamento;
-import Modelo.Tratamiento;
-import Modelo.Usuario;
+import modelo.Medicamento;
+import modelo.Tratamiento;
+import modelo.Usuario;
 
 public class TratamientoDB {
 

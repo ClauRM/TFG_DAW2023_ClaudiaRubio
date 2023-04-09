@@ -22,8 +22,8 @@
 				<!-- FORMULARIO DE ACCESO -->
 				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
 					<div class="mb-3">
-						<label for="inputuser" class="form-label">Usuario</label> <input
-							id="inputuser" name="usuario" type="text" class="form-control"/>
+						<label for="inputemail" class="form-label">Correo electrónico</label> 
+						<input id="inputemail" name="email" type="email" class="form-control"/>
 					</div>
 					<div class="mb-3">
 						<label for="inputpass" class="form-label">Contraseña</label> <input

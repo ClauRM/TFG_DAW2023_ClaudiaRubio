@@ -1,17 +1,16 @@
-package Controlador;
+package controlador;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ControladorDB.TratamientoDB;
-import Modelo.Tratamiento;
+import controladorDB.*;
+import modelo.*;
 
 /**
  * Servlet implementation class Controlador
@@ -23,9 +22,10 @@ public class Controlador extends HttpServlet {
 	//instancias de clases
 	Tratamiento tratamiento = new Tratamiento();
 	TratamientoDB tratamientoDB = new TratamientoDB();
+	MedicamentoDB medicamentoDB = new MedicamentoDB();
 	
 	//Variable listado
-	List listado;
+	List listadoTratamientos, listadoMedicamentos;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,9 +45,13 @@ public class Controlador extends HttpServlet {
 		// metodo que se ejecuta tras recibir datos por metodo get
 		// getRequestDispatcher("Controlador?accion=Acceso")
 
-		String menu = request.getParameter("menu"); // parametro que se recibe cuando se hace submit para llamar al
-													// servlet
+		String menu = request.getParameter("menu"); // parametro recibido al hacer submit para llamar al servlet
 		String accion = request.getParameter("accion");
+		
+		//variables capturadas del formulario gestion
+		String medicamento,paciente,observaciones;
+		int idmedicamento,dosis,horas;
+		
 
 		// distribucion en funcion de que valor trae la clave menu del
 		// ejemplo, href="Controlador?menu=home"
@@ -62,6 +66,9 @@ public class Controlador extends HttpServlet {
 		}
 
 		if (menu.equalsIgnoreCase("medicamentos")) {
+			listadoMedicamentos = medicamentoDB.listar(); // ejecuto consulta listar medicamentos DB y almaceno
+			// envio los datos a la vista de tabla
+			request.setAttribute("medicamentos", listadoMedicamentos); //nombre con el que se envia y que datos se envian
 			request.getRequestDispatcher("medicamentos.jsp").forward(request, response);
 		}
 
@@ -69,13 +76,41 @@ public class Controlador extends HttpServlet {
 			// en el menu gestion se encuentra el CRUD completo
 			switch (accion) {
 			case "listar":
-				// almaceno en el listado el resultado de ejecutar la consulta listar
-				listado = tratamientoDB.listar(); 
+				// ejecuto consulta listar tratamientos de la BD y almaceno
+				listadoTratamientos = tratamientoDB.listar();
+				// ejecuto consulta listar medicamentos de la BD y almaceno
+				listadoMedicamentos = medicamentoDB.listar();
 				// envio los datos a la vista de tabla
-				request.setAttribute("tratamientos", listado); //nommbre con el que se envia y que datos se envian
+				request.setAttribute("tratamientos", listadoTratamientos); //nommbre con el que se envia y que datos se envian
+				request.setAttribute("medicamentos", listadoMedicamentos);
 				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
 				break;
 			case "aniadir":
+				//capturo los valores marcados en el formulario
+				
+				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo
+				// fidusuario
+				
+				idmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); //parseo los datos de tipo int
+				paciente = request.getParameter("paciente");
+				dosis = Integer.parseInt(request.getParameter("dosis"));
+				horas = Integer.parseInt(request.getParameter("horas"));
+				// tratamiento ------- desarrollar clase java --------
+				observaciones = request.getParameter("observaciones");
+				// activo = 1 por defecto
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				//agrego estos datos al objeto tratamiento
+				
+				//utilizo el metodo que lo aniade a la bd
+				tratamientoDB.aniadir(tratamiento);
 				break;
 			case "modificar":
 				break;

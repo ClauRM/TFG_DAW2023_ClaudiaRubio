@@ -1,4 +1,4 @@
-package Controlador;
+package controlador;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ControladorDB.UsuarioDB;
-import Modelo.Usuario;
+import controladorDB.UsuarioDB;
+import modelo.Usuario;
 
 /**
  * Servlet implementation class ValidarAcceso
@@ -60,12 +60,12 @@ public class ValidarAcceso extends HttpServlet {
 		UsuarioDB usuarioDB = new UsuarioDB(); // usuario que sera agregado a la DB
 
 		if (accion.equalsIgnoreCase("Login")) { // si la accion es value="Login"
-			user = usuarioDB.validarUsuario(usuario, pass); // metodo para validar si el usuario esta en la tabla
+			user = usuarioDB.validarUsuario(email, pass); // metodo para validar si el usuario esta en la tabla
 
-			if (user.getNombre() != null && user.getNombre() != "") { // si el nombre es diferente de null
+			if (user.getEmail() != null && user.getEmail() != "") { // si el nombre es diferente de null
 				// envio el nombre del usuario a la ventana principal
-				request.setAttribute("usuario", user); // setAttribute(nombre, objeto que queremos almacenar)
-				sesion.setAttribute("usuario", usuario);
+				request.setAttribute("usuario", user); // envio los datos a la web (nombre, objeto que envio)
+				sesion.setAttribute("usuario", user); // almaceno los datos del usuario en la sesion
 				// envio los datos al controlador.java que dara el acceso a la ventana principal
 				request.getRequestDispatcher("Controlador?menu=Acceso").forward(request, response);
 			} else {
