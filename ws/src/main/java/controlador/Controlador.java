@@ -28,6 +28,9 @@ public class Controlador extends HttpServlet {
 	
 	//Variable listado
 	List listadoTratamientos, listadoMedicamentos;
+	
+	//Otras variables
+	int idTratamiento;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -87,7 +90,7 @@ public class Controlador extends HttpServlet {
 				request.setAttribute("medicamentos", listadoMedicamentos);
 				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
 				break;
-			case "Agregar":
+			case "agregar":
 				//capturo los valores marcados en el formulario
 				
 				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo
@@ -113,6 +116,38 @@ public class Controlador extends HttpServlet {
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			case "modificar":
+				//capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); //indicado en el href del boton
+				//utilizo metodo unTratamiento para localizarlo con su id
+				tratamiento = tratamientoDB.unTratamiento(idTratamiento);
+				//envio los datos del tratamiento al formulario
+				request.setAttribute("tratamiento", tratamiento);
+				//actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
+				break;
+			case "actualizar":
+				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo, idtratamiento
+				fidusuario = Integer.parseInt(request.getParameter("idusuario"));//parseo los datos de tipo int
+				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
+				paciente = request.getParameter("paciente");
+				dosis = Integer.parseInt(request.getParameter("dosis"));
+				horas = Integer.parseInt(request.getParameter("horas"));
+				tratamientoSt = utilidad.calcularTratamiento(dosis,horas); // metodo encargado del calculo en funcion de horas y pauta
+				observaciones = request.getParameter("observaciones");
+				//agrego estos datos al objeto tratamiento
+				tratamiento.setFidusuario(fidusuario);
+				tratamiento.setFidmedicamento(fidmedicamento);
+				tratamiento.setPaciente(paciente);
+				tratamiento.setDosis(dosis);
+				tratamiento.setHoras(horas);
+				tratamiento.setTratamiento(tratamientoSt);
+				tratamiento.setObservaciones(observaciones);
+				tratamiento.setActivo(1);
+				tratamiento.setIdtratamiento(idTratamiento); //capturado en el modificar y enviado en href
+				//utilizo el metodo modificar en la bd
+				tratamientoDB.modificar(tratamiento);
+				//actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
 				break;
 			case "eliminar":
 				break;

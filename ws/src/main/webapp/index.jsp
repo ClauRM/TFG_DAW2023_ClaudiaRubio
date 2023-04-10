@@ -8,6 +8,8 @@
 <title>CronoMed</title>
 <!-- ESTILOS BOOTSTRAP -->
 <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+<!--favicon-->
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 
 <body class="h-100">

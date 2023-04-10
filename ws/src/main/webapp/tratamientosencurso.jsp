@@ -39,22 +39,23 @@
 					</div>
 					<div class="form-group">
 						<label>Nombre del paciente</label>
-						<input type="text" name="paciente" class="form-control">	
+						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control">	
 					</div>
 					<div class="form-group">
 						<label>Dosis en unidades</label>
-						<input type="number" name="dosis" class="form-control">	
+						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control">	
 					</div>
 					<div class="form-group">
 						<label>Pauta horaria</label>
-						<input type="number" name="horas" class="form-control">	
+						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control">	
 					</div>	
 					<div class="form-group">
 						<label>Observaciones</label>
-						<input type="text" name="observaciones" class="form-control">	
+						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control">	
 					</div>	
 					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
-					<input type="submit" name="accion" value="Agregar" class="btn btn-primary mt-3">			
+					<input type="submit" name="accion" value="agregar" class="btn btn-primary text-uppercase mt-3">
+					<input type="submit" name="accion" value="actualizar" class="btn btn-secondary text-uppercase mt-3">			
 				</form>
 			</div>
 		</div>
@@ -80,8 +81,9 @@
 							<td>Cada ${tratamiento.getHoras()} hrs.</td>
 							<td>${tratamiento.getObservaciones()} </td>
 							<td>
-								<a>Modificar</a>
-								<a>Eliminar</a>
+								<!-- en los botones, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
+								<a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }">Modificar</a>
+								<a  href="Controlador?menu=enCurso&accion=eliminar&idTratamiento=${tratamiento.getIdtratamiento() }">Eliminar</a>
 							</td>
 						</tr>
 					</c:forEach>

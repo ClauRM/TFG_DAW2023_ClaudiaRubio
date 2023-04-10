@@ -153,7 +153,7 @@ public class TratamientoDB {
 	}
 	
 	// LISTAR UN OBJETO TRATAMIENTO
-	public Tratamiento tratamiento(int idtratamiento) {
+	public Tratamiento unTratamiento(int idtratamiento) {
 		Tratamiento tratamiento = new Tratamiento(); //instancia de clase
 		ResultSet resultSet; //variable resultado de ejecutar una consulta
 		
@@ -189,6 +189,7 @@ public class TratamientoDB {
 			}
 			
 		} catch (Exception e) {
+			System.out.println("ERROR: " + e.getMessage());
 		}
 		
 		return tratamiento;
