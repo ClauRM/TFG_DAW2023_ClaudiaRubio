@@ -21,16 +21,17 @@
 </head>
 <body>
 	<h3 class="px-3">Nuevo tratamiento</h3>
-	<p class="px-3">Para iniciar un nuevo tratamiento, cumplimente los campos del formulario y pulse en Añadir</p>
+	<p class="px-3">Para iniciar un nuevo tratamiento, cumplimente los campos del formulario y pulse en Agregar</p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
 		<div class="card col-sm-4 px-3">
 			<div class="card-body">
-				<form action="Acciones" method="post"> <!-- se redirecciona al Servlet Acciones -->
+				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
+						<input type="hidden" name="idusuario" value="${usuario.getIdusuario()}"> <!-- hidden para tener el id de usuario -->
 						<label>Seleccione un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
-						<select name="select" class="form-select">
+						<select name="idmedicamento" class="form-select">
 							<c:forEach items="${medicamentos}" var="medicamento">
 						  		<option class="text-uppercase" value="${medicamento.getIdmedicamento()}">${medicamento.getMedicamento()}</option>
 						  	</c:forEach>
@@ -52,7 +53,8 @@
 						<label>Observaciones</label>
 						<input type="text" name="observaciones" class="form-control">	
 					</div>	
-					<input type="submit" name="accion" value="Añadir" class="btn btn-primary mt-3">			
+					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
+					<input type="submit" name="accion" value="Agregar" class="btn btn-primary mt-3">			
 				</form>
 			</div>
 		</div>
@@ -66,6 +68,7 @@
 						<th>DOSIS</th>
 						<th>PAUTA</th>
 						<th>OBSERVACIONES</th>
+						<th>ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>

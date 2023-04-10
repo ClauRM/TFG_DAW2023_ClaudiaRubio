@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controladorDB.*;
 import modelo.*;
+import utilidades.*;
 
 /**
  * Servlet implementation class Controlador
@@ -23,6 +24,7 @@ public class Controlador extends HttpServlet {
 	Tratamiento tratamiento = new Tratamiento();
 	TratamientoDB tratamientoDB = new TratamientoDB();
 	MedicamentoDB medicamentoDB = new MedicamentoDB();
+	Utilidades utilidad = new Utilidades();
 	
 	//Variable listado
 	List listadoTratamientos, listadoMedicamentos;
@@ -49,8 +51,8 @@ public class Controlador extends HttpServlet {
 		String accion = request.getParameter("accion");
 		
 		//variables capturadas del formulario gestion
-		String medicamento,paciente,observaciones;
-		int idmedicamento,dosis,horas;
+		String paciente,observaciones,tratamientoSt;
+		int fidusuario,fidmedicamento,dosis,horas;
 		
 
 		// distribucion en funcion de que valor trae la clave menu del
@@ -85,32 +87,30 @@ public class Controlador extends HttpServlet {
 				request.setAttribute("medicamentos", listadoMedicamentos);
 				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
 				break;
-			case "aniadir":
+			case "Agregar":
 				//capturo los valores marcados en el formulario
 				
 				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo
-				// fidusuario
-				
-				idmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); //parseo los datos de tipo int
+				fidusuario = Integer.parseInt(request.getParameter("idusuario"));//parseo los datos de tipo int
+				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
 				paciente = request.getParameter("paciente");
 				dosis = Integer.parseInt(request.getParameter("dosis"));
 				horas = Integer.parseInt(request.getParameter("horas"));
-				// tratamiento ------- desarrollar clase java --------
+				tratamientoSt = utilidad.calcularTratamiento(dosis,horas); // metodo encargado del calculo en funcion de horas y pauta
 				observaciones = request.getParameter("observaciones");
-				// activo = 1 por defecto
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				//agrego estos datos al objeto tratamiento
-				
+				tratamiento.setFidusuario(fidusuario);
+				tratamiento.setFidmedicamento(fidmedicamento);
+				tratamiento.setPaciente(paciente);
+				tratamiento.setDosis(dosis);
+				tratamiento.setHoras(horas);
+				tratamiento.setTratamiento(tratamientoSt);
+				tratamiento.setObservaciones(observaciones);
+				tratamiento.setActivo(1);
 				//utilizo el metodo que lo aniade a la bd
 				tratamientoDB.aniadir(tratamiento);
+				//actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			case "modificar":
 				break;
