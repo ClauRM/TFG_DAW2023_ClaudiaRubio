@@ -39,7 +39,7 @@ public class UsuarioDB {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO validarUsuario(): " + e.getMessage()); // muestro error por consola
 		}
 
 		return user;

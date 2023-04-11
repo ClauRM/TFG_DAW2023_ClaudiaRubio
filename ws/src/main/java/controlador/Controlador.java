@@ -55,7 +55,7 @@ public class Controlador extends HttpServlet {
 		
 		//variables capturadas del formulario gestion
 		String paciente,observaciones,tratamientoSt;
-		int fidusuario,fidmedicamento,dosis,horas;
+		int fidusuario,fidmedicamento,dosis,horas,duracion;
 		
 
 		// distribucion en funcion de que valor trae la clave menu del
@@ -71,7 +71,7 @@ public class Controlador extends HttpServlet {
 		}
 
 		if (menu.equalsIgnoreCase("medicamentos")) {
-			listadoMedicamentos = medicamentoDB.listar(); // ejecuto consulta listar medicamentos DB y almaceno
+			listadoMedicamentos = medicamentoDB.listarMedicamentos(); // ejecuto consulta listar medicamentos DB y almaceno
 			// envio los datos a la vista de tabla
 			request.setAttribute("medicamentos", listadoMedicamentos); //nombre con el que se envia y que datos se envian
 			request.getRequestDispatcher("medicamentos.jsp").forward(request, response);
@@ -82,9 +82,9 @@ public class Controlador extends HttpServlet {
 			switch (accion) {
 			case "listar":
 				// ejecuto consulta listar tratamientos de la BD y almaceno
-				listadoTratamientos = tratamientoDB.listar();
+				listadoTratamientos = tratamientoDB.listarTratamientos();
 				// ejecuto consulta listar medicamentos de la BD y almaceno
-				listadoMedicamentos = medicamentoDB.listar();
+				listadoMedicamentos = medicamentoDB.listarMedicamentos();
 				// envio los datos a la vista de tabla
 				request.setAttribute("tratamientos", listadoTratamientos); //nommbre con el que se envia y que datos se envian
 				request.setAttribute("medicamentos", listadoMedicamentos);
@@ -93,13 +93,14 @@ public class Controlador extends HttpServlet {
 			case "agregar":
 				//capturo los valores marcados en el formulario
 				
-				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo
+				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion, tratamiento, observaciones, activo
 				fidusuario = Integer.parseInt(request.getParameter("idusuario"));//parseo los datos de tipo int
 				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
 				paciente = request.getParameter("paciente");
 				dosis = Integer.parseInt(request.getParameter("dosis"));
 				horas = Integer.parseInt(request.getParameter("horas"));
-				tratamientoSt = utilidad.calcularTratamiento(dosis,horas); // metodo encargado del calculo en funcion de horas y pauta
+				duracion = Integer.parseInt(request.getParameter("duracion"));
+				tratamientoSt = utilidad.calcularTratamiento(dosis,horas,duracion); // metodo encargado del calculo en funcion de horas y pauta
 				observaciones = request.getParameter("observaciones");
 				//agrego estos datos al objeto tratamiento
 				tratamiento.setFidusuario(fidusuario);
@@ -107,6 +108,7 @@ public class Controlador extends HttpServlet {
 				tratamiento.setPaciente(paciente);
 				tratamiento.setDosis(dosis);
 				tratamiento.setHoras(horas);
+				tratamiento.setDuracion(duracion);
 				tratamiento.setTratamiento(tratamientoSt);
 				tratamiento.setObservaciones(observaciones);
 				tratamiento.setActivo(1);
@@ -132,7 +134,8 @@ public class Controlador extends HttpServlet {
 				paciente = request.getParameter("paciente");
 				dosis = Integer.parseInt(request.getParameter("dosis"));
 				horas = Integer.parseInt(request.getParameter("horas"));
-				tratamientoSt = utilidad.calcularTratamiento(dosis,horas); // metodo encargado del calculo en funcion de horas y pauta
+				duracion = Integer.parseInt(request.getParameter("duracion"));
+				tratamientoSt = utilidad.calcularTratamiento(dosis,horas,duracion); // metodo encargado del calculo en funcion de horas y pauta
 				observaciones = request.getParameter("observaciones");
 				//agrego estos datos al objeto tratamiento
 				tratamiento.setFidusuario(fidusuario);
@@ -140,6 +143,7 @@ public class Controlador extends HttpServlet {
 				tratamiento.setPaciente(paciente);
 				tratamiento.setDosis(dosis);
 				tratamiento.setHoras(horas);
+				tratamiento.setHoras(duracion);
 				tratamiento.setTratamiento(tratamientoSt);
 				tratamiento.setObservaciones(observaciones);
 				tratamiento.setActivo(1);
@@ -149,7 +153,12 @@ public class Controlador extends HttpServlet {
 				//actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
 				break;
-			case "eliminar":
+			case "finalizar":
+				//capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); //indicado en el href del boton
+				tratamientoDB.finalizar(idTratamiento); //finalizo el tratamiento
+				//actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
 				break;
 			default:
 				throw new AssertionError();

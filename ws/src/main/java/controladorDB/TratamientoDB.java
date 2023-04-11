@@ -23,11 +23,11 @@ public class TratamientoDB {
 	// OPERACIONES CRUD //
 
 	// LISTAR TRATAMIENTOS
-	public List<Tratamiento> listar() {
+	public List<Tratamiento> listarTratamientos() {
 
 		List<Tratamiento> listadoTratamientos = new ArrayList<>();// variable local para traer los datos de la BD
 		// escribo consulta sql tipo inner join
-		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario";
+		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = 1";
 
 		try {
 			// abro la conexion a la BD, ejecuto consulta, cierro conexion y devuelvo
@@ -47,6 +47,7 @@ public class TratamientoDB {
 				tratamiento.setPaciente(resultSet2.getString("paciente"));
 				tratamiento.setDosis(resultSet2.getInt("dosis"));
 				tratamiento.setHoras(resultSet2.getInt("horas"));
+				tratamiento.setDuracion(resultSet2.getInt("duracion"));
 				tratamiento.setTratamiento(resultSet2.getString("tratamiento"));
 				tratamiento.setObservaciones(resultSet2.getString("observaciones"));
 				tratamiento.setActivo(resultSet2.getInt("activo"));
@@ -60,10 +61,8 @@ public class TratamientoDB {
 				listadoTratamientos.add(tratamiento);
 			}
 			
-			
-
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO listarTratamientos(): " + e.getMessage()); // muestro error por consola
 		}
 
 		return listadoTratamientos; // retorno listado de tratamientoa
@@ -76,7 +75,7 @@ public class TratamientoDB {
 		//tratamiento.setUsuario(null);
 		//tratamiento.setMedicamento(null);
 		
-		String consulta = "INSERT INTO tratamientos(fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo) VALUES (?,?,?,?,?,?,?,?);";
+		String consulta = "INSERT INTO tratamientos(fidusuario, fidmedicamento, paciente, dosis, horas, duracion, tratamiento, observaciones, activo) VALUES (?,?,?,?,?,?,?,?,?);";
 
 		try {			
 			conection = gestorDB.abrirConexion(); // establecer la conexion, la variable conetion va a ser igual a mi objeto
@@ -89,15 +88,17 @@ public class TratamientoDB {
 			prepareStatement.setString(3, tratamiento.getPaciente());
 			prepareStatement.setInt(4, tratamiento.getDosis());
 			prepareStatement.setInt(5, tratamiento.getHoras());
-			prepareStatement.setString(6, tratamiento.getTratamiento());
-			prepareStatement.setString(7, tratamiento.getObservaciones());
-			prepareStatement.setInt(8, tratamiento.getActivo());
+			prepareStatement.setInt(6, tratamiento.getDuracion());
+			prepareStatement.setString(7, tratamiento.getTratamiento());
+			prepareStatement.setString(8, tratamiento.getObservaciones());
+			prepareStatement.setInt(9, tratamiento.getActivo());
 			//ejecuto query
 			resultado = prepareStatement.executeUpdate();
 			
 			gestorDB.cerrarConexion();
 			
 		} catch (Exception e) {
+			System.out.println("ERROR EN METODO aniadir(): " + e.getMessage()); // muestro error por consola
 		}
 
 		return resultado;
@@ -110,7 +111,7 @@ public class TratamientoDB {
 		//tratamiento.setUsuario(null);
 		//tratamiento.setMedicamento(null);
 		
-		String consulta = "UPDATE tratamientos SET fidusuario=?, fidmedicamento=?, paciente=?, dosis=?, horas=?, tratamiento=?, observaciones=?, activo=? WHERE idtratamiento=?;";
+		String consulta = "UPDATE tratamientos SET fidusuario=?, fidmedicamento=?, paciente=?, dosis=?, horas=?, duracion=?, tratamiento=?, observaciones=?, activo=? WHERE idtratamiento=?;";
 
 		try {			
 			conection = gestorDB.abrirConexion(); // establecer la conexion, la variable conetion va a ser igual a mi objeto
@@ -123,16 +124,18 @@ public class TratamientoDB {
 			prepareStatement.setString(3, tratamiento.getPaciente());
 			prepareStatement.setInt(4, tratamiento.getDosis());
 			prepareStatement.setInt(5, tratamiento.getHoras());
-			prepareStatement.setString(6, tratamiento.getTratamiento());
-			prepareStatement.setString(7, tratamiento.getObservaciones());
-			prepareStatement.setInt(8, tratamiento.getActivo());
-			prepareStatement.setInt(9,tratamiento.getIdtratamiento());
+			prepareStatement.setInt(6, tratamiento.getDuracion());
+			prepareStatement.setString(7, tratamiento.getTratamiento());
+			prepareStatement.setString(8, tratamiento.getObservaciones());
+			prepareStatement.setInt(9, tratamiento.getActivo());
+			prepareStatement.setInt(10,tratamiento.getIdtratamiento());
 			//ejecuto query
 			resultado = prepareStatement.executeUpdate();
 			
 			gestorDB.cerrarConexion();
 			
 		} catch (Exception e) {
+			System.out.println("ERROR EN METODO modificar(): " + e.getMessage()); // muestro error por consola
 		}
 
 		return resultado;
@@ -140,16 +143,20 @@ public class TratamientoDB {
 	}
 
 	// ELIMINAR TRATAMIENTO
-	public void eliminar(int idtratamiento) {
+	public int finalizar(int idtratamiento) {
 		//no elimino consulta sino que la desactivo
 		String consulta = "UPDATE tratamientos SET activo=0 WHERE idtratamiento=" + idtratamiento;
 		
 		try {			
-			// abro la conexion a la BD, ejecuto consulta, cierro conexion 
-			gestorDB.getResult(consulta);
-			
+			conection = gestorDB.abrirConexion(); // establecezco la conexion
+			prepareStatement = conection.prepareStatement(consulta); // preparo la consulta
+			resultado = prepareStatement.executeUpdate(); // ejecuto la consulta
+			gestorDB.cerrarConexion(); // cierro la conexion
 		} catch (Exception e) {
+			System.out.println("ERROR EN METODO finalizar(): " + e.getMessage()); // muestro error por consola
 		}
+		
+		return resultado;
 	}
 	
 	// LISTAR UN OBJETO TRATAMIENTO
@@ -174,22 +181,15 @@ public class TratamientoDB {
 				tratamiento.setPaciente(resultSet.getString("paciente"));
 				tratamiento.setDosis(resultSet.getInt("dosis"));
 				tratamiento.setHoras(resultSet.getInt("horas"));
+				tratamiento.setDuracion(resultSet.getInt("duracion"));
 				tratamiento.setTratamiento(resultSet.getString("tratamiento"));
 				tratamiento.setObservaciones(resultSet.getString("observaciones"));
 				tratamiento.setActivo(resultSet.getInt("activo"));
-				// para los datos del medicamento, creo un nuevo objeto
-				/*
-				tratamiento.setMedicamento(
-				new Medicamento(resultSet.getInt("idmedicamento"), resultSet.getString("medicamento")));
-				// para los datos del usuario, creo un nuevo objeto
-				tratamiento.setUsuario(new Usuario(resultSet.getInt("idusuario"), resultSet.getString("nombre"),
-				resultSet.getString("email"), resultSet.getString("password")));
-				*/
-			
+				
 			}
 			
 		} catch (Exception e) {
-			System.out.println("ERROR: " + e.getMessage());
+			System.out.println("ERROR EN unTratamiento(): " + e.getMessage());
 		}
 		
 		return tratamiento;

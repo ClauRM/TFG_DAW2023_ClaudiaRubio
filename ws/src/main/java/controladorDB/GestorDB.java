@@ -22,7 +22,7 @@ public class GestorDB {
 			conection = DriverManager.getConnection(RUTA,USUARIO,PASSWORD);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO abrirConexion(): " + e.getMessage()); // muestro error por consola
 		}
 		return conection;
 
@@ -33,8 +33,7 @@ public class GestorDB {
 		try {
 			conection.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO cerrarConexion(): " + e.getMessage()); // muestro error por consola
 		}
 	}
 
@@ -49,8 +48,7 @@ public class GestorDB {
 				// resulSet ejecuto la consulta
 				resultSet = prepareStatement.executeQuery();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("ERROR EN METODO getResult(): " + e.getMessage()); // muestro error por consola
 			}
 			
 		//cerrarConexion();
@@ -75,8 +73,7 @@ public class GestorDB {
 			resultado = prepareStatement.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO insertarUsuarioDB(): " + e.getMessage()); // muestro error por consola
 		}
 		
 			

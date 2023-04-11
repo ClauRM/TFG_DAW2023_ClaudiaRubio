@@ -20,7 +20,7 @@ public class MedicamentoDB {
 	
 
 	// LISTAR MEDICAMENTOS
-	public List<Medicamento> listar() {
+	public List<Medicamento> listarMedicamentos() {
 
 		List<Medicamento> listadoMedicamentos = new ArrayList<>();// variable local para traer los datos de la BD
 		Medicamento medicamento; // objeto de la clase Medicamento
@@ -44,7 +44,7 @@ public class MedicamentoDB {
 			gestorDB.cerrarConexion(); // cierro la conexion
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("ERROR EN METODO listarMedicamentos(): " + e.getMessage()); // muestro error por consola
 		}
 
 		return listadoMedicamentos; // retorno listado ordenado de medicamentos

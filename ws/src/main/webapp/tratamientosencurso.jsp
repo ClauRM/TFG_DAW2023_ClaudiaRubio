@@ -39,19 +39,23 @@
 					</div>
 					<div class="form-group">
 						<label>Nombre del paciente</label>
-						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control">	
+						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control" maxlength=20>	
 					</div>
 					<div class="form-group">
 						<label>Dosis en unidades</label>
-						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control">	
+						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30>	
 					</div>
 					<div class="form-group">
 						<label>Pauta horaria</label>
-						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control">	
+						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24>	
+					</div>	
+					<div class="form-group">
+						<label>Duración en días</label>
+						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15>	
 					</div>	
 					<div class="form-group">
 						<label>Observaciones</label>
-						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control">	
+						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control" maxlength=50>	
 					</div>	
 					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
 					<input type="submit" name="accion" value="agregar" class="btn btn-primary text-uppercase mt-3">
@@ -68,6 +72,7 @@
 						<th>PACIENTE</th>
 						<th>DOSIS</th>
 						<th>PAUTA</th>
+						<th>DURACION</th>
 						<th>OBSERVACIONES</th>
 						<th>ACCIONES</th>
 					</tr>
@@ -79,11 +84,12 @@
 							<td>${tratamiento.getPaciente()} </td>
 							<td>${tratamiento.getDosis()} </td>
 							<td>Cada ${tratamiento.getHoras()} hrs.</td>
+							<td>${tratamiento.getDuracion()} días</td>
 							<td>${tratamiento.getObservaciones()} </td>
 							<td>
 								<!-- en los botones, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
 								<a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }">Modificar</a>
-								<a  href="Controlador?menu=enCurso&accion=eliminar&idTratamiento=${tratamiento.getIdtratamiento() }">Eliminar</a>
+								<a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }">Eliminar</a>
 							</td>
 						</tr>
 					</c:forEach>
