@@ -65,9 +65,10 @@ public class ValidarAcceso extends HttpServlet {
 			if (user.getEmail() != null && user.getEmail() != "") { // si el nombre es diferente de null
 				// envio el nombre del usuario a la ventana principal
 				request.setAttribute("usuario", user); // envio los datos a la web (nombre, objeto que envio)
-				sesion.setAttribute("usuario", user); // almaceno los datos del usuario en la sesion
+				sesion.setAttribute("usuario", user);
+				request.setAttribute("sesion", sesion);// almaceno los datos del usuario en la sesion
 				// envio los datos al controlador.java que dara el acceso a la ventana principal
-				request.getRequestDispatcher("Controlador?menu=Acceso").forward(request, response);
+				request.getRequestDispatcher("Controlador?menu=Acceso&id="+user.getIdusuario()).forward(request, response);
 			} else {
 				// en caso contrario redireccionar a la misma pagina
 				request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -83,6 +84,7 @@ public class ValidarAcceso extends HttpServlet {
 
 		} else {// en caso de que no presione el boton de Login o la accion recibida sea Salir,
 				// se redirecciona a la pagina de index
+			sesion.invalidate(); // eliminar la sesion
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}

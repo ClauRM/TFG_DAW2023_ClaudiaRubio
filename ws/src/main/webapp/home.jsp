@@ -22,8 +22,8 @@
 		</div>
     	<div class="d-flex flex-column border col-3 mx-auto">
         		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=medicamentos">LISTADO DE MEDICAMENTOS</a>
-        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=enCurso&accion=listar">GESTION DE TRATAMIENTOS</a>
-        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=finalizados">TRATAMIENTOS FINALIZADOS</a>
+        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">GESTION DE TRATAMIENTOS</a>
+        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">TRATAMIENTOS FINALIZADOS</a>
   		 </div>
 	</div>
 </body>

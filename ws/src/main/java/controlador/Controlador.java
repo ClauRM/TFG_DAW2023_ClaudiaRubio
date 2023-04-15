@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import controladorDB.*;
 import modelo.*;
@@ -52,6 +54,13 @@ public class Controlador extends HttpServlet {
 
 		String menu = request.getParameter("menu"); // parametro recibido al hacer submit para llamar al servlet
 		String accion = request.getParameter("accion");
+		String idusuario = request.getParameter("id");
+		HttpSession sesion = request.getSession();
+
+		
+		System.out.println("id usuario :" + idusuario);
+		System.out.println("accionrio :" + accion);
+		System.out.println("menu :" + menu);
 		
 		//variables capturadas del formulario gestion
 		String paciente,observaciones,tratamientoSt;
@@ -82,19 +91,20 @@ public class Controlador extends HttpServlet {
 			switch (accion) {
 			case "listar":
 				// ejecuto consulta listar tratamientos de la BD y almaceno
-				listadoTratamientos = tratamientoDB.listarTratamientos();
+				listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario));
 				// ejecuto consulta listar medicamentos de la BD y almaceno
 				listadoMedicamentos = medicamentoDB.listarMedicamentos();
 				// envio los datos a la vista de tabla
 				request.setAttribute("tratamientos", listadoTratamientos); //nommbre con el que se envia y que datos se envian
-				request.setAttribute("medicamentos", listadoMedicamentos);
+				request.setAttribute("medicamentos", listadoMedicamentos); //nommbre con el que se envia y que datos se envian
+				request.setAttribute("sesion", sesion);
 				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
 				break;
 			case "agregar":
 				//capturo los valores marcados en el formulario
 				
 				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion, tratamiento, observaciones, activo
-				fidusuario = Integer.parseInt(request.getParameter("idusuario"));//parseo los datos de tipo int
+				fidusuario = Integer.parseInt(request.getParameter("id"));
 				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
 				paciente = request.getParameter("paciente");
 				dosis = Integer.parseInt(request.getParameter("dosis"));
@@ -115,7 +125,8 @@ public class Controlador extends HttpServlet {
 				//utilizo el metodo que lo aniade a la bd
 				tratamientoDB.aniadir(tratamiento);
 				//actualizo de nuevo la tabla
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
+				request.setAttribute("sesion", sesion);
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id="+fidusuario).forward(request, response);
 				break;
 			case "modificar":
 				//capturo el id del tratamiento seleccionado
@@ -125,11 +136,12 @@ public class Controlador extends HttpServlet {
 				//envio los datos del tratamiento al formulario
 				request.setAttribute("tratamiento", tratamiento);
 				//actualizo de nuevo la tabla
+				request.setAttribute("sesion", sesion);
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			case "actualizar":
 				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo, idtratamiento
-				fidusuario = Integer.parseInt(request.getParameter("idusuario"));//parseo los datos de tipo int
+				fidusuario = Integer.parseInt(request.getParameter("id"));
 				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
 				paciente = request.getParameter("paciente");
 				dosis = Integer.parseInt(request.getParameter("dosis"));
@@ -150,6 +162,7 @@ public class Controlador extends HttpServlet {
 				tratamiento.setIdtratamiento(idTratamiento); //capturado en el modificar y enviado en href
 				//utilizo el metodo modificar en la bd
 				tratamientoDB.modificar(tratamiento);
+				request.setAttribute("sesion", sesion);
 				//actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
 				break;
@@ -157,6 +170,7 @@ public class Controlador extends HttpServlet {
 				//capturo el id del tratamiento seleccionado
 				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); //indicado en el href del boton
 				tratamientoDB.finalizar(idTratamiento); //finalizo el tratamiento
+				request.setAttribute("sesion", sesion);
 				//actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
 				break;

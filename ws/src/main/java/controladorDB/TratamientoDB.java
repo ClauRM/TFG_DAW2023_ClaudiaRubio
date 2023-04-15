@@ -23,40 +23,41 @@ public class TratamientoDB {
 	// OPERACIONES CRUD //
 
 	// LISTAR TRATAMIENTOS
-	public List<Tratamiento> listarTratamientos() {
+	public List<Tratamiento> listarTratamientos(int idusuario) {
 
 		List<Tratamiento> listadoTratamientos = new ArrayList<>();// variable local para traer los datos de la BD
 		// escribo consulta sql tipo inner join
-		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = 1";
+		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = 1 AND fidusuario=?";
 
 		try {
-			// abro la conexion a la BD, ejecuto consulta, cierro conexion y devuelvo
-			// resultado en resultSet
-			ResultSet resultSet2 = gestorDB.getResult(consultaSql);
+			conection = gestorDB.abrirConexion(); // abro la conexion a la BD
+			prepareStatement = conection.prepareStatement(consultaSql); // preparo la sentencia
+			prepareStatement.setInt(1, idusuario); // indico cuales son los parametos de la consulta
+			resultSet = prepareStatement.executeQuery(); // ejecuto consulta
 
 			// mientras que haya datos en el resultado de la consulta, recorrerla
-			while (resultSet2.next()) {
+			while (resultSet.next()) {
 				Tratamiento tratamiento = new Tratamiento(); // instancio un nuevo tratamiento por cada linea
 
 				// seteo todos los campos del medicamento con resultSet nombre de la columna en
 				// la base de datos
-				tratamiento.setIdtratamiento(resultSet2.getInt("idtratamiento"));// nombre de la columna en el resultado
+				tratamiento.setIdtratamiento(resultSet.getInt("idtratamiento"));// nombre de la columna en el resultado
 																				// de la consulta
-				tratamiento.setFidusuario(resultSet2.getInt("fidusuario"));
-				tratamiento.setFidmedicamento(resultSet2.getInt("fidmedicamento"));
-				tratamiento.setPaciente(resultSet2.getString("paciente"));
-				tratamiento.setDosis(resultSet2.getInt("dosis"));
-				tratamiento.setHoras(resultSet2.getInt("horas"));
-				tratamiento.setDuracion(resultSet2.getInt("duracion"));
-				tratamiento.setTratamiento(resultSet2.getString("tratamiento"));
-				tratamiento.setObservaciones(resultSet2.getString("observaciones"));
-				tratamiento.setActivo(resultSet2.getInt("activo"));
+				tratamiento.setFidusuario(resultSet.getInt("fidusuario"));
+				tratamiento.setFidmedicamento(resultSet.getInt("fidmedicamento"));
+				tratamiento.setPaciente(resultSet.getString("paciente"));
+				tratamiento.setDosis(resultSet.getInt("dosis"));
+				tratamiento.setHoras(resultSet.getInt("horas"));
+				tratamiento.setDuracion(resultSet.getInt("duracion"));
+				tratamiento.setTratamiento(resultSet.getString("tratamiento"));
+				tratamiento.setObservaciones(resultSet.getString("observaciones"));
+				tratamiento.setActivo(resultSet.getInt("activo"));
 				// para los datos del medicamento, creo un nuevo objeto
 				tratamiento.setMedicamento(
-						new Medicamento(resultSet2.getInt("idmedicamento"), resultSet2.getString("medicamento")));
+						new Medicamento(resultSet.getInt("idmedicamento"), resultSet.getString("medicamento")));
 				// para los datos del usuario, creo un nuevo objeto
-				tratamiento.setUsuario(new Usuario(resultSet2.getInt("idusuario"), resultSet2.getString("nombre"),
-						resultSet2.getString("email"), resultSet2.getString("password")));
+				tratamiento.setUsuario(new Usuario(resultSet.getInt("idusuario"), resultSet.getString("nombre"),
+						resultSet.getString("email"), resultSet.getString("password")));
 				// aniado el tratamiento al listado
 				listadoTratamientos.add(tratamiento);
 			}

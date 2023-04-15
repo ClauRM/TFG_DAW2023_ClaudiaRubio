@@ -22,16 +22,16 @@
 				<!-- al pulsar sobre cada parte del menu el Controlador se encarga de redirigir y el target se encarga de mostrar la vista en el iframe -->
 					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=home" target="iframe">CronoMed</a></li>
 					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=medicamentos" target="iframe">Medicamentos</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=enCurso&accion=listar" target="iframe">Gestión de tratamientos</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=finalizados" target="iframe">Tratamientos finalizados</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">Gestión de tratamientos</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">Tratamientos finalizados</a></li>
 				</ul>
 			</div>
 			<!-- DESPLEGABLE DE USUARIO -->
 			<div style="margin-rigth: 20px" class="dropdown">
-				<button class="btn btn-primary dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${usuario.getNombre()}</button>
+				<button class="btn btn-primary dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${sessionScope.usuario.getNombre()}</button>
 				<ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuButton1">
 					<li><a class="dropdown-item" href="#"><img alt="60" width="60" src="img/user.png"></a></li>
-    				<li><a class="dropdown-item" href="#">${usuario.getEmail()}</a></li>
+    				<li><a class="dropdown-item" href="#">${sessionScope.usuario.getEmail()}</a></li>
     				<li><hr class="dropdown-divider"></li>
     				<!-- FORMULARIO DE SALIDA -->
     				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
@@ -43,7 +43,12 @@
 	</nav>
 	<!-- VENTANA DE ACCIONES -->
 	<div class="mt-4" style="height: 85%;">
-		<iframe name="iframe" style="height: 100%; width: 100%"></iframe>	
+			<iframe name="iframe" style="height: 100%; width: 100%">
+			<div class="text-center">
+			<p> Hola ${sessionScope.usuario.getNombre()} </p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+		</div>		
+		</iframe>	
 	</div>
 	<!-- PIE DE PAGINA -->
 	    <div>

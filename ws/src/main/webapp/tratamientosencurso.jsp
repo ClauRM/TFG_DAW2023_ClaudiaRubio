@@ -21,6 +21,9 @@
 </head>
 <body>
 	<h3 class="px-3">Nuevo tratamiento</h3>
+	<p class="px-3">${sessionScope.usuario.getIdusuario()} </p>
+	<p class="px-3">${sessionScope.usuario.getNombre()} </p>
+	<p class="px-3">${sessionScope.usuario.getEmail()} </p>
 	<p class="px-3">Para iniciar un nuevo tratamiento, cumplimente los campos del formulario y pulse en Agregar</p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
@@ -28,7 +31,7 @@
 			<div class="card-body">
 				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
-						<input type="hidden" name="idusuario" value="${usuario.getIdusuario()}"> <!-- hidden para tener el id de usuario -->
+<%-- 						<input type="hidden" name="idusuario" value="${sessionScope.usuario.getIdusuario()}"> --%>
 						<label>Seleccione un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
 						<select name="idmedicamento" class="form-select">
@@ -46,7 +49,7 @@
 						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30>	
 					</div>
 					<div class="form-group">
-						<label>Pauta horaria</label>
+						<label>Pauta en horas</label>
 						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24>	
 					</div>	
 					<div class="form-group">
@@ -57,9 +60,13 @@
 						<label>Observaciones</label>
 						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control" maxlength=50>	
 					</div>	
+					<div class="form-group">
+						<input type="hidden" name="id" value="${sessionScope.usuario.getIdusuario()}" class="form-control" maxlength=50>	
+					</div>	
 					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
 					<input type="submit" name="accion" value="agregar" class="btn btn-primary text-uppercase mt-3">
-					<input type="submit" name="accion" value="actualizar" class="btn btn-secondary text-uppercase mt-3">			
+					<input type="submit" name="accion" value="actualizar" class="btn btn-secondary text-uppercase mt-3">
+								
 				</form>
 			</div>
 		</div>
@@ -88,8 +95,8 @@
 							<td>${tratamiento.getObservaciones()} </td>
 							<td>
 								<!-- en los botones, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
-								<a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }">Modificar</a>
-								<a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }">Eliminar</a>
+								<a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}">Modificar</a>
+								<a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}">Eliminar</a>
 							</td>
 						</tr>
 					</c:forEach>
