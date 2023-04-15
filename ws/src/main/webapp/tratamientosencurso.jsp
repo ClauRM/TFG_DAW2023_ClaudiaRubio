@@ -31,7 +31,6 @@
 			<div class="card-body">
 				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
-<%-- 						<input type="hidden" name="idusuario" value="${sessionScope.usuario.getIdusuario()}"> --%>
 						<label>Seleccione un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
 						<select name="idmedicamento" class="form-select">

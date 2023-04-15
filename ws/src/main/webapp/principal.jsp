@@ -42,17 +42,19 @@
 		</div>
 	</nav>
 	<!-- VENTANA DE ACCIONES -->
-	<div class="mt-4" style="height: 85%;">
+	<div class="mt-4" style="height: 83%;">
 			<iframe name="iframe" style="height: 100%; width: 100%">
-			<div class="text-center">
-			<p> Hola ${sessionScope.usuario.getNombre()} </p>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-		</div>		
-		</iframe>	
+			<body class="h-100">
+				<div class="text-center">
+					<p> Hola ${sessionScope.usuario.getNombre()} </p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+				</div>
+			</body>
+			</iframe>	
 	</div>
 	<!-- PIE DE PAGINA -->
 	    <div>
-        	<h6 class="text-center bg-primary text-white pt-2 pb-2">Claudia Rubio &copy; Todos los derechos reservados</h6>
+        	<h6 class="bg-primary text-white pt-2 pb-2">&copy; 2023 Claudia Rubio. Todos los derechos reservados</h6>
     	</div>
 </body>
 </html>

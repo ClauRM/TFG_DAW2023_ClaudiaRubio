@@ -6,42 +6,51 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>CronoMed</title>
-<!-- ESTILOS BOOTSTRAP -->
+<!-- ESTILOS -->
 <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="style/styles.css">
 <!--favicon-->
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 
 <body class="h-100">
-	<div
-		class="container h-100 d-flex justify-content-center align-items-center">
-		<div class="card" style="width: 20rem;">
-			<div class="card-img-top d-flex justify-content-center">
-				<img src="img/cronomed.png" alt="CronoMed" height="150" width="150">
-			</div>
+	<div class="container h-100 d-flex justify-content-center align-items-center">
+		<div id="card" class="card row d-flex justify-content-center align-items-center">
+		<!-- COLUMNA IZQUIERDA -->
+			<div class="col-md-8 col-lg-6">
+       			 <img src="img/cronomed.png" class="img-fluid" alt="CronoMed">
+       			 <!-- LEMA -->
+				<p id="lema">Tu tratamiento médico bajo control</p>
+      		</div>
+		<!-- COLUMNA DERECHA -->
+			<div class="col-md-8 col-lg-6">
 			<div class="card-body">
-				<h4 class="card-title text-center">Iniciar Sesión</h4>
+				<h1 class="card-title text-center border-bottom mb-3 pb-3">Bienvenido</h1>
 				<!-- FORMULARIO DE ACCESO -->
 				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
 					<div class="mb-3">
 						<label for="inputemail" class="form-label">Correo electrónico</label> 
-						<input id="inputemail" name="email" type="email" class="form-control"/>
+						<input id="inputemail" name="email" type="email" class="form-control" maxlength=50 placeholder="Escribe tu dirección de email"/>
 					</div>
 					<div class="mb-3">
 						<label for="inputpass" class="form-label">Contraseña</label> <input
-							id="inputpass" name="pass" type="password" class="form-control" maxlength=6/>
+							id="inputpass" name="pass" type="password" class="form-control" maxlength=6 placeholder="Escribe tu password"/>
 					</div>
 					<div class="text-center">
-						<input type="submit" class="btn btn-primary me-2" name="accion" value="Login"/>
-						</div>
-					<div class="border-top text-center mt-3">
-						<p>¿No estás registrado?</p>
-						<a class="btn btn-secondary" href="registro.jsp">Registrarse</a>
+						<input type="submit" class="boton" name="accion" value="Login"/>
+					</div>
+					<!-- LINK A LA VENTANA DE REGISTRO PARA NUEVOS USUARIOS -->
+					<div class="border-top mt-3 pt-3">
+						<p>¿No estás registrado?  <a id="link" href="registro.jsp">Nuevo Registro</a></p>
 					</div>
 				</form>
 			</div>
+			</div>
 		</div>
 	</div>
+	
+	
+	
 </body>
 
 </html>
