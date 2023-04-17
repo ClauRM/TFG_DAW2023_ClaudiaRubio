@@ -1,30 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 <meta charset="ISO-8859-1">
-	<title>CronoMed</title>
-	<!-- estilos bootstrap -->
-	<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
-	<!-- javascript -->
-	<script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+<title>CronoMed</title>
+<!-- ESTILOS -->
+<link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="style/styles.css">
+<!--favicon-->
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
-<body>
-	<div class="container-fluid">
-		<div class="d-flex justify-content-center align-items-center">
-			<img src="img/cronomed.png" alt="CronoMed" height="80">
-			<h1 class="text-center">Bienvenido a CronoMed</h1>
+
+<body class="h-100">
+	<div id="fondo" class="h-100 text-center">
+		<h1>
+			<br>CronoMed
+		</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+			ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+			aliquip ex ea commodo consequat. Duis aute irure dolor in
+			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+			culpa qui officia deserunt mollit anim id est laborum</p>
+		<div class="row w-100">
+		<!-- TARJETAS -->
+			<div id="tarjeta" class="col-lg-3 col-md-6">
+				<a href="Controlador?menu=medicamentos">
+					<div class="card h-100 d-flex align-items-center" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">Título de la tarjeta</h5>
+							<h6 class="card-subtitle mb-2 text-muted">Medicamentos</h6>
+							<p class="card-text">Accede al listado completo de medicamentos disponibles</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- TARJETAS -->
+			<div id="tarjeta" class="col-lg-3 col-md-6">
+				<a
+					href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">gestion</a>
+			</div>
+			<!-- TARJETAS -->
+			<div id="tarjeta" class="col-lg-3 col-md-6">
+				<a
+					href="Controlador?menu=recetas&accion=listar&id=${sessionScope.usuario.getIdusuario()}">en
+					curso</a>
+			</div>
+			<!-- TARJETAS -->
+			<div id="tarjeta" class="col-lg-3 col-md-6">
+				<a
+					href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">finalizados</a>
+			</div>
+
 		</div>
-		<div class="text-center">
-			<h3>Hola ${sessionScope.usuario.getNombre()}</h3><!-- para los datos del usuario almacenados en la sesion -->
-			<p>¿Qué acción deseas realizar?</p>
-		</div>
-    	<div class="d-flex flex-column border col-3 mx-auto">
-        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=medicamentos">LISTADO DE MEDICAMENTOS</a>
-        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">GESTION DE TRATAMIENTOS</a>
-        		<a class="btn btn-outline-primary m-1" for="btncheck1" href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">TRATAMIENTOS FINALIZADOS</a>
-  		 </div>
 	</div>
 </body>
 </html>

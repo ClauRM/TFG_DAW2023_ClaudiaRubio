@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="style/styles.css">
 </head>
 
-<body class="h-100">
+<body id="fondo" class="h-100">
 	<div
 		class="container h-100 d-flex justify-content-center align-items-center">
 		<!-- CARD DE NUEVO REGISTRO DE USUARIO -->
@@ -41,6 +41,9 @@
 						<input id="inputpass" name="pass" type="password" placeholder="Escribe una password para tu acceso" class="form-control" aria-describedby="inputpass1" maxlength=6 />
 						<div id="inputpass1" class="form-text">Escribe una clave de 6 caracteres</div>
 					</div>
+					<!-- DIV PARA MENSAJES -->
+					<div id="mensajes"><p>${mensaje}</p></div>
+					<!-- BOTON DE REGISTRO -->
 					<div class="d-flex justify-content-center">
 						<input type="submit" class="boton" name="accion" value="Registro" />
 					</div>

@@ -71,11 +71,13 @@ public class Controlador extends HttpServlet {
 		// ejemplo, href="Controlador?menu=home"
 
 		if (menu.equalsIgnoreCase("Acceso")) {
+			request.setAttribute("sesion", sesion); //envio datos de la sesion
 			// si hay acceso redirige a la ventana principal
 			request.getRequestDispatcher("principal.jsp").forward(request, response);
 		}
 
 		if (menu.equalsIgnoreCase("home")) {
+			request.setAttribute("sesion", sesion); //envio datos de la sesion
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 
@@ -182,7 +184,13 @@ public class Controlador extends HttpServlet {
 
 		}
 
+		if (menu.equalsIgnoreCase("recetas")) {
+			request.setAttribute("sesion", sesion);//envio datos de la sesion
+			request.getRequestDispatcher("recetas.jsp").forward(request, response);
+		}
+		
 		if (menu.equalsIgnoreCase("finalizados")) {
+			request.setAttribute("sesion", sesion); //envio datos de la sesion
 			request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
 		}
 

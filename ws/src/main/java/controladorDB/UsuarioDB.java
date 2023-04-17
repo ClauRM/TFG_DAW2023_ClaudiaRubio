@@ -55,12 +55,9 @@ public class UsuarioDB {
 
 		resultado = gestorDB.insertarUsuarioDB(usuario);
 
-		if (resultado == 1) {
-			// ANALIZAR SI res ES EL OK DE LA TRABSACCION
-			// si E ok CONTINUA7
-		} else {
-			// sI ES ko VULVE PANTALLA
-			// sino se queda en la misma pagina
+		if (resultado != 1) {
+			// ha ocurrido un error en el registro a la bd
+			System.out.println("Error al insertar usuario en la BD");
 		}
 
 	}

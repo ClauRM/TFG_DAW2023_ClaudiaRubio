@@ -13,7 +13,7 @@
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 
-<body class="h-100">
+<body id="fondo" class="h-100">
 	<div class="container h-100 d-flex justify-content-center align-items-center">
 		<div id="card" class="card row d-flex justify-content-center align-items-center">
 		<!-- COLUMNA IZQUIERDA -->
@@ -36,6 +36,10 @@
 						<label for="inputpass" class="form-label">Contraseña</label> <input
 							id="inputpass" name="pass" type="password" class="form-control" maxlength=6 placeholder="Escribe tu password"/>
 					</div>
+					
+					<!-- DIV PARA MENSAJES -->
+					<div id="mensajes"><p>${mensaje}</p></div>
+					<!-- BOTON DE LOGIN -->
 					<div class="text-center">
 						<input type="submit" class="boton" name="accion" value="Login"/>
 					</div>

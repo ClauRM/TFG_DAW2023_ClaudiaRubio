@@ -1,15 +1,24 @@
 @charset "ISO-8859-1";
 
-body {
+#fondo {
 	/* https://www.freepik.es/ */
-	background-image: url("img/pastillas.jpg");
-	background-color: #cccccc;
+	background-image: url("../img/pastillaswb.jpg");
+	/*/CronoMed/src/main/webapp/img/pastillas.jpg
+	/CronoMed/src/main/webapp/style/styles.css*/
+	background-size: cover;
+  	background-repeat: no-repeat;
+  	opacity: 0.8; /*transparencia*/
 }
 
 #lema{
-	color: white;
+	color: black;
   	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
   	text-align: center;
+}
+
+#mensajes p{
+	color: red;
+	
 }
 
 #card{
@@ -45,4 +54,38 @@ body {
 	color: #1A2880;
 	font-weight: bold;
 	background-image: url("img/flecha.jpg");
+}
+
+#menu{
+ --bs-bg-opacity: 1;
+ background-color: #8092FF;
+}
+
+#pie{
+ --bs-bg-opacity: 1;
+ background-color: #8092FF;
+}
+
+#btn-perfil{
+	text-transform: uppercase;
+    background-color: #8092FF; /*color de fondo del boton*/
+    border: none;
+    color: #E5E9FF; /*color de letra*/
+}
+
+#btn-perfil:hover {
+	background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 5px 15px; /*top and bottom & right and left */
+}
+
+#tarjeta{
+  height: 200px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+#tarjeta a{
+	text-decoration: none;
+	color: #1A2880;
 }
