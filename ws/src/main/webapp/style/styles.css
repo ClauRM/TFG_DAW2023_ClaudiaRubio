@@ -6,86 +6,102 @@
 	/*/CronoMed/src/main/webapp/img/pastillas.jpg
 	/CronoMed/src/main/webapp/style/styles.css*/
 	background-size: cover;
-  	background-repeat: no-repeat;
-  	opacity: 0.8; /*transparencia*/
+	background-repeat: no-repeat;
+	opacity: 0.8; /*transparencia*/
 }
 
-#lema{
+#lema {
 	color: black;
-  	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
-  	text-align: center;
+	text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+	text-align: center;
 }
 
-#mensajes p{
+#mensajes p {
 	color: red;
-	
+	/*font-size: 15px;*/
+	font-size: xx-small;
 }
 
-#card{
+#card {
 	width: 70%;
 	height: 70%;
 	border-radius: 0.5rem;
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /*sombra*/
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19); /*sombra*/
 }
 
 .boton {
 	text-transform: uppercase;
 	padding: 5px 15px; /*top and bottom & right and left */
-	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /*sombra*/
-    background-color: #8092FF; /*color de fondo del boton*/
-    color: #E5E9FF; /*color de letra*/
-    border-radius: 5px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19); /*sombra*/
+	background-color: #8092FF; /*color de fondo del boton*/
+	color: #E5E9FF; /*color de letra*/
+	border-radius: 5px;
 }
 
 .boton:hover {
 	padding: 5px 15px; /*top and bottom & right and left */
-    background-color: #1A2880;
-    color: white;
+	background-color: #1A2880;
+	color: white;
 }
 
-#link{
+#link {
 	text-decoration: none;
 	color: #8092FF;
 	font-weight: bold;
 }
 
-#link:hover{
+#link:hover {
 	text-decoration: none;
 	color: #1A2880;
 	font-weight: bold;
 	background-image: url("img/flecha.jpg");
 }
 
-#menu{
- --bs-bg-opacity: 1;
- background-color: #8092FF;
+#menu {
+	--bs-bg-opacity: 1;
+	background-color: #8092FF;
 }
 
-#pie{
- --bs-bg-opacity: 1;
- background-color: #8092FF;
+#pie {
+	--bs-bg-opacity: 1;
+	background-color: #8092FF;
 }
 
-#btn-perfil{
+#btn-perfil {
 	text-transform: uppercase;
-    background-color: #8092FF; /*color de fondo del boton*/
-    border: none;
-    color: #E5E9FF; /*color de letra*/
+	background-color: #8092FF; /*color de fondo del boton*/
+	border: none;
+	color: #E5E9FF; /*color de letra*/
 }
 
 #btn-perfil:hover {
 	background-color: white;
-    color: black;
-    border-radius: 5px;
-    padding: 5px 15px; /*top and bottom & right and left */
+	color: black;
+	border-radius: 5px;
+	padding: 5px 15px; /*top and bottom & right and left */
 }
 
-#tarjeta{
-  height: 200px;
-  padding-left: 30px;
-  padding-right: 30px;
+/*TARJETAS DEL HOME*/
+#tarjeta {
+	height: 200px; 
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /*sombra*/
 }
-#tarjeta a{
+
+#tarjeta a {
 	text-decoration: none;
+	color: #1A2880;
+}
+
+
+#tarjeta>a>.card>.card-body>img>#img-tarjeta {
+	margin-bottom: 20px;
+	margin-top: 10px;
+	height: 20%;
 	color: #1A2880;
 }

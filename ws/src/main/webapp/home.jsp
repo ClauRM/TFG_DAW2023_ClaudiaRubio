@@ -23,15 +23,15 @@
 			aliquip ex ea commodo consequat. Duis aute irure dolor in
 			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
 			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-			culpa qui officia deserunt mollit anim id est laborum</p>
-		<div class="row w-100">
+			culpa qui officia deserunt mollit anim id est laborum</p> <br><br>
+		<div class="row w-100 d flex justify-content-center">
 		<!-- TARJETAS -->
 			<div id="tarjeta" class="col-lg-3 col-md-6">
 				<a href="Controlador?menu=medicamentos">
 					<div class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
-							<h5 class="card-title">Título de la tarjeta</h5>
-							<h6 class="card-subtitle mb-2 text-muted">Medicamentos</h6>
+							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/capsule.svg" alt="capsule" >
+							<h5 class="card-subtitle mb-2 text-muted">Medicamentos</h5>
 							<p class="card-text">Accede al listado completo de medicamentos disponibles</p>
 						</div>
 					</div>
@@ -39,19 +39,39 @@
 			</div>
 			<!-- TARJETAS -->
 			<div id="tarjeta" class="col-lg-3 col-md-6">
-				<a
-					href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">gestion</a>
+				<a href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
+					<div class="card h-100 d-flex align-items-center" style="width: 18rem;">
+						<div class="card-body">
+							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/clipboard-gestion.svg" alt="capsule" >
+							<h5 class="card-subtitle mb-2 text-muted">Nuevo tratamiento</h5>
+							<p class="card-text">Crea un nuevo tratamiento, modifica o elimínalo al finalizar</p>
+						</div>
+					</div>
+				</a>
 			</div>
 			<!-- TARJETAS -->
 			<div id="tarjeta" class="col-lg-3 col-md-6">
-				<a
-					href="Controlador?menu=recetas&accion=listar&id=${sessionScope.usuario.getIdusuario()}">en
-					curso</a>
+				<a href="Controlador?menu=recetas&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
+				<div class="card h-100 d-flex align-items-center" style="width: 18rem;">
+						<div class="card-body">
+							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/heard-curso.svg" alt="capsule" >
+							<h5 class="card-subtitle mb-2 text-muted">En curso</h5>
+							<p class="card-text">Realiza un seguimiento todos los tratamientos que tienes en curso</p>
+						</div>
+					</div>
+				</a>
 			</div>
 			<!-- TARJETAS -->
 			<div id="tarjeta" class="col-lg-3 col-md-6">
-				<a
-					href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">finalizados</a>
+				<a href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
+				<div class="card h-100 d-flex align-items-center" style="width: 18rem;">
+						<div class="card-body">
+							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/heard-curso.svg" alt="capsule" >
+							<h5 class="card-subtitle mb-2 text-muted">Finalizados</h5>
+							<p class="card-text">Revisa todos los tratamientos que has finalizado para limpiar tu perfil</p>
+						</div>
+					</div>
+				</a>
 			</div>
 
 		</div>
