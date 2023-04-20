@@ -14,24 +14,24 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>CronoMed</title>
-<!-- estilos bootstrap -->
+<!-- ESTILOS -->
 <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="style/styles.css">
 <!-- javascript -->
 <script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<h3 class="px-3">Nuevo tratamiento</h3>
-	<p class="px-3">${sessionScope.usuario.getIdusuario()} </p>
-	<p class="px-3">${sessionScope.usuario.getNombre()} </p>
-	<p class="px-3">${sessionScope.usuario.getEmail()} </p>
-	<p class="px-3">Para iniciar un nuevo tratamiento, cumplimente los campos del formulario y pulse en Agregar</p>
+	<h3 id="titulo1" class="px-3">Nuevo tratamiento</h3>
+	<p class="px-3">Aquí podrás gestionar tus tratamientos médicos. Puedes registrar un nuevo tratamiento, modificar los existentes o eliminar alguno si ya lo has finalizado. <br>Rellena todos los campos del formulario para registrar un nuevo tratamiento y pulsa en Agregar</p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
 		<div class="card col-sm-4 px-3">
 			<div class="card-body">
 				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
-						<label>Seleccione un medicamento</label>
+					<!-- DIV PARA MENSAJES -->
+					<div id="mensajes"><p>${mensaje}</p></div>
+						<label>Selecciona un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
 						<select name="idmedicamento" class="form-select">
 							<c:forEach items="${medicamentos}" var="medicamento">
@@ -41,30 +41,31 @@
 					</div>
 					<div class="form-group">
 						<label>Nombre del paciente</label>
-						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control" maxlength=20>	
+						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control" maxlength=20 placeholder="Escribe el nombre del paciente">	
 					</div>
 					<div class="form-group">
 						<label>Dosis en unidades</label>
-						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30>	
+						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30 placeholder="Dosis del tratamiento en unidades">	
 					</div>
 					<div class="form-group">
 						<label>Pauta en horas</label>
-						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24>	
+						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24 placeholder="¿Cada cuántas horas se debe tomar?">	
 					</div>	
 					<div class="form-group">
 						<label>Duración en días</label>
-						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15>	
+						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15 placeholder="¿Cuántos días dura el tratamiento?">	
 					</div>	
 					<div class="form-group">
 						<label>Observaciones</label>
-						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control" maxlength=50>	
+						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control" maxlength=50 placeholder="Añade alguna observación">	
 					</div>	
 					<div class="form-group">
 						<input type="hidden" name="id" value="${sessionScope.usuario.getIdusuario()}" class="form-control" maxlength=50>	
 					</div>	
 					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
-					<input type="submit" name="accion" value="agregar" class="btn btn-primary text-uppercase mt-3">
-					<input type="submit" name="accion" value="actualizar" class="btn btn-secondary text-uppercase mt-3">
+					<!-- BOTONES DE ACCION -->
+					<input type="submit" name="accion" value="agregar" class="boton mt-3">
+					<input type="submit" name="accion" value="actualizar" class="botongris mt-3">
 								
 				</form>
 			</div>
@@ -86,7 +87,7 @@
 				<tbody>
                 	<c:forEach items="${tratamientos}" var="tratamiento">
 						<tr>
-							<td>${tratamiento.getMedicamento().getMedicamento()} </td>
+							<td class="text-uppercase">${tratamiento.getMedicamento().getMedicamento()} </td>
 							<td>${tratamiento.getPaciente()} </td>
 							<td>${tratamiento.getDosis()} </td>
 							<td>Cada ${tratamiento.getHoras()} hrs.</td>

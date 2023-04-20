@@ -19,7 +19,7 @@
 #mensajes p {
 	color: red;
 	/*font-size: 15px;*/
-	font-size: xx-small;
+	font-size: small;
 }
 
 #card {
@@ -84,24 +84,50 @@
 }
 
 /*TARJETAS DEL HOME*/
-#tarjeta {
+#tarjeta{
 	height: 200px; 
-	padding-left: 30px;
-	padding-right: 30px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /*sombra*/
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	border-radius: 0.5rem;
+}
+#tarjeta:hover {
+	height: 200px; 
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 0.5rem;
+	box-shadow: 0 8px 16px 0 #E5E9FF, 0 8px 16px 0 #1A2880; /*sombra*/
 }
 
-#tarjeta a {
+a {
 	text-decoration: none;
 	color: #1A2880;
 }
 
-
-#tarjeta>a>.card>.card-body>img>#img-tarjeta {
-	margin-bottom: 20px;
-	margin-top: 10px;
+img#img-tarjeta {
 	height: 20%;
 	color: #1A2880;
+}
+
+#titulo1{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #1A2880;
+	font-weight: bold;
+}
+
+.botongris {
+	text-transform: uppercase;
+	padding: 5px 15px; /*top and bottom & right and left */
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19); /*sombra*/
+	background-color: #8092FF; /*color de fondo del boton*/
+	color: #E5E9FF; /*color de letra*/
+	border-radius: 5px;
+}
+
+.botongris:hover {
+	padding: 5px 15px; /*top and bottom & right and left */
+	background-color: #1A2880;
+	color: white;
 }

@@ -1,5 +1,6 @@
 package utilidades;
 
+import modelo.Tratamiento;
 import modelo.Usuario;
 
 public class Utilidades {
@@ -33,6 +34,22 @@ public class Utilidades {
 		}
 
 		System.out.println("Validaciones de registro: " + errores);
+		return errores;
+	}
+
+	public static String validaTratamiento(Tratamiento tratamientoTemporal) {
+		String errores = "Continuar con las validaciones del tratamiento...";
+		String paciente;
+		int dosis,horas,duracion;
+
+		// valores de las variables
+		paciente = tratamientoTemporal.getPaciente();
+		dosis = tratamientoTemporal.getDosis();
+		horas = tratamientoTemporal.getHoras();
+		duracion = tratamientoTemporal.getDuracion();
+
+		
+		
 		return errores;
 	}
 
@@ -138,5 +155,7 @@ public class Utilidades {
 
 		return errores;
 	}
+
+
 
 }

@@ -115,6 +115,7 @@ public class ValidarAcceso extends HttpServlet {
 		} else {// en caso de que no presione el boton de Login o la accion recibida sea Salir,
 				// se redirecciona a la pagina de index
 			sesion.invalidate(); // eliminar la sesion
+			System.out.println("Cerrando sesión del usuario: "+sesion);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}

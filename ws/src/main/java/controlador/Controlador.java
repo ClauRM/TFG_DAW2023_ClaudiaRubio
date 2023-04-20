@@ -21,17 +21,17 @@ import utilidades.*;
 @WebServlet("/Controlador")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	//instancias de clases
+
+	// instancias de clases
 	Tratamiento tratamiento = new Tratamiento();
 	TratamientoDB tratamientoDB = new TratamientoDB();
 	MedicamentoDB medicamentoDB = new MedicamentoDB();
 	Utilidades utilidad = new Utilidades();
-	
-	//Variable listado
+
+	// Variable listado
 	List listadoTratamientos, listadoMedicamentos;
-	
-	//Otras variables
+
+	// Otras variables
 	int idTratamiento;
 
 	/**
@@ -57,34 +57,37 @@ public class Controlador extends HttpServlet {
 		String idusuario = request.getParameter("id");
 		HttpSession sesion = request.getSession();
 
-		
 		System.out.println("id usuario :" + idusuario);
 		System.out.println("accionrio :" + accion);
 		System.out.println("menu :" + menu);
-		
-		//variables capturadas del formulario gestion
-		String paciente,observaciones,tratamientoSt;
-		int fidusuario,fidmedicamento,dosis,horas,duracion;
-		
+
+		// variables capturadas del formulario gestion
+		String paciente, observaciones, tratamientoSt;
+		int fidusuario, fidmedicamento, dosis, horas, duracion;
+
+		// variable para enviar mensajes de error al jsp
+		String mensaje = "";
 
 		// distribucion en funcion de que valor trae la clave menu del
 		// ejemplo, href="Controlador?menu=home"
 
 		if (menu.equalsIgnoreCase("Acceso")) {
-			request.setAttribute("sesion", sesion); //envio datos de la sesion
+			request.setAttribute("sesion", sesion); // envio datos de la sesion
 			// si hay acceso redirige a la ventana principal
 			request.getRequestDispatcher("principal.jsp").forward(request, response);
 		}
 
 		if (menu.equalsIgnoreCase("home")) {
-			request.setAttribute("sesion", sesion); //envio datos de la sesion
+			request.setAttribute("sesion", sesion); // envio datos de la sesion
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 
 		if (menu.equalsIgnoreCase("medicamentos")) {
-			listadoMedicamentos = medicamentoDB.listarMedicamentos(); // ejecuto consulta listar medicamentos DB y almaceno
+			listadoMedicamentos = medicamentoDB.listarMedicamentos(); // ejecuto consulta listar medicamentos DB y
+																		// almaceno
 			// envio los datos a la vista de tabla
-			request.setAttribute("medicamentos", listadoMedicamentos); //nombre con el que se envia y que datos se envian
+			request.setAttribute("medicamentos", listadoMedicamentos); // nombre con el que se envia y que datos se
+																		// envian
 			request.getRequestDispatcher("medicamentos.jsp").forward(request, response);
 		}
 
@@ -97,100 +100,128 @@ public class Controlador extends HttpServlet {
 				// ejecuto consulta listar medicamentos de la BD y almaceno
 				listadoMedicamentos = medicamentoDB.listarMedicamentos();
 				// envio los datos a la vista de tabla
-				request.setAttribute("tratamientos", listadoTratamientos); //nommbre con el que se envia y que datos se envian
-				request.setAttribute("medicamentos", listadoMedicamentos); //nommbre con el que se envia y que datos se envian
+				request.setAttribute("tratamientos", listadoTratamientos); // nommbre y datos se envian al jsp
+				request.setAttribute("medicamentos", listadoMedicamentos); // nommbre y datos se envian al jsp
 				request.setAttribute("sesion", sesion);
 				request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
 				break;
 			case "agregar":
-				//capturo los valores marcados en el formulario
-				
-				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion, tratamiento, observaciones, activo
-				fidusuario = Integer.parseInt(request.getParameter("id"));
-				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
-				paciente = request.getParameter("paciente");
-				dosis = Integer.parseInt(request.getParameter("dosis"));
-				horas = Integer.parseInt(request.getParameter("horas"));
-				duracion = Integer.parseInt(request.getParameter("duracion"));
-				tratamientoSt = utilidad.calcularTratamiento(dosis,horas,duracion); // metodo encargado del calculo en funcion de horas y pauta
-				observaciones = request.getParameter("observaciones");
-				//agrego estos datos al objeto tratamiento
-				tratamiento.setFidusuario(fidusuario);
-				tratamiento.setFidmedicamento(fidmedicamento);
-				tratamiento.setPaciente(paciente);
-				tratamiento.setDosis(dosis);
-				tratamiento.setHoras(horas);
-				tratamiento.setDuracion(duracion);
-				tratamiento.setTratamiento(tratamientoSt);
-				tratamiento.setObservaciones(observaciones);
-				tratamiento.setActivo(1);
-				//utilizo el metodo que lo aniade a la bd
-				tratamientoDB.aniadir(tratamiento);
-				//actualizo de nuevo la tabla
-				request.setAttribute("sesion", sesion);
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id="+fidusuario).forward(request, response);
+				fidusuario = Integer.parseInt(request.getParameter("id"));// capturo del href para listar tabla
+
+				if (request.getParameter("paciente") == "" | request.getParameter("dosis") == ""
+						| request.getParameter("horas") == "" | request.getParameter("duracion") == "") {
+					mensaje = "Debes rellenar todos los campos del formulario para agregar un nuevo tratamiento";
+				} else {
+					// capturo los valores marcados en el formulario
+					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion,
+					// tratamiento, observaciones, activo
+					fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento"));
+					paciente = request.getParameter("paciente");
+					dosis = Integer.parseInt(request.getParameter("dosis"));
+					horas = Integer.parseInt(request.getParameter("horas"));
+					duracion = Integer.parseInt(request.getParameter("duracion"));
+					tratamientoSt = utilidad.calcularTratamiento(dosis, horas, duracion); // metodo encargado del
+																							// calculo en
+																							// funcion de horas y pauta
+					observaciones = request.getParameter("observaciones");
+					// agrego estos datos al objeto tratamiento
+					tratamiento.setFidusuario(fidusuario);
+					tratamiento.setFidmedicamento(fidmedicamento);
+					tratamiento.setPaciente(paciente);
+					tratamiento.setDosis(dosis);
+					tratamiento.setHoras(horas);
+					tratamiento.setDuracion(duracion);
+					tratamiento.setTratamiento(tratamientoSt);
+					tratamiento.setObservaciones(observaciones);
+					tratamiento.setActivo(1);
+
+					// evaluo si hay errores tras la validacion del tratamiento
+					mensaje = Utilidades.validaTratamiento(tratamiento);
+					
+					if(mensaje.contentEquals("") || mensaje == null) { // si no hay errores
+						tratamientoDB.aniadir(tratamiento); // lo aniade a la bd
+					} 
+				}
+				request.setAttribute("sesion", sesion); // envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id=" + fidusuario).forward(request,
+						response);
 				break;
 			case "modificar":
-				//capturo el id del tratamiento seleccionado
-				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); //indicado en el href del boton
-				//utilizo metodo unTratamiento para localizarlo con su id
+				// capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
+																							// boton
+				// utilizo metodo unTratamiento para localizarlo con su id
 				tratamiento = tratamientoDB.unTratamiento(idTratamiento);
-				//envio los datos del tratamiento al formulario
+				// envio los datos del tratamiento al formulario
 				request.setAttribute("tratamiento", tratamiento);
-				//actualizo de nuevo la tabla
+				// actualizo de nuevo la tabla
 				request.setAttribute("sesion", sesion);
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			case "actualizar":
-				// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento, observaciones, activo, idtratamiento
-				fidusuario = Integer.parseInt(request.getParameter("id"));
-				fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento")); 
-				paciente = request.getParameter("paciente");
-				dosis = Integer.parseInt(request.getParameter("dosis"));
-				horas = Integer.parseInt(request.getParameter("horas"));
-				duracion = Integer.parseInt(request.getParameter("duracion"));
-				tratamientoSt = utilidad.calcularTratamiento(dosis,horas,duracion); // metodo encargado del calculo en funcion de horas y pauta
-				observaciones = request.getParameter("observaciones");
-				//agrego estos datos al objeto tratamiento
-				tratamiento.setFidusuario(fidusuario);
-				tratamiento.setFidmedicamento(fidmedicamento);
-				tratamiento.setPaciente(paciente);
-				tratamiento.setDosis(dosis);
-				tratamiento.setHoras(horas);
-				tratamiento.setHoras(duracion);
-				tratamiento.setTratamiento(tratamientoSt);
-				tratamiento.setObservaciones(observaciones);
-				tratamiento.setActivo(1);
-				tratamiento.setIdtratamiento(idTratamiento); //capturado en el modificar y enviado en href
-				//utilizo el metodo modificar en la bd
-				tratamientoDB.modificar(tratamiento);
-				request.setAttribute("sesion", sesion);
-				//actualizo de nuevo la tabla
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
+				System.out.println("Evaluando si hay idtratamiento para actualizar = " + idTratamiento);
+				if (idTratamiento == 0) {
+					System.out.println("No se puede modificar. El usuario no ha seleccionado tratamiento previamente");
+					mensaje = "No has seleccionado ningún tratamiento para modificar";
+				} else {
+					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento,
+					// observaciones, activo, idtratamiento
+					fidusuario = Integer.parseInt(request.getParameter("id"));
+					fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento"));
+					paciente = request.getParameter("paciente");
+					dosis = Integer.parseInt(request.getParameter("dosis"));
+					horas = Integer.parseInt(request.getParameter("horas"));
+					duracion = Integer.parseInt(request.getParameter("duracion"));
+					tratamientoSt = utilidad.calcularTratamiento(dosis, horas, duracion); // metodo encargado del
+																							// calculo en funcion de
+																							// horas y pauta
+					observaciones = request.getParameter("observaciones");
+					// agrego estos datos al objeto tratamiento
+					tratamiento.setFidusuario(fidusuario);
+					tratamiento.setFidmedicamento(fidmedicamento);
+					tratamiento.setPaciente(paciente);
+					tratamiento.setDosis(dosis);
+					tratamiento.setHoras(horas);
+					tratamiento.setHoras(duracion);
+					tratamiento.setTratamiento(tratamientoSt);
+					tratamiento.setObservaciones(observaciones);
+					tratamiento.setActivo(1);
+					tratamiento.setIdtratamiento(idTratamiento); // capturado en el modificar y enviado en href
+					// utilizo el metodo modificar en la bd
+					tratamientoDB.modificar(tratamiento);
+				}
+				request.setAttribute("sesion", sesion); // envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			case "finalizar":
-				//capturo el id del tratamiento seleccionado
-				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); //indicado en el href del boton
-				tratamientoDB.finalizar(idTratamiento); //finalizo el tratamiento
+				// capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
+																							// boton
+				tratamientoDB.finalizar(idTratamiento); // finalizo el tratamiento
 				request.setAttribute("sesion", sesion);
-				//actualizo de nuevo la tabla
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);				
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			default:
 				throw new AssertionError();
 			}
 
-			//request.getRequestDispatcher("tratamientosencurso.jsp").forward(request, response);
+			// request.getRequestDispatcher("tratamientosencurso.jsp").forward(request,
+			// response);
 
 		}
 
 		if (menu.equalsIgnoreCase("recetas")) {
-			request.setAttribute("sesion", sesion);//envio datos de la sesion
+			request.setAttribute("sesion", sesion);// envio datos de la sesion
 			request.getRequestDispatcher("recetas.jsp").forward(request, response);
 		}
-		
+
 		if (menu.equalsIgnoreCase("finalizados")) {
-			request.setAttribute("sesion", sesion); //envio datos de la sesion
+			request.setAttribute("sesion", sesion); // envio datos de la sesion
 			request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
 		}
 
