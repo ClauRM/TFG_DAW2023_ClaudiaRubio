@@ -120,7 +120,7 @@ public class Controlador extends HttpServlet {
 					dosis = Integer.parseInt(request.getParameter("dosis"));
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
-					tratamientoSt = utilidad.calcularTratamiento(dosis, horas, duracion); // metodo encargado del
+					tratamientoSt = utilidad.calcularTratamiento(horas, duracion); // metodo encargado del
 																							// calculo en
 																							// funcion de horas y pauta
 					observaciones = request.getParameter("observaciones");
@@ -165,6 +165,8 @@ public class Controlador extends HttpServlet {
 				if (idTratamiento == 0) {
 					System.out.println("No se puede modificar. El usuario no ha seleccionado tratamiento previamente");
 					mensaje = "No has seleccionado ningún tratamiento para modificar";
+				} else if (request.getParameter("dosis")=="" || request.getParameter("horas")=="" || request.getParameter("duracion")==""){
+					mensaje = "Debes seleccionar un tratamiento para modificar";
 				} else {
 					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento,
 					// observaciones, activo, idtratamiento
@@ -174,7 +176,7 @@ public class Controlador extends HttpServlet {
 					dosis = Integer.parseInt(request.getParameter("dosis"));
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
-					tratamientoSt = utilidad.calcularTratamiento(dosis, horas, duracion); // metodo encargado del
+					tratamientoSt = utilidad.calcularTratamiento(horas, duracion); // metodo encargado del
 																							// calculo en funcion de
 																							// horas y pauta
 					observaciones = request.getParameter("observaciones");
@@ -191,6 +193,7 @@ public class Controlador extends HttpServlet {
 					tratamiento.setIdtratamiento(idTratamiento); // capturado en el modificar y enviado en href
 					// utilizo el metodo modificar en la bd
 					tratamientoDB.modificar(tratamiento);
+					System.out.println("Tratamiento modificado en DB");
 				}
 				request.setAttribute("sesion", sesion); // envio datos de la sesion
 				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp

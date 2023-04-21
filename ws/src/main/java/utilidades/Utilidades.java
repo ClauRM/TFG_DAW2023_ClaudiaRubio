@@ -1,11 +1,12 @@
 package utilidades;
 
+import controladorDB.UsuarioDB;
 import modelo.Tratamiento;
 import modelo.Usuario;
 
 public class Utilidades {
 
-	public String calcularTratamiento(int dosis, int horas, int duracion) {
+	public String calcularTratamiento(int horas, int duracion) {
 		// TODO desarrollar tratamiento
 		return "Aquí irá el tratamiento separado por comas";
 	}
@@ -91,49 +92,56 @@ public class Utilidades {
 	// validaciones del email
 	private static String validaEmail(String email) {
 		String errores = "";
+		UsuarioDB usuariodb= new UsuarioDB(); //instancia de clase para usar metodo validar
 
 		email = email.trim(); // limpio espacios
-
-		// LONGITUD MINIMA 6 CARACTERES x@y.zz
-		if (email.length() < 6) {
-			errores = errores + "Longitud de email no válida. \n";
-		}
-
-		// CONTIENE ARROBA @
-		if (!email.contains("@")) {
-			errores = errores + "El email no contiene @. \n";
-		}
-
-		// @ DEBE ESTAR ENTRE POSICION 1 Y LONGITUD-5
-		if (email.indexOf('@') < 1 || email.indexOf('@') > (email.length() - 5)) {
-			errores = errores + "La posición de la @ en el campo email es incorrecta. \n";
-		}
-
-		// DESPUES DE LA @ DEBE HABER UN .
-		if (email.contains(".")) {
-			if (!(email.indexOf('.') > email.indexOf('@'))) {
-				errores = errores + "El . del email está en posición incorrecta. \n";
-			} else {
-				errores = errores + "El email no contiene punto. \n";
+		
+		// Compruebo si el email ya esta incluido previamente en la bd
+		errores = usuariodb.validarUsuario(email);
+		
+		//si hay errores es porque el usuario ya esta incluido en la bd
+		if (errores == "") { //si no hay errores, entonces continuar validaciones
+			// LONGITUD MINIMA 6 CARACTERES x@y.zz
+			if (email.length() < 6) {
+				errores = errores + "Longitud de email no válida. \n";
 			}
 
-			// EL . DEBE ESTAR EN POSICION .xx o .xxx
-			if (!(email.indexOf(".") != (email.length() - 3) && email.indexOf(".") != (email.length() - 4))) {
-				errores = errores + "Dominio del email incorrecto. \n";
+			// CONTIENE ARROBA @
+			if (!email.contains("@")) {
+				errores = errores + "El email no contiene @. \n";
 			}
 
-			// EMPEZAR EN LETRA
-			if (email.toUpperCase().charAt(0) < 65 || email.toUpperCase().charAt(0) > 90) {
-				errores = errores + "El email debe empezar por una letra. \n";
+			// @ DEBE ESTAR ENTRE POSICION 1 Y LONGITUD-5
+			if (email.indexOf('@') < 1 || email.indexOf('@') > (email.length() - 5)) {
+				errores = errores + "La posición de la @ en el campo email es incorrecta. \n";
 			}
 
-			// TERMINAR EN LETRA
-			if (email.toUpperCase().charAt(email.length() - 1) < 65
-					|| email.toUpperCase().charAt(email.length() - 1) > 90) {
-				errores = errores + "El email debe terminar en letra";
-			}
+			// DESPUES DE LA @ DEBE HABER UN .
+			if (email.contains(".")) {
+				if (!(email.indexOf('.') > email.indexOf('@'))) {
+					errores = errores + "El . del email está en posición incorrecta. \n";
+				} else {
+					errores = errores + "El email no contiene punto. \n";
+				}
 
-		}
+				// EL . DEBE ESTAR EN POSICION .xx o .xxx
+				if (!(email.indexOf(".") != (email.length() - 3) && email.indexOf(".") != (email.length() - 4))) {
+					errores = errores + "Dominio del email incorrecto. \n";
+				}
+
+				// EMPEZAR EN LETRA
+				if (email.toUpperCase().charAt(0) < 65 || email.toUpperCase().charAt(0) > 90) {
+					errores = errores + "El email debe empezar por una letra. \n";
+				}
+
+				// TERMINAR EN LETRA
+				if (email.toUpperCase().charAt(email.length() - 1) < 65
+						|| email.toUpperCase().charAt(email.length() - 1) > 90) {
+					errores = errores + "El email debe terminar en letra";
+				}
+			}
+		} 
+		
 		return errores;
 	}
 

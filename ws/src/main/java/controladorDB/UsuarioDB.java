@@ -45,6 +45,37 @@ public class UsuarioDB {
 		return user;
 	}
 
+	// metodo para validar si el email del nuevo usuario ya esta incluido en la bd
+	public String validarUsuario(String email) {
+		
+		Connection conection; // objeto de la clase Connection
+		PreparedStatement prepareStatement; // variable de tipo prepareStatement
+		ResultSet resultSet; // variable de tipo resultSet
+		
+		Usuario user = new Usuario();// creo el objeto usuario de la clase que he creado
+		String consulta = "SELECT * FROM usuarios WHERE email=?"; // consulta para localizar al usuario
+		
+		String mensaje="";// en la bd
+		
+		try {
+			conection = gestorDB.abrirConexion(); // establecer la conexion
+			prepareStatement = conection.prepareStatement(consulta);
+			//indico cuales son los parametos de la consulta
+			prepareStatement.setString(1, email);
+			//ejecuto query
+			resultSet = prepareStatement.executeQuery();
+			
+			// si la consulta devuelve datos, indica que el usuario ya esta registrado
+			while (resultSet.next()) {
+				mensaje = "El email " + email + " ya está registrado. Accede a la página desde Login. ";
+			}
+
+		} catch (Exception e) {
+			System.out.println("ERROR EN METODO validarUsuario(email): " + e.getMessage()); // muestro error por consola
+		}
+
+		return mensaje;
+	}
 	// NUEVO USUARIO
 
 	public void insertarUsuario(Usuario usuario) {
