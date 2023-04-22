@@ -23,16 +23,22 @@ public class TratamientoDB {
 	// OPERACIONES CRUD //
 
 	// LISTAR TRATAMIENTOS
-	public List<Tratamiento> listarTratamientos(int idusuario) {
+	public List<Tratamiento> listarTratamientos(int idusuario, boolean isFinalizados) {
 
 		List<Tratamiento> listadoTratamientos = new ArrayList<>();// variable local para traer los datos de la BD
 		// escribo consulta sql tipo inner join
-		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = 1 AND fidusuario=?";
+		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = ? AND fidusuario=?";
 
 		try {
 			conection = gestorDB.abrirConexion(); // abro la conexion a la BD
 			prepareStatement = conection.prepareStatement(consultaSql); // preparo la sentencia
-			prepareStatement.setInt(1, idusuario); // indico cuales son los parametos de la consulta
+			// indico cuales son los parametos de la consulta
+			if (isFinalizados) { // Activos = 1 (en curso) activos = 0 (finalizados)
+				prepareStatement.setInt(1, 0);
+			} else {
+				prepareStatement.setInt(1, 1);
+			}
+			prepareStatement.setInt(2, idusuario); 
 			resultSet = prepareStatement.executeQuery(); // ejecuto consulta
 
 			// mientras que haya datos en el resultado de la consulta, recorrerla
@@ -143,7 +149,7 @@ public class TratamientoDB {
 		
 	}
 
-	// ELIMINAR TRATAMIENTO
+	// FINALIZAR TRATAMIENTO
 	public int finalizar(int idtratamiento) {
 		//no elimino consulta sino que la desactivo
 		String consulta = "UPDATE tratamientos SET activo=0 WHERE idtratamiento=" + idtratamiento;
@@ -159,6 +165,23 @@ public class TratamientoDB {
 		
 		return resultado;
 	}
+	
+	// ELIMINAR TRATAMIENTO
+	public int eliminar(int idtratamiento) {
+		String consulta = "DELETE FROM tratamientos WHERE idtratamiento=" + idtratamiento;
+		
+		try {			
+			conection = gestorDB.abrirConexion(); // establecezco la conexion
+			prepareStatement = conection.prepareStatement(consulta); // preparo la consulta
+			resultado = prepareStatement.executeUpdate(); // ejecuto la consulta
+			gestorDB.cerrarConexion(); // cierro la conexion
+		} catch (Exception e) {
+			System.out.println("ERROR EN METODO eliminar(): " + e.getMessage()); // muestro error por consola
+		}
+		
+		return resultado;
+	}
+
 	
 	// LISTAR UN OBJETO TRATAMIENTO
 	public Tratamiento unTratamiento(int idtratamiento) {

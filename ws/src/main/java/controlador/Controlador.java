@@ -96,7 +96,7 @@ public class Controlador extends HttpServlet {
 			switch (accion) {
 			case "listar":
 				// ejecuto consulta listar tratamientos de la BD y almaceno
-				listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario));
+				listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),false);
 				// ejecuto consulta listar medicamentos de la BD y almaceno
 				listadoMedicamentos = medicamentoDB.listarMedicamentos();
 				// envio los datos a la vista de tabla
@@ -200,22 +200,9 @@ public class Controlador extends HttpServlet {
 				// actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
-			case "finalizar":
-				// capturo el id del tratamiento seleccionado
-				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
-																							// boton
-				tratamientoDB.finalizar(idTratamiento); // finalizo el tratamiento
-				request.setAttribute("sesion", sesion);
-				// actualizo de nuevo la tabla
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
-				break;
 			default:
 				throw new AssertionError();
 			}
-
-			// request.getRequestDispatcher("tratamientosencurso.jsp").forward(request,
-			// response);
-
 		}
 
 		if (menu.equalsIgnoreCase("recetas")) {
@@ -224,8 +211,32 @@ public class Controlador extends HttpServlet {
 		}
 
 		if (menu.equalsIgnoreCase("finalizados")) {
-			request.setAttribute("sesion", sesion); // envio datos de la sesion
-			request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
+			switch (accion) {
+			case "listar":
+				// ejecuto consulta listar tratamientos de la BD y almaceno
+				listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),true);
+				// ejecuto consulta listar medicamentos de la BD y almaceno
+				listadoMedicamentos = medicamentoDB.listarMedicamentos();
+				// envio los datos a la vista de tabla
+				request.setAttribute("tratamientos", listadoTratamientos); // nommbre y datos se envian al jsp
+				request.setAttribute("medicamentos", listadoMedicamentos); // nommbre y datos se envian al jsp
+				request.setAttribute("sesion", sesion); // envio datos de la sesion
+				request.getRequestDispatcher("tratamientosfinalizados.jsp").forward(request, response);
+				break;
+			case "finalizar":
+				// capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
+																							// boton
+				tratamientoDB.eliminar(idTratamiento); // finalizo el tratamiento
+				mensaje = "Tratamiento eliminado correctamente.";
+				request.setAttribute("sesion", sesion); //envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=finalizados&accion=listar").forward(request, response);
+				break;
+			default:
+				throw new AssertionError();
+			}
 		}
 
 	}

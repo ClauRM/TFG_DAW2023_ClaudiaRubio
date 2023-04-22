@@ -79,8 +79,10 @@ public class ValidarAcceso extends HttpServlet {
 					// envio los datos al controlador.java que dara el acceso a la ventana principal
 					request.getRequestDispatcher("Controlador?menu=Acceso&id="+user.getIdusuario()).forward(request, response);
 				} else {
-					// en caso contrario redireccionar a la misma pagina
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					//si no lo localiza el usuario en la DB
+					mensaje = "El email " + email + " no está registrado. Accede desde Nuevo Registro.";
+					request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+					request.getRequestDispatcher("index.jsp").forward(request, response);// redirijo a la ventana de login
 				}
 
 			}else {

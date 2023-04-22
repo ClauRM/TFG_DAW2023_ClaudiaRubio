@@ -17,7 +17,7 @@
 <script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<h3 id="titulo1" class="px-3">Listado de Medicamentos</h3>
+	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Listado de Medicamentos</h3>
 	<p class="px-3">A continuación, tienes el listado de todos los medicamentos disponibles</p>
 	<!-- CONTENEDOR DE LA TABLA -->
 	<div class="col-sm-8 px-3">

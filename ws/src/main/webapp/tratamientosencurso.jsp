@@ -21,11 +21,11 @@
 <script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<h3 id="titulo1" class="px-3">Nuevo tratamiento</h3>
+	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Nuevo tratamiento</h3>
 	<p class="px-3">Aquí podrás gestionar tus tratamientos médicos. Puedes registrar un nuevo tratamiento, modificar los existentes o eliminar alguno si ya lo has finalizado. <br>Rellena todos los campos del formulario para registrar un nuevo tratamiento y pulsa en Agregar</p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
-		<div class="card col-sm-4 px-3">
+		<div class="card col-sm-3 px-3">
 			<div class="card-body">
 				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
@@ -45,15 +45,15 @@
 					</div>
 					<div class="form-group">
 						<label>Dosis en unidades</label>
-						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30 placeholder="Dosis del tratamiento en unidades">	
+						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30 placeholder="¿Cuál es la dosis?">	
 					</div>
 					<div class="form-group">
 						<label>Pauta en horas</label>
-						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24 placeholder="¿Cada cuántas horas se debe tomar?">	
+						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24 placeholder="¿Cada cuántas horas?">	
 					</div>	
 					<div class="form-group">
 						<label>Duración en días</label>
-						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15 placeholder="¿Cuántos días dura el tratamiento?">	
+						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15 placeholder="¿Durante cuántos días?">	
 					</div>	
 					<div class="form-group">
 						<label>Observaciones</label>
@@ -71,7 +71,7 @@
 			</div>
 		</div>
 		<!-- CONTENEDOR DE LA TABLA -->
-		<div class="col-sm-8 px-3">
+		<div class="col-sm-9 px-3">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -81,7 +81,8 @@
 						<th>PAUTA</th>
 						<th>DURACION</th>
 						<th>OBSERVACIONES</th>
-						<th>ACCIONES</th>
+						<th>MODIFICAR</th>
+						<th>FINALIZAR</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -93,11 +94,9 @@
 							<td>Cada ${tratamiento.getHoras()} hrs.</td>
 							<td>${tratamiento.getDuracion()} días</td>
 							<td>${tratamiento.getObservaciones()} </td>
-							<td>
-								<!-- en los botones, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
-								<a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}">Modificar</a>
-								<a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}">Eliminar</a>
-							</td>
+							<!-- BOTONES DE ACCION, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
+							<td><a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
+							<td><a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}"><img alt="" src="img/delete.svg"> Finalizar</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
