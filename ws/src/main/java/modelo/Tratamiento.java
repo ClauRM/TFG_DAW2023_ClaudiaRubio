@@ -9,6 +9,7 @@ public class Tratamiento {
 	private int dosis;
 	private int horas;
 	private int duracion;
+	private String inicio;
 	private String tratamiento;
 	private String observaciones;
 	private int activo; //activo = 1 | inactivo = 0
@@ -31,11 +32,27 @@ public class Tratamiento {
 		this.paciente = paciente;
 		this.dosis = dosis;
 		this.horas = horas;
+		this.duracion = duracion;
 		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
 		this.activo = activo;
 	}
 
+	public Tratamiento(int idtratamiento, int fidusuario, int fidmedicamento, String paciente, int dosis, int horas, int duracion,
+			String inicio, String tratamiento, String observaciones, int activo) {
+		super();
+		this.idtratamiento = idtratamiento;
+		this.fidusuario = fidusuario;
+		this.fidmedicamento = fidmedicamento;
+		this.paciente = paciente;
+		this.dosis = dosis;
+		this.horas = horas;
+		this.duracion = duracion;
+		this.inicio = inicio;
+		this.tratamiento = tratamiento;
+		this.observaciones = observaciones;
+		this.activo = activo;
+	}
 
 	public Tratamiento(int fidusuario, int fidmedicamento, String paciente, int dosis, int horas, int duracion, String tratamiento,
 			String observaciones, int activo) {
@@ -45,6 +62,7 @@ public class Tratamiento {
 		this.paciente = paciente;
 		this.dosis = dosis;
 		this.horas = horas;
+		this.duracion = duracion;
 		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
 		this.activo = activo;
@@ -58,6 +76,7 @@ public class Tratamiento {
 		this.paciente = paciente;
 		this.dosis = dosis;
 		this.horas = horas;
+		this.duracion = duracion;
 		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
 		this.activo = activo;
@@ -74,6 +93,7 @@ public class Tratamiento {
 		this.paciente = paciente;
 		this.dosis = dosis;
 		this.horas = horas;
+		this.duracion = duracion;
 		this.tratamiento = tratamiento;
 		this.observaciones = observaciones;
 		this.activo = activo;
@@ -135,6 +155,14 @@ public class Tratamiento {
 
 	public void setDuracion(int duracion) {
 		this.duracion = duracion;
+	}
+
+	public String getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
 	}
 
 	public String getTratamiento() {

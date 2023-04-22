@@ -1,5 +1,9 @@
 package utilidades;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 import controladorDB.UsuarioDB;
 import modelo.Tratamiento;
 import modelo.Usuario;
@@ -39,9 +43,9 @@ public class Utilidades {
 	}
 
 	public static String validaTratamiento(Tratamiento tratamientoTemporal) {
-		String errores = "Continuar con las validaciones del tratamiento...";
+		String errores = "";
 		String paciente;
-		int dosis,horas,duracion;
+		int dosis, horas, duracion;
 
 		// valores de las variables
 		paciente = tratamientoTemporal.getPaciente();
@@ -49,9 +53,17 @@ public class Utilidades {
 		horas = tratamientoTemporal.getHoras();
 		duracion = tratamientoTemporal.getDuracion();
 
-		
-		
 		return errores;
+	}
+
+	public static String getFechaActual() {
+		String fecha = "";
+		//zona horaria y formato de fecha 
+		fecha = ZonedDateTime.now(ZoneId.of("Europe/Paris")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+
+		System.out.println(fecha);
+
+		return fecha;
 	}
 
 	// validaciones del nombre
@@ -92,15 +104,15 @@ public class Utilidades {
 	// validaciones del email
 	private static String validaEmail(String email) {
 		String errores = "";
-		UsuarioDB usuariodb= new UsuarioDB(); //instancia de clase para usar metodo validar
+		UsuarioDB usuariodb = new UsuarioDB(); // instancia de clase para usar metodo validar
 
 		email = email.trim(); // limpio espacios
-		
+
 		// Compruebo si el email ya esta incluido previamente en la bd
 		errores = usuariodb.validarUsuario(email);
-		
-		//si hay errores es porque el usuario ya esta incluido en la bd
-		if (errores == "") { //si no hay errores, entonces continuar validaciones
+
+		// si hay errores es porque el usuario ya esta incluido en la bd
+		if (errores == "") { // si no hay errores, entonces continuar validaciones
 			// LONGITUD MINIMA 6 CARACTERES x@y.zz
 			if (email.length() < 6) {
 				errores = errores + "Longitud de email no válida. \n";
@@ -140,8 +152,8 @@ public class Utilidades {
 					errores = errores + "El email debe terminar en letra";
 				}
 			}
-		} 
-		
+		}
+
 		return errores;
 	}
 
@@ -163,7 +175,5 @@ public class Utilidades {
 
 		return errores;
 	}
-
-
 
 }

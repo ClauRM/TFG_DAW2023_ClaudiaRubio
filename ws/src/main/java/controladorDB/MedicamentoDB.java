@@ -24,7 +24,7 @@ public class MedicamentoDB {
 
 		List<Medicamento> listadoMedicamentos = new ArrayList<>();// variable local para traer los datos de la BD
 		Medicamento medicamento; // objeto de la clase Medicamento
-		String consultaSql = "SELECT * FROM medicamentos"; // escribo consulta sql tipo select
+		String consultaSql = "SELECT * FROM medicamentos ORDER BY medicamento"; // escribo consulta sql tipo select
 
 		try {
 			conection = gestorDB.abrirConexion(); // establezco la conexion

@@ -1,14 +1,17 @@
 package controladorDB;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Medicamento;
 import modelo.Tratamiento;
 import modelo.Usuario;
+import utilidades.Utilidades;
 
 public class TratamientoDB {
 
@@ -27,7 +30,8 @@ public class TratamientoDB {
 
 		List<Tratamiento> listadoTratamientos = new ArrayList<>();// variable local para traer los datos de la BD
 		// escribo consulta sql tipo inner join
-		String consultaSql = "SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = ? AND fidusuario=?";
+		String consultaSql = 
+		"SELECT * FROM tratamientos t INNER JOIN  medicamentos m ON t.fidmedicamento = m.idmedicamento INNER JOIN usuarios u ON t.fidusuario = u.idusuario WHERE activo = ? AND fidusuario=?";
 
 		try {
 			conection = gestorDB.abrirConexion(); // abro la conexion a la BD
@@ -55,6 +59,7 @@ public class TratamientoDB {
 				tratamiento.setDosis(resultSet.getInt("dosis"));
 				tratamiento.setHoras(resultSet.getInt("horas"));
 				tratamiento.setDuracion(resultSet.getInt("duracion"));
+				tratamiento.setInicio(resultSet.getString("inicio"));
 				tratamiento.setTratamiento(resultSet.getString("tratamiento"));
 				tratamiento.setObservaciones(resultSet.getString("observaciones"));
 				tratamiento.setActivo(resultSet.getInt("activo"));
@@ -82,7 +87,7 @@ public class TratamientoDB {
 		//tratamiento.setUsuario(null);
 		//tratamiento.setMedicamento(null);
 		
-		String consulta = "INSERT INTO tratamientos(fidusuario, fidmedicamento, paciente, dosis, horas, duracion, tratamiento, observaciones, activo) VALUES (?,?,?,?,?,?,?,?,?);";
+		String consulta = "INSERT INTO tratamientos(fidusuario, fidmedicamento, paciente, dosis, horas, duracion, inicio, tratamiento, observaciones, activo) VALUES (?,?,?,?,?,?,?,?,?,?);";
 
 		try {			
 			conection = gestorDB.abrirConexion(); // establecer la conexion, la variable conetion va a ser igual a mi objeto
@@ -96,9 +101,10 @@ public class TratamientoDB {
 			prepareStatement.setInt(4, tratamiento.getDosis());
 			prepareStatement.setInt(5, tratamiento.getHoras());
 			prepareStatement.setInt(6, tratamiento.getDuracion());
-			prepareStatement.setString(7, tratamiento.getTratamiento());
-			prepareStatement.setString(8, tratamiento.getObservaciones());
-			prepareStatement.setInt(9, tratamiento.getActivo());
+			prepareStatement.setString(7, Utilidades.getFechaActual());; //fecha y hora del equipo
+			prepareStatement.setString(8, tratamiento.getTratamiento());
+			prepareStatement.setString(9, tratamiento.getObservaciones());
+			prepareStatement.setInt(10, tratamiento.getActivo());
 			//ejecuto query
 			resultado = prepareStatement.executeUpdate();
 			
@@ -206,6 +212,7 @@ public class TratamientoDB {
 				tratamiento.setDosis(resultSet.getInt("dosis"));
 				tratamiento.setHoras(resultSet.getInt("horas"));
 				tratamiento.setDuracion(resultSet.getInt("duracion"));
+				tratamiento.setInicio(resultSet.getString("inicio"));
 				tratamiento.setTratamiento(resultSet.getString("tratamiento"));
 				tratamiento.setObservaciones(resultSet.getString("observaciones"));
 				tratamiento.setActivo(resultSet.getInt("activo"));
@@ -217,6 +224,12 @@ public class TratamientoDB {
 		}
 		
 		return tratamiento;
+	}
+
+	
+	public List listarTratamientosxHoras(int parseInt) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

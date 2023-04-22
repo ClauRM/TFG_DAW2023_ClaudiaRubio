@@ -18,25 +18,30 @@
 </head>
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Listado de Tratamientos en curso</h3>
-	<p class="px-3">Este es el listado de todos los tratamientos que tienes actualmente en curso</p>
+	<p class="px-3">Este es el listado por horas de todos los tratamientos que tienes actualmente en curso. Si quieres actualizarlos pulsa en la ficha de Registro.</p>
 	<!-- CONTENEDOR DE LA TABLA -->
-	<div class="col-sm-8 px-3">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>MEDICAMENTO</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${medicamentos}" var="medicamento">
+		<div class="col-sm-8 px-3">
+			<table class="table table-hover">
+				<thead>
 					<tr>
-						<td class="text-uppercase">${medicamento.getMedicamento()}</td>
+						<th>MEDICAMENTO</th>
+						<th>PACIENTE</th>
+						<th>DOSIS</th>
+						<th>HORA</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-</body>
+				</thead>
+				<tbody>
+                	<c:forEach items="${tratamientos}" var="tratamiento">
+						<tr>
+							<td class="text-uppercase">${tratamiento.getMedicamento().getMedicamento()} </td>
+							<td>${tratamiento.getPaciente()} </td>
+							<td>${tratamiento.getDosis()} </td>
+							<td>Cada ${tratamiento.getHoras()} hrs.</td>							
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 
 </body>
 </html>

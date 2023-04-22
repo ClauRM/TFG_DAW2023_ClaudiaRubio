@@ -21,7 +21,7 @@
 <script src="script/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Nuevo tratamiento</h3>
+	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Registro de Tratamientos</h3>
 	<p class="px-3">Aquí podrás gestionar tus tratamientos médicos. Puedes registrar un nuevo tratamiento, modificar los existentes o eliminar alguno si ya lo has finalizado. <br>Rellena todos los campos del formulario para registrar un nuevo tratamiento y pulsa en Agregar</p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
@@ -33,9 +33,9 @@
 					<div id="mensajes"><p>${mensaje}</p></div>
 						<label>Selecciona un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
-						<select name="idmedicamento" class="form-select">
+						<select name="idmedicamento" class="form-select text-uppercase">
 							<c:forEach items="${medicamentos}" var="medicamento">
-						  		<option class="text-uppercase" value="${medicamento.getIdmedicamento()}">${medicamento.getMedicamento()}</option>
+						  		<option value="${medicamento.getIdmedicamento()}" class="text-uppercase">${medicamento.getMedicamento()}</option>
 						  	</c:forEach>
 						</select>
 					</div>
@@ -95,8 +95,8 @@
 							<td>${tratamiento.getDuracion()} días</td>
 							<td>${tratamiento.getObservaciones()} </td>
 							<!-- BOTONES DE ACCION, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
-							<td><a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
-							<td><a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${usuario.getIdusuario()}"><img alt="" src="img/delete.svg"> Finalizar</a></td>
+							<td><a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${sessionScope.usuario.getIdusuario()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
+							<td><a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${sessionScope.usuario.getIdusuario()}"><img alt="" src="img/delete.svg"> Finalizar</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

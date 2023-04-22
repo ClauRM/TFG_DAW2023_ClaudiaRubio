@@ -1,7 +1,6 @@
 package controlador;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -58,7 +57,7 @@ public class Controlador extends HttpServlet {
 		HttpSession sesion = request.getSession();
 
 		System.out.println("id usuario :" + idusuario);
-		System.out.println("accionrio :" + accion);
+		System.out.println("accion :" + accion);
 		System.out.println("menu :" + menu);
 
 		// variables capturadas del formulario gestion
@@ -200,14 +199,32 @@ public class Controlador extends HttpServlet {
 				// actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
+			case "finalizar":
+				// capturo el id del tratamiento seleccionado
+				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
+																							// boton
+				tratamientoDB.finalizar(idTratamiento); // finalizo el tratamiento
+				request.setAttribute("sesion", sesion); //envio datos de la sesion
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
+				break;
 			default:
 				throw new AssertionError();
 			}
 		}
 
 		if (menu.equalsIgnoreCase("recetas")) {
+			
+			/**************************************   DESARROLLAR   ********************************************/
+			
+			// ejecuto consulta listar tratamientos de la BD y almaceno
+			listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),false);
+			// envio los datos a la vista de tabla
+			request.setAttribute("tratamientos", listadoTratamientos); // nommbre y datos se envian al jsp			
 			request.setAttribute("sesion", sesion);// envio datos de la sesion
-			request.getRequestDispatcher("recetas.jsp").forward(request, response);
+			request.getRequestDispatcher("recetas.jsp").forward(request, response);			
+			
+			/************************************************************************************************/
 		}
 
 		if (menu.equalsIgnoreCase("finalizados")) {

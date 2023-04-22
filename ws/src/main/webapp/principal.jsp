@@ -22,8 +22,8 @@
 				<ul class="navbar-nav">
 				<!-- al pulsar sobre cada parte del menu el Controlador se encarga de redirigir y el target se encarga de mostrar la vista en el iframe -->
 					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=medicamentos" target="iframe">Medicamentos</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">Nuevo</a></li>
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=recetas&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">En curso</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">Registro</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=recetas&id=${sessionScope.usuario.getIdusuario()}" target="iframe">En curso</a></li>
 					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}" target="iframe">Finalizados</a></li>
 				</ul>
 			</div>

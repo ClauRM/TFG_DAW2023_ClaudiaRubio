@@ -43,7 +43,7 @@
 					<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
 							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/clipboard-gestion.svg" alt="capsule" >
-							<h5 class="card-subtitle mb-2 text-muted">Nuevo tratamiento</h5>
+							<h5 class="card-subtitle mb-2 text-muted">Registro</h5>
 							<p class="card-text">Crea un nuevo tratamiento, modifica o elimínalo al finalizar</p>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 			</div>
 			<!-- TARJETAS -->
 			<div class="col-lg-3 col-md-6">
-				<a href="Controlador?menu=recetas&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
+				<a href="Controlador?menu=recetas&id=${sessionScope.usuario.getIdusuario()}">
 				<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
 							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/heard-curso.svg" alt="capsule" >
