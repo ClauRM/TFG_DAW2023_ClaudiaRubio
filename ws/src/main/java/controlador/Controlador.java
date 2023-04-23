@@ -28,7 +28,7 @@ public class Controlador extends HttpServlet {
 	Utilidades utilidad = new Utilidades();
 
 	// Variable listado
-	List listadoTratamientos, listadoMedicamentos;
+	List listadoTratamientos, listadoMedicamentos, tratamientoXhoras;
 
 	// Otras variables
 	int idTratamiento;
@@ -61,7 +61,7 @@ public class Controlador extends HttpServlet {
 		System.out.println("menu :" + menu);
 
 		// variables capturadas del formulario gestion
-		String paciente, observaciones, tratamientoSt;
+		String paciente, inicio, observaciones, tratamientoSt;
 		int fidusuario, fidmedicamento, dosis, horas, duracion;
 
 		// variable para enviar mensajes de error al jsp
@@ -112,14 +112,15 @@ public class Controlador extends HttpServlet {
 					mensaje = "Debes rellenar todos los campos del formulario para agregar un nuevo tratamiento";
 				} else {
 					// capturo los valores marcados en el formulario
-					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion,
+					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, duracion, inicio,
 					// tratamiento, observaciones, activo
 					fidmedicamento = Integer.parseInt(request.getParameter("idmedicamento"));
 					paciente = request.getParameter("paciente");
 					dosis = Integer.parseInt(request.getParameter("dosis"));
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
-					tratamientoSt = utilidad.calcularTratamiento(horas, duracion); // metodo encargado del
+					inicio = Utilidades.getFechaActual(); //hora y fecha del equipo
+					tratamientoSt = utilidad.calcularTratamiento(inicio, horas, duracion); // metodo encargado del
 																							// calculo en
 																							// funcion de horas y pauta
 					observaciones = request.getParameter("observaciones");
@@ -130,6 +131,7 @@ public class Controlador extends HttpServlet {
 					tratamiento.setDosis(dosis);
 					tratamiento.setHoras(horas);
 					tratamiento.setDuracion(duracion);
+					tratamiento.setInicio(inicio);
 					tratamiento.setTratamiento(tratamientoSt);
 					tratamiento.setObservaciones(observaciones);
 					tratamiento.setActivo(1);
@@ -175,9 +177,8 @@ public class Controlador extends HttpServlet {
 					dosis = Integer.parseInt(request.getParameter("dosis"));
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
-					tratamientoSt = utilidad.calcularTratamiento(horas, duracion); // metodo encargado del
-																							// calculo en funcion de
-																							// horas y pauta
+					// metodo encargado del calculo en funcion de horas y pauta
+					tratamientoSt = utilidad.calcularTratamiento(request.getParameter("inicio"), horas, duracion); 
 					observaciones = request.getParameter("observaciones");
 					// agrego estos datos al objeto tratamiento
 					tratamiento.setFidusuario(fidusuario);
@@ -185,14 +186,20 @@ public class Controlador extends HttpServlet {
 					tratamiento.setPaciente(paciente);
 					tratamiento.setDosis(dosis);
 					tratamiento.setHoras(horas);
-					tratamiento.setHoras(duracion);
+					tratamiento.setDuracion(duracion);
 					tratamiento.setTratamiento(tratamientoSt);
 					tratamiento.setObservaciones(observaciones);
 					tratamiento.setActivo(1);
 					tratamiento.setIdtratamiento(idTratamiento); // capturado en el modificar y enviado en href
-					// utilizo el metodo modificar en la bd
-					tratamientoDB.modificar(tratamiento);
-					System.out.println("Tratamiento modificado en DB");
+					
+					// evaluo si hay errores tras la validacion del tratamiento
+					mensaje = Utilidades.validaTratamiento(tratamiento);
+					
+					if(mensaje.contentEquals("") || mensaje == null) { // si no hay errores
+						tratamientoDB.modificar(tratamiento); // modifica tratamiento en la BD
+						System.out.println("Tratamiento modificado en DB");
+					}
+									
 				}
 				request.setAttribute("sesion", sesion); // envio datos de la sesion
 				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
@@ -217,8 +224,10 @@ public class Controlador extends HttpServlet {
 			
 			/**************************************   DESARROLLAR   ********************************************/
 			
-			// ejecuto consulta listar tratamientos de la BD y almaceno
+			// obtener el listado de tratamientos asociado al usuario
 			listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),false);
+			// obtener un nuevo listadoXhoras de esos tratamientos
+			tratamientoXhoras = tratamientoDB.listarTratamientosxHoras(listadoTratamientos);
 			// envio los datos a la vista de tabla
 			request.setAttribute("tratamientos", listadoTratamientos); // nommbre y datos se envian al jsp			
 			request.setAttribute("sesion", sesion);// envio datos de la sesion

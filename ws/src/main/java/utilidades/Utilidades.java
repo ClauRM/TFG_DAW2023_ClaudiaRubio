@@ -1,8 +1,11 @@
 package utilidades;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import controladorDB.UsuarioDB;
 import modelo.Tratamiento;
@@ -10,9 +13,54 @@ import modelo.Usuario;
 
 public class Utilidades {
 
-	public String calcularTratamiento(int horas, int duracion) {
-		// TODO desarrollar tratamiento
-		return "Aquí irá el tratamiento separado por comas";
+	public String calcularTratamiento(String inicio, int horas, int duracion) {
+		int repeticiones = 24/horas * duracion;
+		List<String> listado = new ArrayList<String>(); // variable arrayList
+		LocalDateTime fechaDate;
+		String fechaString;
+		
+		//aniadir la hora de inicio al arraylist
+		listado.add(inicio);
+
+		// convertir String a fecha para poder operar con ella
+		fechaDate = convertirStringDate(inicio);		
+
+		// iteracion bucle for con longitud = repeticiones 
+		for (int i = 1; i < repeticiones; i++) {
+			//en cada vuelta sumar el n de horas a la fecha
+			fechaDate = fechaDate.plusHours(horas);
+			
+			//convertir LocalDate a String
+			fechaString = fechaDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+			
+			//aniadir fechaString al arraylist
+			listado.add(fechaString);
+			}
+
+		// imprimir array list
+		System.out.println(listado.toString());
+
+		// devolver el string con las horas del tratamiento
+		return listado.toString();
+	}
+
+	public static LocalDateTime convertirStringDate(String fecha) {
+		LocalDateTime fechaDate = null;
+		try {
+			//definir el formato
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+			//parsear la fecha de String a LocalDate con el formato indicado
+			fechaDate = LocalDateTime.parse(fecha,formato);
+
+			//para visualizarla
+			System.out.println(fechaDate); 
+
+		} catch (Exception e) {
+			System.out.println("Error al convertir fecha String a Date: "+ e.getMessage());
+		}
+		
+		return fechaDate;
 	}
 
 	public static String validaUsuarioRegistro(Usuario usuarioTemporal) {
@@ -58,8 +106,8 @@ public class Utilidades {
 
 	public static String getFechaActual() {
 		String fecha = "";
-		//zona horaria y formato de fecha 
-		fecha = ZonedDateTime.now(ZoneId.of("Europe/Paris")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+		// zona horaria y formato de fecha
+		fecha = ZonedDateTime.now(ZoneId.of("Europe/Paris")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		System.out.println(fecha);
 

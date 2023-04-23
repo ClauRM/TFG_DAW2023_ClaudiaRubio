@@ -227,9 +227,21 @@ public class TratamientoDB {
 	}
 
 	
-	public List listarTratamientosxHoras(int parseInt) {
-		// TODO Auto-generated method stub
-		return null;
+	public List listarTratamientosxHoras(List tratamientos) {
+		// TODO desarrollar vista listado de tratamientos
+		List tratamientosXhoras = null;
+		//idTratamiento, idUsuario, idMedicamento, paciente, dosis, horas, duracion, inicio, tratamiento [], observaciones, activo
+		
+		//verificar longitud del listado
+		int longitud = tratamientos.size();
+		
+		//extraer arraylist de horas de la primera posicion
+		System.out.println(tratamientos.get(0).toString());
+		
+		
+		
+		
+		return tratamientosXhoras;
 	}
 	
 

@@ -205,5 +205,12 @@ public class Tratamiento {
 		this.usuario = usuario;
 	}
 	
+	@Override
+	public String toString() {
+		return "Tratamiento [idtratamiento=" + idtratamiento + ", fidusuario=" + fidusuario + ", fidmedicamento="
+				+ fidmedicamento + ", paciente=" + paciente + ", dosis=" + dosis + ", horas=" + horas + ", duracion="
+				+ duracion + ", inicio=" + inicio + ", tratamiento=" + tratamiento + ", observaciones=" + observaciones
+				+ ", activo=" + activo + ", medicamento=" + medicamento + ", usuario=" + usuario + "]";
+	}
 		
 }

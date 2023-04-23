@@ -60,7 +60,8 @@
 						<input type="text" name="observaciones" value="${tratamiento.getObservaciones()}" class="form-control" maxlength=50 placeholder="Añade alguna observación">	
 					</div>	
 					<div class="form-group">
-						<input type="hidden" name="id" value="${sessionScope.usuario.getIdusuario()}" class="form-control" maxlength=50>	
+						<input type="hidden" name="id" value="${sessionScope.usuario.getIdusuario()}">
+						<input type="hidden" name="inicio" value="${tratamiento.getInicio()}">		
 					</div>	
 					<input type="hidden" name="menu" value="enCurso"><!-- opcion del menu en el servlet -->
 					<!-- BOTONES DE ACCION -->
