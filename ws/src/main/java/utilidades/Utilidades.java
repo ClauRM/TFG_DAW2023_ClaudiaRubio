@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controladorDB.UsuarioDB;
+import modelo.Medicamento;
 import modelo.Tratamiento;
 import modelo.Usuario;
 
 public class Utilidades {
 
-	public String calcularTratamiento(String inicio, int horas, int duracion) {
+	public static String calcularTratamiento(String inicio, int horas, int duracion) {
 		int repeticiones = 24/horas * duracion;
 		List<String> listado = new ArrayList<String>(); // variable arrayList
 		LocalDateTime fechaDate;
@@ -114,6 +115,59 @@ public class Utilidades {
 		return fecha;
 	}
 
+	
+	public static List listarTratamientosxHoras(List tratamientos) {
+		List <Tratamiento> tratamientosXhoras = new ArrayList<>(); //listado x horas
+		int longitud;
+		String stTratamiento; //string tratamiento
+		String horas[]; // array de horas
+		Tratamiento obTratamiento, obTratamientoAux; //objeto tratamiento
+		//idTratamiento, idUsuario, idMedicamento, paciente, dosis, horas, duracion, inicio, tratamiento [], observaciones, activo
+		
+		//verificar longitud del listado de tratamientos
+		longitud = tratamientos.size();
+		
+		//RECORRER EL LISTADO DE TRATAMIENTOS
+		for (int i = 0; i < tratamientos.size(); i++) {			
+			//convierto cada posicion en un objeto tratamiento
+			obTratamiento = (Tratamiento) tratamientos.get(i);
+			
+			//obtengo el string x horas de tratamiento para esa posicion
+			stTratamiento = obTratamiento.getTratamiento();
+					
+			//guardardo en array, separando con split (",")
+			horas = stTratamiento.split(",");
+			
+			//RECORRER EL ARRAY DE CADA TRATAMIENTO
+			for (int j = 0; j < horas.length; j++) {
+				//crear un objeto tratamientoXhoras, seteando cada posicion y la primera posicion del array
+				//idtratamiento,fidusuario,fidmedicamento,paciente,dosis,horas,duracion,inicio,tratamiento,observaciones,activo
+				obTratamientoAux = new Tratamiento();
+				obTratamientoAux.setIdtratamiento(obTratamiento.getIdtratamiento());
+				obTratamientoAux.setFidusuario(obTratamiento.getFidusuario());
+				obTratamientoAux.setFidmedicamento(obTratamiento.getFidmedicamento());
+				obTratamientoAux.setPaciente(obTratamiento.getPaciente());
+				obTratamientoAux.setDosis(obTratamiento.getDosis());
+				obTratamientoAux.setHoras(obTratamiento.getHoras());
+				obTratamientoAux.setDuracion(obTratamiento.getDuracion());
+				obTratamientoAux.setInicio(obTratamiento.getInicio());
+				obTratamientoAux.setTratamiento(horas[j]); //recorrer el array
+				obTratamientoAux.setObservaciones(obTratamiento.getObservaciones());
+				obTratamientoAux.setActivo(obTratamiento.getActivo());
+				// para los datos del medicamento, creo un nuevo objeto
+				obTratamientoAux.setMedicamento(
+						new Medicamento(obTratamiento.getFidmedicamento(), obTratamiento.getMedicamento().getMedicamento()));
+				// para los datos del usuario, creo un nuevo objeto
+				obTratamientoAux.setUsuario(new Usuario(obTratamiento.getFidusuario(), obTratamiento.getUsuario().getNombre(), obTratamiento.getUsuario().getEmail(), obTratamiento.getUsuario().getPassword()));
+				
+				//almacenar el objeto en el listado xhoras
+				tratamientosXhoras.add(obTratamientoAux);
+			}
+		}		
+		//devolver el listado con el desglose por horas
+		return tratamientosXhoras;
+	}
+			
 	// validaciones del nombre
 	private static String validaNombre(String nombre, int longitudMax) {
 		String errores = "";
@@ -224,4 +278,5 @@ public class Utilidades {
 		return errores;
 	}
 
+	
 }

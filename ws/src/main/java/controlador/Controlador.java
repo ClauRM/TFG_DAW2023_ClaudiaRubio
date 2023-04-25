@@ -25,7 +25,6 @@ public class Controlador extends HttpServlet {
 	Tratamiento tratamiento = new Tratamiento();
 	TratamientoDB tratamientoDB = new TratamientoDB();
 	MedicamentoDB medicamentoDB = new MedicamentoDB();
-	Utilidades utilidad = new Utilidades();
 
 	// Variable listado
 	List listadoTratamientos, listadoMedicamentos, tratamientoXhoras;
@@ -120,7 +119,7 @@ public class Controlador extends HttpServlet {
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
 					inicio = Utilidades.getFechaActual(); //hora y fecha del equipo
-					tratamientoSt = utilidad.calcularTratamiento(inicio, horas, duracion); // metodo encargado del
+					tratamientoSt = Utilidades.calcularTratamiento(inicio, horas, duracion); // metodo encargado del
 																							// calculo en
 																							// funcion de horas y pauta
 					observaciones = request.getParameter("observaciones");
@@ -178,7 +177,7 @@ public class Controlador extends HttpServlet {
 					horas = Integer.parseInt(request.getParameter("horas"));
 					duracion = Integer.parseInt(request.getParameter("duracion"));
 					// metodo encargado del calculo en funcion de horas y pauta
-					tratamientoSt = utilidad.calcularTratamiento(request.getParameter("inicio"), horas, duracion); 
+					tratamientoSt = Utilidades.calcularTratamiento(request.getParameter("inicio"), horas, duracion); 
 					observaciones = request.getParameter("observaciones");
 					// agrego estos datos al objeto tratamiento
 					tratamiento.setFidusuario(fidusuario);
@@ -227,9 +226,9 @@ public class Controlador extends HttpServlet {
 			// obtener el listado de tratamientos asociado al usuario
 			listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),false);
 			// obtener un nuevo listadoXhoras de esos tratamientos
-			tratamientoXhoras = tratamientoDB.listarTratamientosxHoras(listadoTratamientos);
+			tratamientoXhoras = Utilidades.listarTratamientosxHoras(listadoTratamientos);
 			// envio los datos a la vista de tabla
-			request.setAttribute("tratamientos", listadoTratamientos); // nommbre y datos se envian al jsp			
+			request.setAttribute("tratamientos", tratamientoXhoras); // nommbre y datos se envian al jsp			
 			request.setAttribute("sesion", sesion);// envio datos de la sesion
 			request.getRequestDispatcher("recetas.jsp").forward(request, response);			
 			

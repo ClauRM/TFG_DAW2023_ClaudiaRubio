@@ -36,7 +36,7 @@
 							<td class="text-uppercase">${tratamiento.getMedicamento().getMedicamento()} </td>
 							<td>${tratamiento.getPaciente()} </td>
 							<td>${tratamiento.getDosis()} </td>
-							<td>Cada ${tratamiento.getHoras()} hrs.</td>							
+							<td>${tratamiento.getTratamiento()}</td>							
 						</tr>
 					</c:forEach>
 				</tbody>
