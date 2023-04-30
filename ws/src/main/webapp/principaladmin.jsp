@@ -29,6 +29,7 @@
 				<button id="btn-perfil" class="dropdown-toggle text-uppercase" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">${sessionScope.usuario.getNombre()}</button>
 				<ul class="dropdown-menu dropdown-menu-end text-center" aria-labelledby="dropdownMenuButton1">
 					<li><a class="dropdown-item" href="#"><img alt="60" width="60" src="img/user.png"></a></li>
+					<li><p>Administrador</p></li>
     				<li><a class="dropdown-item" href="#">${sessionScope.usuario.getEmail()}</a></li>
     				<li><hr class="dropdown-divider"></li>
     				<!-- FORMULARIO DE SALIDA -->

@@ -97,7 +97,7 @@
 							<td>${tratamiento.getObservaciones()} </td>
 							<!-- BOTONES DE ACCION, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
 							<td><a  href="Controlador?menu=enCurso&accion=modificar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${sessionScope.usuario.getIdusuario()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
-							<td><a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${sessionScope.usuario.getIdusuario()}"><img alt="" src="img/delete.svg"> Finalizar</a></td>
+							<td><a  href="Controlador?menu=enCurso&accion=finalizar&idTratamiento=${tratamiento.getIdtratamiento() }&id=${sessionScope.usuario.getIdusuario()}"><img alt="" src="img/archive.svg"> Finalizar</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

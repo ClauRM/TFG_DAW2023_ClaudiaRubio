@@ -60,23 +60,35 @@ public class ControladorAdmin extends HttpServlet {
 		// ejemplo, href="Controlador?menu=home"
 
 		if (menu.equalsIgnoreCase("Acceso")) {
-			request.setAttribute("sesion", sesion); // envio datos de la sesion
+			request.setAttribute("sesion", sesion); //envio datos de la sesion
 			// si hay acceso redirige a la ventana principal
 			request.getRequestDispatcher("principaladmin.jsp").forward(request, response);
 		}
 
 		if (menu.equalsIgnoreCase("home")) {
-			request.setAttribute("sesion", sesion); // envio datos de la sesion
+			request.setAttribute("sesion", sesion); //envio datos de la sesion
 			request.getRequestDispatcher("homeadmin.jsp").forward(request, response);
 		}
 		
 		if (menu.equalsIgnoreCase("medicamentos")) {
-			listadoMedicamentos = medicamentoDB.listarMedicamentos(); // ejecuto consulta listar medicamentos DB y
-																		// almaceno
+			listadoMedicamentos = medicamentoDB.listarMedicamentos(); //ejecuto consulta listar medicamentos DB y almaceno
 			// envio los datos a la vista de tabla
-			request.setAttribute("medicamentos", listadoMedicamentos); // nombre con el que se envia y que datos se
-																		// envian
+			request.setAttribute("medicamentos", listadoMedicamentos); //nombre enviado y datos se envian
 			request.getRequestDispatcher("medicamentosadmin.jsp").forward(request, response);
+		}
+		switch (accion) {
+		case "agregar":
+			
+			break;
+		case "modificar":
+			
+			break;
+		case "eliminar":
+			
+			break;
+
+		default:
+			break;
 		}
 
 	}
