@@ -27,6 +27,7 @@
 						<th>MEDICAMENTO</th>
 						<th>PACIENTE</th>
 						<th>DOSIS</th>
+						<th>OBSERVACIONES</th>
 						<th>HORA</th>
 					</tr>
 				</thead>
@@ -36,7 +37,8 @@
 							<td class="text-uppercase">${tratamiento.getMedicamento().getMedicamento()} </td>
 							<td>${tratamiento.getPaciente()} </td>
 							<td>${tratamiento.getDosis()} </td>
-							<td>${tratamiento.getTratamiento()}</td>							
+							<td>${tratamiento.getObservaciones()}</td>	
+							<td>${tratamiento.getTratamiento()}</td>					
 						</tr>
 					</c:forEach>
 				</tbody>

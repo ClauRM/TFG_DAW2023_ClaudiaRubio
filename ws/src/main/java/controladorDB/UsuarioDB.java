@@ -36,6 +36,7 @@ public class UsuarioDB {
 				user.setNombre(resultSet.getString("nombre"));
 				user.setEmail(resultSet.getString("email"));
 				user.setPassword(resultSet.getString("password"));
+				user.setAdmin(resultSet.getInt("admin"));
 			}
 
 		} catch (Exception e) {

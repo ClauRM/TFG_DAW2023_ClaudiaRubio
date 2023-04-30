@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import controladorDB.UsuarioDB;
@@ -15,52 +16,58 @@ import modelo.Usuario;
 public class Utilidades {
 
 	public static String calcularTratamiento(String inicio, int horas, int duracion) {
-		int repeticiones = 24/horas * duracion;
+		int repeticiones = 24 / horas * duracion;
 		List<String> listado = new ArrayList<String>(); // variable arrayList
 		LocalDateTime fechaDate;
 		String fechaString;
-		
-		//aniadir la hora de inicio al arraylist
+		String stTratamientos = "";
+
+		// aniadir la hora de inicio al arraylist
 		listado.add(inicio);
 
 		// convertir String a fecha para poder operar con ella
-		fechaDate = convertirStringDate(inicio);		
+		fechaDate = convertirStringDate(inicio);
 
-		// iteracion bucle for con longitud = repeticiones 
+		// iteracion bucle for con longitud = repeticiones
 		for (int i = 1; i < repeticiones; i++) {
-			//en cada vuelta sumar el n de horas a la fecha
+			// en cada vuelta sumar el n de horas a la fecha
 			fechaDate = fechaDate.plusHours(horas);
-			
-			//convertir LocalDate a String
-			fechaString = fechaDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			
-			//aniadir fechaString al arraylist
-			listado.add(fechaString);
-			}
 
-		// imprimir array list
-		System.out.println(listado.toString());
+			// convertir LocalDate a String
+			fechaString = fechaDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+
+			// aniadir fechaString al arraylist
+			listado.add(fechaString);
+		}
+
+		// recorrer el listado y separar fechas por comas
+		for (int i = 0; i < listado.size(); i++) {
+			stTratamientos += listado.get(i) + ",";
+		}
+
+		// quitar la ultima coma del string
+		stTratamientos = stTratamientos.substring(0, stTratamientos.length() - 1);
 
 		// devolver el string con las horas del tratamiento
-		return listado.toString();
+		return stTratamientos;
 	}
 
 	public static LocalDateTime convertirStringDate(String fecha) {
 		LocalDateTime fechaDate = null;
 		try {
-			//definir el formato
-			DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			// definir el formato
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-			//parsear la fecha de String a LocalDate con el formato indicado
-			fechaDate = LocalDateTime.parse(fecha,formato);
+			// parsear la fecha de String a LocalDate con el formato indicado
+			fechaDate = LocalDateTime.parse(fecha, formato);
 
-			//para visualizarla
-			System.out.println(fechaDate); 
+			// para visualizarla
+			System.out.println(fechaDate);
 
 		} catch (Exception e) {
-			System.out.println("Error al convertir fecha String a Date: "+ e.getMessage());
+			System.out.println("Error al convertir fecha String a Date: " + e.getMessage());
 		}
-		
+
 		return fechaDate;
 	}
 
@@ -108,40 +115,41 @@ public class Utilidades {
 	public static String getFechaActual() {
 		String fecha = "";
 		// zona horaria y formato de fecha
-		fecha = ZonedDateTime.now(ZoneId.of("Europe/Paris")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		fecha = ZonedDateTime.now(ZoneId.of("Europe/Paris")).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
 
 		System.out.println(fecha);
 
 		return fecha;
 	}
 
-	
 	public static List listarTratamientosxHoras(List tratamientos) {
-		List <Tratamiento> tratamientosXhoras = new ArrayList<>(); //listado x horas
+		List<Tratamiento> tratamientosXhoras = new ArrayList<>(); // listado x horas
 		int longitud;
-		String stTratamiento; //string tratamiento
+		String stTratamiento; // string tratamiento
 		String horas[]; // array de horas
-		Tratamiento obTratamiento, obTratamientoAux; //objeto tratamiento
-		//idTratamiento, idUsuario, idMedicamento, paciente, dosis, horas, duracion, inicio, tratamiento [], observaciones, activo
-		
-		//verificar longitud del listado de tratamientos
+		Tratamiento obTratamiento, obTratamientoAux; // objeto tratamiento
+		// idTratamiento, idUsuario, idMedicamento, paciente, dosis, horas, duracion,
+		// inicio, tratamiento [], observaciones, activo
+
+		// verificar longitud del listado de tratamientos
 		longitud = tratamientos.size();
-		
-		//RECORRER EL LISTADO DE TRATAMIENTOS
-		for (int i = 0; i < tratamientos.size(); i++) {			
-			//convierto cada posicion en un objeto tratamiento
+
+		// RECORRER EL LISTADO DE TRATAMIENTOS
+		for (int i = 0; i < tratamientos.size(); i++) {
+			// convierto cada posicion en un objeto tratamiento
 			obTratamiento = (Tratamiento) tratamientos.get(i);
-			
-			//obtengo el string x horas de tratamiento para esa posicion
+
+			// obtengo el string x horas de tratamiento para esa posicion
 			stTratamiento = obTratamiento.getTratamiento();
-					
-			//guardardo en array, separando con split (",")
+
+			// guardardo en array, separando con split (",")
 			horas = stTratamiento.split(",");
-			
-			//RECORRER EL ARRAY DE CADA TRATAMIENTO
+
+			// RECORRER EL ARRAY DE CADA TRATAMIENTO
 			for (int j = 0; j < horas.length; j++) {
-				//crear un objeto tratamientoXhoras, seteando cada posicion y la primera posicion del array
-				//idtratamiento,fidusuario,fidmedicamento,paciente,dosis,horas,duracion,inicio,tratamiento,observaciones,activo
+				// crear un objeto tratamientoXhoras, seteando cada posicion y la primera
+				// posicion del array
+				// idtratamiento,fidusuario,fidmedicamento,paciente,dosis,horas,duracion,inicio,tratamiento,observaciones,activo
 				obTratamientoAux = new Tratamiento();
 				obTratamientoAux.setIdtratamiento(obTratamiento.getIdtratamiento());
 				obTratamientoAux.setFidusuario(obTratamiento.getFidusuario());
@@ -151,23 +159,25 @@ public class Utilidades {
 				obTratamientoAux.setHoras(obTratamiento.getHoras());
 				obTratamientoAux.setDuracion(obTratamiento.getDuracion());
 				obTratamientoAux.setInicio(obTratamiento.getInicio());
-				obTratamientoAux.setTratamiento(horas[j]); //recorrer el array
+				obTratamientoAux.setTratamiento(horas[j]); // recorrer el array
 				obTratamientoAux.setObservaciones(obTratamiento.getObservaciones());
 				obTratamientoAux.setActivo(obTratamiento.getActivo());
 				// para los datos del medicamento, creo un nuevo objeto
-				obTratamientoAux.setMedicamento(
-						new Medicamento(obTratamiento.getFidmedicamento(), obTratamiento.getMedicamento().getMedicamento()));
+				obTratamientoAux.setMedicamento(new Medicamento(obTratamiento.getFidmedicamento(),
+						obTratamiento.getMedicamento().getMedicamento()));
 				// para los datos del usuario, creo un nuevo objeto
-				obTratamientoAux.setUsuario(new Usuario(obTratamiento.getFidusuario(), obTratamiento.getUsuario().getNombre(), obTratamiento.getUsuario().getEmail(), obTratamiento.getUsuario().getPassword()));
-				
-				//almacenar el objeto en el listado xhoras
+				obTratamientoAux
+						.setUsuario(new Usuario(obTratamiento.getFidusuario(), obTratamiento.getUsuario().getNombre(),
+								obTratamiento.getUsuario().getEmail(), obTratamiento.getUsuario().getPassword()));
+
+				// almacenar el objeto en el listado xhoras
 				tratamientosXhoras.add(obTratamientoAux);
 			}
-		}		
-		//devolver el listado con el desglose por horas
+		}
+		// devolver el listado con el desglose por horas
 		return tratamientosXhoras;
 	}
-			
+
 	// validaciones del nombre
 	private static String validaNombre(String nombre, int longitudMax) {
 		String errores = "";
@@ -207,6 +217,7 @@ public class Utilidades {
 	private static String validaEmail(String email) {
 		String errores = "";
 		UsuarioDB usuariodb = new UsuarioDB(); // instancia de clase para usar metodo validar
+		int longitudDominio;
 
 		email = email.trim(); // limpio espacios
 
@@ -232,27 +243,34 @@ public class Utilidades {
 
 			// DESPUES DE LA @ DEBE HABER UN .
 			if (email.contains(".")) {
-				if (!(email.indexOf('.') > email.indexOf('@'))) {
+				if (!(email.lastIndexOf('.') > email.indexOf('@'))) {
 					errores = errores + "El . del email está en posición incorrecta. \n";
 				} else {
-					errores = errores + "El email no contiene punto. \n";
+					longitudDominio = email.length() - email.lastIndexOf(".");
+					
+					System.out.println("longitud del email = "+email.length());
+					System.out.println("posicion del ultimo punto = "+email.lastIndexOf("."));
+					System.out.println("longitud email - posicion ultimo punto = "+ longitudDominio);
+					
+					// EL DOMINIO DEBE SER .xx o .xxx
+					if (longitudDominio < 3 || longitudDominio > 4) {
+						errores = errores + "Dominio del email incorrecto. \n";
+					}
 				}
 
-				// EL . DEBE ESTAR EN POSICION .xx o .xxx
-				if (!(email.indexOf(".") != (email.length() - 3) && email.indexOf(".") != (email.length() - 4))) {
-					errores = errores + "Dominio del email incorrecto. \n";
-				}
+			} else {
+				errores = errores + "El email no contiene punto. \n";
+			}
 
-				// EMPEZAR EN LETRA
-				if (email.toUpperCase().charAt(0) < 65 || email.toUpperCase().charAt(0) > 90) {
-					errores = errores + "El email debe empezar por una letra. \n";
-				}
+			// EMPEZAR EN LETRA
+			if (email.toUpperCase().charAt(0) < 65 || email.toUpperCase().charAt(0) > 90) {
+				errores = errores + "El email debe empezar por una letra. \n";
+			}
 
-				// TERMINAR EN LETRA
-				if (email.toUpperCase().charAt(email.length() - 1) < 65
-						|| email.toUpperCase().charAt(email.length() - 1) > 90) {
-					errores = errores + "El email debe terminar en letra";
-				}
+			// TERMINAR EN LETRA
+			if (email.toUpperCase().charAt(email.length() - 1) < 65
+					|| email.toUpperCase().charAt(email.length() - 1) > 90) {
+				errores = errores + "El email debe terminar en letra";
 			}
 		}
 
@@ -278,5 +296,4 @@ public class Utilidades {
 		return errores;
 	}
 
-	
 }

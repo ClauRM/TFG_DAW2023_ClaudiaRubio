@@ -6,9 +6,20 @@ public class Usuario {
 	private String nombre;
 	private String email;
 	private String password;
+	private int admin;
 
 	public Usuario() {
 		super();
+	}
+
+	
+	public Usuario(int idusuario, String nombre, String email, String password, int admin) {
+		super();
+		this.idusuario = idusuario;
+		this.nombre = nombre;
+		this.email = email;
+		this.password = password;
+		this.admin = admin;
 	}
 
 	public Usuario(int idusuario, String nombre, String email, String password) {
@@ -17,9 +28,7 @@ public class Usuario {
 		this.nombre = nombre;
 		this.email = email;
 		this.password = password;
-	}
-	
-	
+	}	
 
 	public Usuario(String nombre, String email, String password) {
 		super();
@@ -58,6 +67,14 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
 	}
 
 }

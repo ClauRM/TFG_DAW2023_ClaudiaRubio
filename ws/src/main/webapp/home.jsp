@@ -24,9 +24,9 @@
 			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
 			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 			culpa qui officia deserunt mollit anim id est laborum</p> <br><br>
-		<div class="row w-100 d flex align-items-center">
+		<div class="row w-100 d-flex justify-content-center align-items-center">
 		<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-6">
+			<div class="col-lg-3 col-md-4">
 				<a href="Controlador?menu=medicamentos">
 					<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
@@ -38,7 +38,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-6">
+			<div class="col-lg-3 col-md-4">
 				<a href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
 					<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
@@ -50,7 +50,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-6">
+			<div class="col-lg-3 col-md-4">
 				<a href="Controlador?menu=recetas&id=${sessionScope.usuario.getIdusuario()}">
 				<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
@@ -62,7 +62,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-6">
+			<div class="col-lg-3 col-md-4">
 				<a href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
 				<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">

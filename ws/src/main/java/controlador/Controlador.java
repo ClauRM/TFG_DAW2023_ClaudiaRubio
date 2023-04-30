@@ -220,9 +220,6 @@ public class Controlador extends HttpServlet {
 		}
 
 		if (menu.equalsIgnoreCase("recetas")) {
-			
-			/**************************************   DESARROLLAR   ********************************************/
-			
 			// obtener el listado de tratamientos asociado al usuario
 			listadoTratamientos = tratamientoDB.listarTratamientos(Integer.parseInt(idusuario),false);
 			// obtener un nuevo listadoXhoras de esos tratamientos
@@ -231,8 +228,6 @@ public class Controlador extends HttpServlet {
 			request.setAttribute("tratamientos", tratamientoXhoras); // nommbre y datos se envian al jsp			
 			request.setAttribute("sesion", sesion);// envio datos de la sesion
 			request.getRequestDispatcher("recetas.jsp").forward(request, response);			
-			
-			/************************************************************************************************/
 		}
 
 		if (menu.equalsIgnoreCase("finalizados")) {
