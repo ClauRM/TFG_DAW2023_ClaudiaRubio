@@ -108,7 +108,23 @@ public class Utilidades {
 		dosis = tratamientoTemporal.getDosis();
 		horas = tratamientoTemporal.getHoras();
 		duracion = tratamientoTemporal.getDuracion();
+		
+		//TODO validar
 
+		return errores;
+	}
+	
+	public static String validaMedicamento(Medicamento medicamentoTemporal) {
+		String errores = "";
+		String medicamento;
+		int idmedicamento;
+				
+		//valores de variables
+		idmedicamento = medicamentoTemporal.getIdmedicamento();
+		medicamento = medicamentoTemporal.getMedicamento();
+		
+		//TODO validar
+		
 		return errores;
 	}
 

@@ -28,7 +28,7 @@
 		<div class="row w-100 d-flex justify-content-center align-items-center">
 		<!-- TARJETAS -->
 			<div class="col-lg-3 col-md-4">
-				<a href="ControladorAdmin?menu=medicamentos">
+				<a href="ControladorAdmin?menu=medicamentos&accion=listar">
 					<div id="tarjeta" class="card h-100 d-flex align-items-center" style="width: 18rem;">
 						<div class="card-body">
 							<img id="img-tarjeta" class="my-3" style="height: 20%;" src="img/capsule.svg" alt="capsule" >
@@ -38,7 +38,7 @@
 					</div>
 				</a>
 			</div>
-					</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -26,9 +26,11 @@
 	<div class="row d-flex justify-content-center">
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="form-group mt-3 px-2">
+				<input type="hidden" name="idmedicamento" value="${medicamento.getIdmedicamento()}">
 				<input type="text" name="medicamento" value="${medicamento.getMedicamento()}" class="form-control" maxlength=60 placeholder="Nombre y composición del medicamento">	
 			</div>
 			<!-- BOTONES DE ACCION -->
+			<input type="hidden" name="menu" value="medicamentos"><!-- opcion del menu en el servlet -->
 			<input type="submit" name="accion" value="agregar" class="boton mx-2 mt-2">
 			<input type="submit" name="accion" value="actualizar" class="botongris mt-2">
 		</div>
@@ -36,11 +38,12 @@
 			<!-- FILTRAR -->
 			<div class="input-group mt-3 px-2">
 	 			<input type="text" class="form-control" placeholder="Filtrar por nombre del medicamento" aria-describedby="button">
-	  			<button class="boton" type="button" id="button">Buscar</button>
+	  			<button class="boton" type="button" id="buscar">Buscar</button>
 			</div>
 		</div>
 		<!-- DIV PARA MENSAJES -->
-		<div id="mensajes"><p>${mensaje}</p></div>
+		<div id="mensajes"><p class="px-3 pt-2">${mensaje}</p></div>
+		<div id="mensajesOk"><p class="px-3 pt-2">${mensajeOk}</p></div>
 	</div>
 	</div>
 	</form>
@@ -58,9 +61,9 @@
 				<c:forEach items="${medicamentos}" var="medicamento">
 					<tr>
 						<td class="text-uppercase">${medicamento.getMedicamento()}</td>
-						<!-- BOTONES DE ACCION, ademas del menu y la accion del Controlador, le envio el id de tratamiento -->
-						<td><a href="ControladorAdmin?accion=modificar&id=${medicamento.getIdmedicamento()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
-						<td><a href="ControladorAdmin?accion=eliminar&id=${medicamento.getIdmedicamento()}"><img alt="" src="img/delete.svg"> Eliminar</a></td>
+						<!-- BOTONES DE ACCION, ademas del menu y la accion del Controlador, le envio el id del medicamento -->
+						<td><a href="ControladorAdmin?menu=medicamentos&accion=modificar&idmedicamento=${medicamento.getIdmedicamento()}"><img alt="" src="img/edit.svg"> Modificar</a></td>
+						<td><a href="ControladorAdmin?menu=medicamentos&accion=eliminar&idmedicamento=${medicamento.getIdmedicamento()}"><img alt="" src="img/delete.svg"> Eliminar</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

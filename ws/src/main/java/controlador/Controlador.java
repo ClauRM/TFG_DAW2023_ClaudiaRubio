@@ -215,6 +215,7 @@ public class Controlador extends HttpServlet {
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
 			default:
+				System.out.println("Error opción switch del menú 'en gestion'");
 				throw new AssertionError();
 			}
 		}
@@ -255,6 +256,7 @@ public class Controlador extends HttpServlet {
 				request.getRequestDispatcher("Controlador?menu=finalizados&accion=listar").forward(request, response);
 				break;
 			default:
+				System.out.println("Error opción switch del menú 'finalizados'");
 				throw new AssertionError();
 			}
 		}

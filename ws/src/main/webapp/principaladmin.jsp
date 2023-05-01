@@ -21,7 +21,7 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 				<!-- al pulsar sobre cada parte del menu el Controlador se encarga de redirigir y el target se encarga de mostrar la vista en el iframe -->
-					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="ControladorAdmin?menu=medicamentos" target="iframe">Medicamentos</a></li>
+					<li class="nav-item"><a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="ControladorAdmin?menu=medicamentos&accion=listar" target="iframe">Medicamentos</a></li>
 				</ul>
 			</div>
 			<!-- DESPLEGABLE DE USUARIO -->

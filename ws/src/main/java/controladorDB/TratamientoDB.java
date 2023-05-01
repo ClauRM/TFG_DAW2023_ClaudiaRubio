@@ -83,10 +83,7 @@ public class TratamientoDB {
 	// ANIADIR NUEVO TRATAMIENTO
 	public int aniadir(Tratamiento tratamiento) {
 		
-		//escribo consulta insert
-		//tratamiento.setUsuario(null);
-		//tratamiento.setMedicamento(null);
-		
+		//escribo consulta insert		
 		String consulta = "INSERT INTO tratamientos(fidusuario, fidmedicamento, paciente, dosis, horas, duracion, inicio, tratamiento, observaciones, activo) VALUES (?,?,?,?,?,?,?,?,?,?);";
 
 		try {			
@@ -120,10 +117,7 @@ public class TratamientoDB {
 	// MODIFICAR TRATAMIENTO
 	public int modificar(Tratamiento tratamiento) {
 		
-		//escribo consulta insert
-		//tratamiento.setUsuario(null);
-		//tratamiento.setMedicamento(null);
-		
+		//escribo consulta update		
 		String consulta = "UPDATE tratamientos SET fidusuario=?, fidmedicamento=?, paciente=?, dosis=?, horas=?, duracion=?, tratamiento=?, observaciones=?, activo=? WHERE idtratamiento=?;";
 
 		try {			

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controladorDB.MedicamentoDB;
+import modelo.Medicamento;
+import utilidades.Utilidades;
 
 /**
  * Servlet implementation class ControladorAdmin
@@ -21,9 +23,12 @@ public class ControladorAdmin extends HttpServlet {
 	
 	// instancia de clase
 	MedicamentoDB medicamentoDB = new MedicamentoDB();
+	Medicamento obMedicamento = new Medicamento();
 
 	// Variable listado
 	List listadoMedicamentos;
+	
+	int idMedicamento = 0;//variable global idMedicamento
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,19 +47,18 @@ public class ControladorAdmin extends HttpServlet {
 
 		String menu = request.getParameter("menu"); // parametro recibido al hacer submit para llamar al servlet
 		String accion = request.getParameter("accion");
-		String idusuario = request.getParameter("id");
+
 		HttpSession sesion = request.getSession();
 
-		System.out.println("id usuario :" + idusuario);
-		System.out.println("accion :" + accion);
-		System.out.println("menu :" + menu);
+		System.out.println("menu : " + menu);
+		System.out.println("accion : " + accion);
 
 		// variables capturadas del formulario gestion
-		
-		//*******************//
+		String medicamento, buscar;
 
 		// variable para enviar mensajes de error al jsp
 		String mensaje = "";
+		String mensajeOk = "";
 
 		// distribucion en funcion de que valor trae la clave menu del
 		// ejemplo, href="Controlador?menu=home"
@@ -71,25 +75,94 @@ public class ControladorAdmin extends HttpServlet {
 		}
 		
 		if (menu.equalsIgnoreCase("medicamentos")) {
-			listadoMedicamentos = medicamentoDB.listarMedicamentos(); //ejecuto consulta listar medicamentos DB y almaceno
-			// envio los datos a la vista de tabla
-			request.setAttribute("medicamentos", listadoMedicamentos); //nombre enviado y datos se envian
-			request.getRequestDispatcher("medicamentosadmin.jsp").forward(request, response);
-		}
-		switch (accion) {
-		case "agregar":
-			
-			break;
-		case "modificar":
-			
-			break;
-		case "eliminar":
-			
-			break;
+			switch (accion) {
+			case "listar":
+				// ejecuto consulta listar de la BD y almaceno
+				listadoMedicamentos = medicamentoDB.listarMedicamentos();
+				// envio los datos a la vista de tabla
+				request.setAttribute("medicamentos", listadoMedicamentos); // nommbre y datos se envian al jsp
+				request.setAttribute("sesion", sesion);
+				request.getRequestDispatcher("medicamentosadmin.jsp").forward(request, response);
+				break;
+			case "agregar":
+				if (request.getParameter("medicamento") == "" ) {
+					mensaje = "Debes rellenar nombre y composición del medicamento";
+				} else {
+					medicamento = request.getParameter("medicamento"); //capturo valores del formulario
+					obMedicamento.setMedicamento(medicamento); //agrego datos al objeto
+					mensaje = Utilidades.validaMedicamento(obMedicamento); //valido medicamento
+					
+					if(mensaje.contentEquals("") || mensaje == null) { //si no hay errores
+						medicamentoDB.aniadirMedicamento(medicamento); //aniade a BD
+						mensajeOk = "Medicamento agregado correctamente.";
+					}
+				}
+				request.setAttribute("sesion", sesion); //envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); //envio el mensaje al jsp
+				request.setAttribute("mensajeOk", mensajeOk);
+				//actualizo de nuevo la tabla
+				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
+				break;
+			case "modificar":
+				// capturo el id del medicamento seleccionado
+				idMedicamento = Integer.parseInt(request.getParameter("idmedicamento")); //indicado en el href boton
+				obMedicamento = medicamentoDB.unMedicamento(idMedicamento); //localizo medicamento por su id
+				request.setAttribute("medicamento", obMedicamento); //envio objeto medicamento al formulario
+				request.setAttribute("sesion", sesion); //envio sesion de usuario
+				//actualizo vista de la tabla
+				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
+				break;
+			case "actualizar":
+				System.out.println("Evaluando si hay idtratamiento para actualizar = " + idMedicamento);
+				if (idMedicamento == 0) {
+					System.out.println("No se puede actualizar. El usuario no ha seleccionado medicamento");
+					mensaje = "No has seleccionado ningún medicamento para modificar";
+				} else if (request.getParameter("medicamento")==""){
+					mensaje = "Debes seleccionar un medicamento para modificar";
+				} else {
+					//capturo del formulario
+					idMedicamento = Integer.parseInt(request.getParameter("idmedicamento"));
+					medicamento = request.getParameter("medicamento");
+					//agrego estos datos al objeto
+					obMedicamento.setIdmedicamento(idMedicamento);
+					obMedicamento.setMedicamento(medicamento);
+					//evaluo si hay errores tras la validacion
+					mensaje = Utilidades.validaMedicamento(obMedicamento);
+					
+					if(mensaje.contentEquals("") || mensaje == null) { //si no hay errores
+						medicamentoDB.modificarMedicamento(obMedicamento); //modifica tratamiento en la BD
+						System.out.println("Medicamento modificado en DB");
+						mensajeOk = "Medicamento modificado correctamente.";
+					}
+									
+				}
+				request.setAttribute("sesion", sesion); // envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				request.setAttribute("mensajeOk", mensajeOk);
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
+				break;
+			case "eliminar":
+				// capturo el id del tratamiento seleccionado
+				idMedicamento = Integer.parseInt(request.getParameter("idmedicamento")); //indicado en el href boton
+				medicamentoDB.eliminarMedicamento(idMedicamento); //finalizo el tratamiento
+				mensajeOk = "Medicamento eliminado correctamente.";
+				request.setAttribute("sesion", sesion); //envio datos de la sesion
+				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				request.setAttribute("mensajeOk", mensajeOk);
+				// actualizo de nuevo la tabla
+				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
+				break;
+			case "buscar":
+				
+				break;
 
-		default:
-			break;
+			default:
+				System.out.println("Error opción switch del menú 'medicamentos admin'");
+				throw new AssertionError();
+			}
 		}
+		
 
 	}
 
