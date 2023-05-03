@@ -37,8 +37,8 @@
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<!-- FILTRAR -->
 			<div class="input-group mt-3 px-2">
-	 			<input type="text" class="form-control" placeholder="Filtrar por nombre del medicamento" aria-describedby="button">
-	  			<button class="boton" type="button" id="buscar">Buscar</button>
+	 			<input type="text" name="buscar" class="form-control" placeholder="Filtrar por nombre del medicamento" aria-describedby="button">
+	  			<input type="submit" name="accion" value="buscar" class="boton">
 			</div>
 		</div>
 		<!-- DIV PARA MENSAJES -->

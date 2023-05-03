@@ -13,18 +13,18 @@ import modelo.Tratamiento;
 import utilidades.Utilidades;
 
 public class MedicamentoDB {
-	
+
 	GestorDB gestorDB = new GestorDB(); // objeto de la clase Conexion.java
 
 	Connection conection; // objeto de la clase Connection
 	PreparedStatement prepareStatement; // variable de tipo prepareStatement
 	ResultSet resultSet; // variable de tipo resultSet
-		
-	int resultado = 0; //resultado de ejecutar una consulta: 1 ok - 2 nada
+
+	int resultado = 0; // resultado de ejecutar una consulta: 1 ok - 2 nada
 
 	// OPERACIONES CRUD
-	
-	//LISTAR MEDICAMENTOS
+
+	// LISTAR MEDICAMENTOS
 	public List<Medicamento> listarMedicamentos() {
 
 		List<Medicamento> listadoMedicamentos = new ArrayList<>();// variable local para traer los datos de la BD
@@ -35,7 +35,7 @@ public class MedicamentoDB {
 			conection = gestorDB.abrirConexion(); // establezco la conexion
 			prepareStatement = conection.prepareStatement(consultaSql); // preparo la consulta
 			resultSet = prepareStatement.executeQuery(); // ejecuto la consulta y almaceno el resultado
-						
+
 			// mientras que haya datos en el resultado de la consulta, recorrerla
 			while (resultSet.next()) {
 				medicamento = new Medicamento(); // instancio un nuevo objeto medicamento por cada linea
@@ -45,7 +45,7 @@ public class MedicamentoDB {
 				// aniado el medicamento al listado
 				listadoMedicamentos.add(medicamento);
 			}
-			
+
 			gestorDB.cerrarConexion(); // cierro la conexion
 
 		} catch (Exception e) {
@@ -55,90 +55,128 @@ public class MedicamentoDB {
 		return listadoMedicamentos; // retorno listado ordenado de medicamentos
 	}
 
-	//ANIADIR MEDICAMENTO
+	// ANIADIR MEDICAMENTO
 	public int aniadirMedicamento(String medicamento) {
-		
-		//escribo consulta insert		
-				String consulta = "INSERT INTO medicamentos(medicamento) VALUES (?);";
 
-				try {			
-					conection = gestorDB.abrirConexion(); //establecezco la conexion
-					prepareStatement = conection.prepareStatement(consulta); //preparo consulta
-					prepareStatement.setString(1, medicamento); //indico parametros de la consulta
-					resultado = prepareStatement.executeUpdate(); //ejecuto query
-					
-					gestorDB.cerrarConexion();
-					
-				} catch (Exception e) {
-					System.out.println("ERROR EN METODO aniadirMedicamento(): " + e.getMessage()); //muestro error por consola
-				}
+		// escribo consulta insert
+		String consulta = "INSERT INTO medicamentos(medicamento) VALUES (?);";
 
-				return resultado;
+		try {
+			conection = gestorDB.abrirConexion(); // establecezco la conexion
+			prepareStatement = conection.prepareStatement(consulta); // preparo consulta
+			prepareStatement.setString(1, medicamento); // indico parametros de la consulta
+			resultado = prepareStatement.executeUpdate(); // ejecuto query
+
+			gestorDB.cerrarConexion();
+
+		} catch (Exception e) {
+			System.out.println("ERROR EN METODO aniadirMedicamento(): " + e.getMessage()); // muestro error por consola
+		}
+
+		return resultado;
 	}
 
-	//MODIFICAR MEDICAMENTO
+	// MODIFICAR MEDICAMENTO
 	public int modificarMedicamento(Medicamento medicamento) {
-		
-		//escribo consulta update		
+
+		// escribo consulta update
 		String consulta = "UPDATE medicamentos SET medicamento=? WHERE idmedicamento=?";
 
-		try {			
-			conection = gestorDB.abrirConexion(); //establezo la conexion			
-			prepareStatement = conection.prepareStatement(consulta); //preparo la consulta
-			prepareStatement.setString(1, medicamento.getMedicamento()); //indico parametros
-			prepareStatement.setInt(2,medicamento.getIdmedicamento());
-			resultado = prepareStatement.executeUpdate(); //ejecuto query
-			
+		try {
+			conection = gestorDB.abrirConexion(); // establezo la conexion
+			prepareStatement = conection.prepareStatement(consulta); // preparo la consulta
+			prepareStatement.setString(1, medicamento.getMedicamento()); // indico parametros
+			prepareStatement.setInt(2, medicamento.getIdmedicamento());
+			resultado = prepareStatement.executeUpdate(); // ejecuto query
+
 			gestorDB.cerrarConexion();
-			
+
 		} catch (Exception e) {
-			System.out.println("ERROR EN METODO modificarMedicamento(): " + e.getMessage()); // muestro error por consola
+			System.out.println("ERROR EN METODO modificarMedicamento(): " + e.getMessage()); // muestro error por
+																								// consola
 		}
 
 		return resultado;
 
 	}
 
-	//ELIMINAR MEDICAMENTO
+	// ELIMINAR MEDICAMENTO
 	public int eliminarMedicamento(int idmedicamento) {
-		
-		//escribo consulta delete
+
+		// escribo consulta delete
 		String consulta = "DELETE FROM medicamentos WHERE idmedicamento=" + idmedicamento;
-		
-		try {			
+
+		try {
 			conection = gestorDB.abrirConexion(); // establecezco la conexion
-			prepareStatement = conection.prepareStatement(consulta); //preparo la consulta
-			resultado = prepareStatement.executeUpdate(); //ejecuto la consulta
-			gestorDB.cerrarConexion(); //cierro la conexion
+			prepareStatement = conection.prepareStatement(consulta); // preparo la consulta
+			resultado = prepareStatement.executeUpdate(); // ejecuto la consulta
+			gestorDB.cerrarConexion(); // cierro la conexion
 		} catch (Exception e) {
 			System.out.println("ERROR EN METODO eliminarMedicamento(): " + e.getMessage()); // muestro error por consola
 		}
-		
+
 		return resultado;
 	}
-	
-	//BUSCAR UN MEDICAMENTO POR SU ID
-		public Medicamento unMedicamento(int idmedicamento) {
-			Medicamento medicamento = new Medicamento(); //instancia de clase
-			ResultSet resultSet; //variable resultado de ejecutar una consulta
+
+	// LOCALIZAR UN MEDICAMENTO POR SU ID
+	public Medicamento unMedicamento(int idmedicamento) {
+		Medicamento medicamento = new Medicamento(); // instancia de clase
+		ResultSet resultSet; // variable resultado de ejecutar una consulta
+
+		// consulta para traer los datos de la bd
+		String consulta = "SELECT * FROM medicamentos WHERE idmedicamento=" + idmedicamento;
+
+		try {
+			// abro la conexion a la BD, ejecuto consulta, cierro conexion y almaceno en
+			// variable resultado
+			resultSet = gestorDB.getResult(consulta);
+			// mientras que la consulta haya devuelto datos..
+			while (resultSet.next()) {
+				// seteo las propiedades del objeto (set), tomandolos (get) de la variable
+				// resultado
+				medicamento.setIdmedicamento(resultSet.getInt("idmedicamento")); // nombre columna en el resultado
+				medicamento.setMedicamento(resultSet.getString("medicamento"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("ERROR EN unMedicamento(): " + e.getMessage());
+		}
+
+		return medicamento;
+	}
+
+	// FILTRO BUSCAR	
+	public List<Medicamento> buscarMedicamento(String buscar){
+		List<Medicamento> listadoFiltrado = new ArrayList<>(); //variable local para almacenar listado
+		Medicamento medicamento; // objeto de la clase Medicamento
+		
+		String consulta = "SELECT * FROM medicamentos WHERE medicamento LIKE ? ORDER BY medicamento;"; //consulta busqueda
 			
-			//consulta para traer los datos de la bd
-			String consulta = "SELECT * FROM medicamentos WHERE idmedicamento=" + idmedicamento;
-			
-			try {			
-				// abro la conexion a la BD, ejecuto consulta, cierro conexion y almaceno en variable resultado
-				resultSet = gestorDB.getResult(consulta);
-				// mientras que la consulta haya devuelto datos..
-				while(resultSet.next()){
-					//seteo las propiedades del objeto (set), tomandolos (get) de la variable resultado
-					medicamento.setIdmedicamento(resultSet.getInt("idmedicamento")); //nombre columna en el resultado
+			try {
+				conection = gestorDB.abrirConexion(); //establezo la conexion
+				prepareStatement = conection.prepareStatement(consulta); //preparo la consulta
+				prepareStatement.setString(1,"%" + buscar + "%"); //indico parametros
+				resultSet = prepareStatement.executeQuery(); //ejecuto query
+				
+				//mientras que haya datos en el resultado de la consulta, recorrerla
+				while (resultSet.next()) {
+					medicamento = new Medicamento(); //instancio un nuevo objeto medicamento por cada linea
+					//seteo los datos del medicamento en resultSet con el nombre de la columna
+					medicamento.setIdmedicamento(resultSet.getInt("idmedicamento")); //nombre de la columna
 					medicamento.setMedicamento(resultSet.getString("medicamento"));
-					}
+					//aniado el medicamento al listado
+					listadoFiltrado.add(medicamento);
+				}
+				
+				gestorDB.cerrarConexion(); //cierro conexion
 				
 			} catch (Exception e) {
-				System.out.println("ERROR EN unMedicamento(): " + e.getMessage());
+				System.out.println("ERROR EN METODO buscarMedicamento(): " + e.getMessage()); // muestro error por consola
 			}
 			
-			return medicamento;
-		}
+			return listadoFiltrado;
+	}
+
+
+
 }

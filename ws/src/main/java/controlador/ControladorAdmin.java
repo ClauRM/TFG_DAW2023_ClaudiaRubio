@@ -54,7 +54,7 @@ public class ControladorAdmin extends HttpServlet {
 		System.out.println("accion : " + accion);
 
 		// variables capturadas del formulario gestion
-		String medicamento, buscar;
+		String medicamento, buscartexto;
 
 		// variable para enviar mensajes de error al jsp
 		String mensaje = "";
@@ -77,10 +77,10 @@ public class ControladorAdmin extends HttpServlet {
 		if (menu.equalsIgnoreCase("medicamentos")) {
 			switch (accion) {
 			case "listar":
-				// ejecuto consulta listar de la BD y almaceno
+				//ejecuto consulta listar de la BD y almaceno
 				listadoMedicamentos = medicamentoDB.listarMedicamentos();
-				// envio los datos a la vista de tabla
-				request.setAttribute("medicamentos", listadoMedicamentos); // nommbre y datos se envian al jsp
+				//envio los datos a la vista de tabla
+				request.setAttribute("medicamentos", listadoMedicamentos); //nombre y datos se envian al jsp
 				request.setAttribute("sesion", sesion);
 				request.getRequestDispatcher("medicamentosadmin.jsp").forward(request, response);
 				break;
@@ -143,7 +143,7 @@ public class ControladorAdmin extends HttpServlet {
 				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
 				break;
 			case "eliminar":
-				// capturo el id del tratamiento seleccionado
+				//capturo el id del tratamiento seleccionado
 				idMedicamento = Integer.parseInt(request.getParameter("idmedicamento")); //indicado en el href boton
 				medicamentoDB.eliminarMedicamento(idMedicamento); //finalizo el tratamiento
 				mensajeOk = "Medicamento eliminado correctamente.";
@@ -154,9 +154,15 @@ public class ControladorAdmin extends HttpServlet {
 				request.getRequestDispatcher("ControladorAdmin?menu=medicamentos&accion=listar").forward(request, response);
 				break;
 			case "buscar":
-				
+				//capturo del formulario
+				buscartexto = request.getParameter("buscar");
+				//ejecuto consulta listar de la BD y almaceno
+				listadoMedicamentos = medicamentoDB.buscarMedicamento(buscartexto);
+				//envio los datos a la vista de tabla
+				request.setAttribute("medicamentos", listadoMedicamentos); //nombre y datos se envian al jsp
+				request.setAttribute("sesion", sesion);
+				request.getRequestDispatcher("medicamentosadmin.jsp").forward(request, response);
 				break;
-
 			default:
 				System.out.println("Error opción switch del menú 'medicamentos admin'");
 				throw new AssertionError();
