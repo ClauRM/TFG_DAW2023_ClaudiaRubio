@@ -40,6 +40,7 @@
 	 			<input type="text" name="buscar" class="form-control" placeholder="Filtrar por nombre del medicamento" aria-describedby="button">
 	  			<input type="submit" name="accion" value="buscar" class="boton">
 			</div>
+			<input type="submit" name="accion" value="listar" class="botongris mt-2"> &lt;&lt; Listar todos los medicamentos
 		</div>
 		<!-- DIV PARA MENSAJES -->
 		<div id="mensajes"><p class="px-3 pt-2">${mensaje}</p></div>

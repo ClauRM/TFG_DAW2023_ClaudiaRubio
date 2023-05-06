@@ -5,7 +5,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import controladorDB.UsuarioDB;
@@ -74,6 +73,7 @@ public class Utilidades {
 	public static String validaUsuarioRegistro(Usuario usuarioTemporal) {
 		String errores = "";
 		String nombre, email, pass;
+		String caracteresPermitidos="";
 
 		// valores de las variables
 		nombre = usuarioTemporal.getNombre();
@@ -85,7 +85,7 @@ public class Utilidades {
 			errores = errores + "Debe completar todos los campos del formulario. \n";
 		} else {
 			// validaciones de nombre
-			errores = errores + validaNombre(nombre, 20);
+			errores = errores + validaNombre(nombre, 20, caracteresPermitidos);
 
 			// validaciones de email
 			errores = errores + validaEmail(email);
@@ -102,29 +102,52 @@ public class Utilidades {
 		String errores = "";
 		String paciente;
 		int dosis, horas, duracion;
+		String caracteresPermitidos = " ";
 
 		// valores de las variables
 		paciente = tratamientoTemporal.getPaciente();
-		dosis = tratamientoTemporal.getDosis();
-		horas = tratamientoTemporal.getHoras();
-		duracion = tratamientoTemporal.getDuracion();
 		
-		//TODO validar
+		//validar nombre paciente
+		errores = validaNombre(paciente, 30, caracteresPermitidos);
+		
+		try {
+			dosis = tratamientoTemporal.getDosis();
+			horas = tratamientoTemporal.getHoras();
+			duracion = tratamientoTemporal.getDuracion();
+			
+			//validar dosis en unidades max 30
+			errores = errores + validaNumero("dosis", dosis, 30);
+			
+			//validar pauta en horas max 24
+			errores = errores + validaNumero("horas", horas, 24);
+			
+			//validar duracion en dias max 15
+			errores = errores + validaNumero("duración", duracion, 15);
+			
+		} catch (Exception e) {
+			errores = errores + "Revise dosis, pauta o duración. Deben ser numéricos. ";
+			System.out.println("Error método validaTratamiento(). No ha podido convertir a número: "+e.getMessage());
+		}
 
 		return errores;
 	}
 	
 	public static String validaMedicamento(Medicamento medicamentoTemporal) {
 		String errores = "";
+		String caracteresPermitidos = " .,/%0123456789"; //juego de carateres permitidos
 		String medicamento;
-		int idmedicamento;
+		int i = 0; // posicion de un caracter del string
+		char caracter;
+		boolean caracterInv = false;
 				
 		//valores de variables
-		idmedicamento = medicamentoTemporal.getIdmedicamento();
 		medicamento = medicamentoTemporal.getMedicamento();
 		
-		//TODO validar
-		
+		medicamento = medicamento.trim(); // limpio espacios
+
+		//validacion de nombre medicamento, max. 60 caracteres
+		errores = validaNombre(medicamento, 60, caracteresPermitidos);
+
 		return errores;
 	}
 
@@ -194,9 +217,17 @@ public class Utilidades {
 		return tratamientosXhoras;
 	}
 
+	/**
+	 * Validación de campo String en función de la longitud máxima y de los caracteres permitidos. Requiere dos parámetros de entrada
+	 * @param nombre, dato String con el texto a validar
+	 * @param longitudMax, dato entero con el número de caracteres máximo permitido en el campo
+	 * @param caracteresPermitidos, dato String con los caracteres especiales permitidos
+	 * @return String con los errores realizados después de la validación. Vacío si no tiene errores
+	 */
 	// validaciones del nombre
-	private static String validaNombre(String nombre, int longitudMax) {
+	private static String validaNombre(String nombre, int longitudMax, String caracteresPermitidos) {
 		String errores = "";
+		String abecedario = "abcdefghijklmnñopqrstuvwxyz";
 		int i = 0; // posicion de un caracter del string
 		char caracter;
 		boolean caracterInv = false;
@@ -205,26 +236,20 @@ public class Utilidades {
 
 		// 2. longitud maxima de 20 caracteres
 		if (nombre.length() > longitudMax) {
-			errores = errores + "El nombre de usuario debe tener máximo 20 caracteres. \n";
+			errores = errores + "El nombre debe tener máximo "+ longitudMax +" caracteres. \n";
 		}
 
-		// 3. no puede contener espacios
-		if (nombre.contains(" ")) {
-			errores = errores + "El nombre de usuario no puede contener espacios.\n";
-		}
-
-		// 4. no debe contener caracteres invalidos
+		// 2. no debe contener caracteres especiales salvo los permitidos
 		// recorro la cadena
-
 		do {
 			caracter = nombre.charAt(i);
-			// Si no está entre a y z, ni entre A y Z, ni es un espacio
-			if (!((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z'))) {
-				errores = errores + "El nombre de usuario no puede contener caracteres inválidos. \n";
+			// reviso si el caracter esta contenido en el abecedario o en los caracteres especiales permitidos
+			if (!(abecedario.contains(String.valueOf(caracter).toLowerCase()) || caracteresPermitidos.contains(String.valueOf(caracter)))) {
+				errores = errores + "El nombre no puede contener caracteres especiales. \n";
 				caracterInv = true;
 			}
 			i++;
-		} while (caracterInv && i < nombre.length());
+		} while (!caracterInv && i < nombre.length());
 
 		return errores;
 	}
@@ -309,6 +334,25 @@ public class Utilidades {
 			errores = errores + "La contraseña no puede contener espacios.\n";
 		}
 
+		return errores;
+	}
+	
+	/**
+	 * Valida campo numérico. Recibe dos parámetros: número a validar y número máximo que puede tener el campo
+	 * @param numero
+	 * @param longMaxima
+	 * @return String con errores después de efectuar las validaciones. Vacío si no hay errores
+	 */
+	private static String validaNumero (String campo, int numero, int longMaxima) {
+		String errores = "";
+		
+		//es mayor que 1 y menor que la longitud maxima
+		if (numero < 1) {
+			errores = "El campo " + campo + " no puede ser menor que 1. ";
+		} else if (numero > longMaxima){
+			errores = "El campo " + campo + " no puede ser mayor que " + longMaxima + ". Si lo requiere puede agregar más tratamientos. ";
+		}		
+		
 		return errores;
 	}
 

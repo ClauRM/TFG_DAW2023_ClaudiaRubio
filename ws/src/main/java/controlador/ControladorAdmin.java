@@ -116,9 +116,9 @@ public class ControladorAdmin extends HttpServlet {
 				System.out.println("Evaluando si hay idtratamiento para actualizar = " + idMedicamento);
 				if (idMedicamento == 0) {
 					System.out.println("No se puede actualizar. El usuario no ha seleccionado medicamento");
-					mensaje = "No has seleccionado ningún medicamento para modificar";
+					mensaje = "No has seleccionado ningún medicamento para actualizar";
 				} else if (request.getParameter("medicamento")==""){
-					mensaje = "Debes seleccionar un medicamento para modificar";
+					mensaje = "Debes seleccionar un medicamento para actualizar";
 				} else {
 					//capturo del formulario
 					idMedicamento = Integer.parseInt(request.getParameter("idmedicamento"));

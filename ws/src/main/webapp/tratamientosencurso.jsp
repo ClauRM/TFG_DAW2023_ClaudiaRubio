@@ -41,10 +41,10 @@
 					</div>
 					<div class="form-group">
 						<label>Nombre del paciente</label>
-						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control" maxlength=20 placeholder="Escribe el nombre del paciente">	
+						<input type="text" name="paciente" value="${tratamiento.getPaciente()}" class="form-control" maxlength=30 placeholder="Escribe el nombre del paciente">	
 					</div>
 					<div class="form-group">
-						<label>Dosis en unidades</label>
+						<label>Dosis en unidades (máx. 30)</label>
 						<input type="number" name="dosis" value="${tratamiento.getDosis()}" class="form-control" min=1 max=30 placeholder="¿Cuál es la dosis?">	
 					</div>
 					<div class="form-group">
@@ -52,7 +52,7 @@
 						<input type="number" name="horas" value="${tratamiento.getHoras()}" class="form-control" min=1 max=24 placeholder="¿Cada cuántas horas?">	
 					</div>	
 					<div class="form-group">
-						<label>Duración en días</label>
+						<label>Duración en días (máx. 15)</label>
 						<input type="number" name="duracion" value="${tratamiento.getDuracion()}" class="form-control" min=1 max=15 placeholder="¿Durante cuántos días?">	
 					</div>	
 					<div class="form-group">

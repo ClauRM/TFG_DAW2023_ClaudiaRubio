@@ -145,8 +145,7 @@ public class Controlador extends HttpServlet {
 				request.setAttribute("sesion", sesion); // envio datos de la sesion
 				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
 				// actualizo de nuevo la tabla
-				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id=" + fidusuario).forward(request,
-						response);
+				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id=" + fidusuario).forward(request, response);
 				break;
 			case "modificar":
 				// capturo el id del tratamiento seleccionado
@@ -164,9 +163,9 @@ public class Controlador extends HttpServlet {
 				System.out.println("Evaluando si hay idtratamiento para actualizar = " + idTratamiento);
 				if (idTratamiento == 0) {
 					System.out.println("No se puede modificar. El usuario no ha seleccionado tratamiento previamente");
-					mensaje = "No has seleccionado ningún tratamiento para modificar";
+					mensaje = "No has seleccionado ningún tratamiento para actualizar";
 				} else if (request.getParameter("dosis")=="" || request.getParameter("horas")=="" || request.getParameter("duracion")==""){
-					mensaje = "Debes seleccionar un tratamiento para modificar";
+					mensaje = "Debes seleccionar un tratamiento para actualizar";
 				} else {
 					// requiero: fidusuario, fidmedicamento, paciente, dosis, horas, tratamiento,
 					// observaciones, activo, idtratamiento
