@@ -39,6 +39,7 @@
 					
 					<!-- DIV PARA MENSAJES -->
 					<div id="mensajes"><p>${mensaje}</p></div>
+					<div id="mensajesOk"><p>${mensajeOk}</p></div>
 					<!-- BOTON DE LOGIN -->
 					<div class="text-center">
 						<input type="submit" class="boton" name="accion" value="Login"/>

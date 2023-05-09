@@ -114,7 +114,9 @@ public class ValidarAcceso extends HttpServlet {
 				// paso los valores al metodo insertar en db
 				usuarioDB.insertarUsuario(userTemporal);
 				// redirecciona a la ventana del principal tras la insercion
-				request.getRequestDispatcher("principal.jsp").forward(request, response);
+				mensaje = "Usuario registrado correctamente. Inicie sesión para acceder.";
+				request.setAttribute("mensajeOk", mensaje); // envio el mensaje al jsp
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			} else {
 				// si hay errores
 				request.setAttribute("mensaje", hayErrores); // envio los mensajes de error a la web
