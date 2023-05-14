@@ -18,7 +18,7 @@
 
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Tratamientos Finalizados</h3>
-	<p class="px-3">Estos son los tratamientos que has finalizado. Si eliminas alguno definitivamente, recuerda que no podrás recuperarlo.</p>
+	<p class="px-3">Estos son los tratamientos que has finalizado. Puedes eliminarlos pulsando en <strong>Eliminar</strong>, pero recuerda!!! Si eliminas alguno definitivamente, no podrás recuperarlo.</p>
 	<!-- DIV PARA MENSAJES -->
 	<div class="px-3" id="mensajesOk"><p>${mensaje}</p></div>
 	<!-- CONTENEDOR DE LA TABLA -->

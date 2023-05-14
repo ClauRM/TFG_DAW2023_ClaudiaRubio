@@ -14,17 +14,11 @@
 
 <body class="h-100">
 	<div id="fondo" class="h-100 text-center">
-		<h1>
-			<br>CronoMed<br>
-		</h1>
-		<h3>ESTOY EN MENU ADMINISTRADOR</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-			ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-			aliquip ex ea commodo consequat. Duis aute irure dolor in
-			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-			culpa qui officia deserunt mollit anim id est laborum</p> <br><br>
+ 		<img style="height: 20%;" src="img/CronoMed-removebg.png" alt="cronomed" >
+ 		<h3>Hola Administrador, ${sessionScope.usuario.getNombre()}</h3>
+		<!-- DESCRIPCION -->
+		<p>Desde la opción de medicamentos podrás realizar el Mantenimiento de la tabla Medicamentos que estará disponible para los usuarios de la aplicación. 
+		</p> <br><br>
 		<div class="row w-100 d-flex justify-content-center align-items-center">
 		<!-- TARJETAS -->
 			<div class="col-lg-3 col-md-4">

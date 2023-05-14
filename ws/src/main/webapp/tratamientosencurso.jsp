@@ -22,7 +22,7 @@
 </head>
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Registro de Tratamientos</h3>
-	<p class="px-3">Aquí podrás gestionar tus tratamientos médicos. Puedes registrar un nuevo tratamiento, modificar los existentes o eliminar alguno si ya lo has finalizado. <br>Rellena todos los campos del formulario para registrar un nuevo tratamiento y pulsa en Agregar</p>
+	<p class="px-3">&#187; Registra un nuevo tratamiento: completa el formulario y pulsa en <strong>Agregar</strong><br>&#187; Modifica un tratamiento existente: selecciónalo en la lista pulsando <strong>Modificar</strong>, modifica sus datos en el formulario y pulsa <strong>Actualizar</strong><br>&#187; Finaliza un tratamiento existente: pulsa a la izquierda del tratamiento, en el botón <strong>Finalizar</strong> </p>
 	<div class="d-flex">
 		<!-- CONTENEDOR DEL FORMULARIO -->
 		<div class="card col-sm-3 px-3">

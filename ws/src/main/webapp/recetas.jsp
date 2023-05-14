@@ -18,7 +18,7 @@
 </head>
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Listado de Tratamientos en curso</h3>
-	<p class="px-3">Este es el listado por horas de todos los tratamientos que tienes actualmente en curso. Si quieres actualizarlos pulsa en la ficha de Registro.</p>
+	<p class="px-3">A continuación, tienes un listado con la frecuencia horaria de todos los tratamientos que tienes en curso. Si quieres actualizarlos pulsa en la opción de <strong>Registro</strong> del menú de navegación.</p>
 	<!-- CONTENEDOR DE LA TABLA -->
 		<div class="col-sm-8 px-3">
 			<table class="table table-hover">
