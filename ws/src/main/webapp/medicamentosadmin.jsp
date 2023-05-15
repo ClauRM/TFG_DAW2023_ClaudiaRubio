@@ -18,8 +18,8 @@
 </head>
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Listado de Medicamentos</h3>
-	<h4 class="px-3">Administrador</h4>
-	<p class="px-3">Puedes agregar un nuevo medicamento indicando su nombre y composición, modificar o eliminar un medicamento existente, o filtrar por nombre de medicamento.</p>
+	<h4 class="px-3">Administrador, ${sessionScope.usuario.getNombre()}</h4>
+	<p class="px-3">&#187; Agrega un nuevo medicamento indicando su nombre y composición y pulsando en <strong>Agregar</strong>. Se permiten caracteres especiales: números y .,/% <br>&#187; Modifica un medicamento existente en la lista pulsando <strong>Modificar</strong>, modifica sus datos en el formulario y pulsa <strong>Actualizar</strong><br>&#187; Borra un medicamento de la lista pulsando en <strong>Eliminar</strong> </p>
 	<!-- CONTENEDOR DE FORMULARIO -->
 	<form action="ControladorAdmin" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 	<div class="card">

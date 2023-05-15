@@ -19,9 +19,9 @@
 		S&iacute;, mucho &eacute;nfasis en la palabra &#171;sencilla&#187;...<br>Solo te pediremos que introduzcas pocos datos para que tengas el control completo sobre tus tratamientos m&eacute;dicos.<br>
 		Te daremos la mayor eficacia y la tranquilidad para que finalices tus tratamientos de forma segura.</p> <br><br>
 		<!-- CONTENEDOR TARJETAS -->
-		<div id="contenedortarjeta" class="row w-100 d-flex justify-content-center align-items-center">
-		<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-4">
+		<div id="row-tarjetas" class="row w-100 m-0">
+			<!-- TARJETAS -->
+			<div id="container-tarjeta" class="col-lg-3 col-md-6 col-sm-12">
 				<a href="Controlador?menu=medicamentos">
 					<div id="tarjeta" class="card" style="width: 18rem;">
 						<div class="card-body">
@@ -33,7 +33,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-4">
+			<div id="container-tarjeta" class="col-lg-3 col-md-6 col-sm-12">
 				<a href="Controlador?menu=enCurso&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
 					<div id="tarjeta" class="card" style="width: 18rem;">
 						<div class="card-body">
@@ -45,7 +45,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-4">
+			<div id="container-tarjeta" class="col-lg-3 col-md-6 col-sm-12">
 				<a href="Controlador?menu=recetas&id=${sessionScope.usuario.getIdusuario()}">
 				<div id="tarjeta" class="card" style="width: 18rem;">
 						<div class="card-body">
@@ -57,7 +57,7 @@
 				</a>
 			</div>
 			<!-- TARJETAS -->
-			<div class="col-lg-3 col-md-4">
+			<div id="container-tarjeta" class="col-lg-3 col-md-6 col-sm-12">
 				<a href="Controlador?menu=finalizados&accion=listar&id=${sessionScope.usuario.getIdusuario()}">
 				<div id="tarjeta" class="card" style="width: 18rem;">
 						<div class="card-body">

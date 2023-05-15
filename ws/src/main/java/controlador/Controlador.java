@@ -65,6 +65,7 @@ public class Controlador extends HttpServlet {
 
 		// variable para enviar mensajes de error al jsp
 		String mensaje = "";
+		String mensajeOk = "";
 
 		// distribucion en funcion de que valor trae la clave menu del
 		// ejemplo, href="Controlador?menu=home"
@@ -140,10 +141,12 @@ public class Controlador extends HttpServlet {
 					
 					if(mensaje.contentEquals("") || mensaje == null) { // si no hay errores
 						tratamientoDB.aniadir(tratamiento); // lo aniade a la bd
+						mensajeOk = "Tratamiento agregado correctamente.";
 					} 
 				}
 				request.setAttribute("sesion", sesion); // envio datos de la sesion
 				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				request.setAttribute("mensajeOk", mensajeOk); // envio el mensaje al jsp
 				// actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar&id=" + fidusuario).forward(request, response);
 				break;
@@ -196,11 +199,13 @@ public class Controlador extends HttpServlet {
 					if(mensaje.contentEquals("") || mensaje == null) { // si no hay errores
 						tratamientoDB.modificar(tratamiento); // modifica tratamiento en la BD
 						System.out.println("Tratamiento modificado en DB");
+						mensajeOk = "Tratamiento modificado correctamente.";
 					}
 									
 				}
 				request.setAttribute("sesion", sesion); // envio datos de la sesion
 				request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
+				request.setAttribute("mensajeOk", mensajeOk); // envio el mensaje al jsp
 				// actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;
@@ -209,7 +214,9 @@ public class Controlador extends HttpServlet {
 				idTratamiento = Integer.parseInt(request.getParameter("idTratamiento")); // indicado en el href del
 																							// boton
 				tratamientoDB.finalizar(idTratamiento); // finalizo el tratamiento
+				mensajeOk = "Tratamiento finalizado correctamente. Puede consultar el historial en tratamientos Finalizados";
 				request.setAttribute("sesion", sesion); //envio datos de la sesion
+				request.setAttribute("mensajeOk", mensajeOk); //envio mensaje al jsp
 				// actualizo de nuevo la tabla
 				request.getRequestDispatcher("Controlador?menu=enCurso&accion=listar").forward(request, response);
 				break;

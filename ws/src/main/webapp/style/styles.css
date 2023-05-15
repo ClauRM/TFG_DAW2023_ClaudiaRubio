@@ -107,10 +107,17 @@
 	box-shadow: 0 8px 16px 0 #E5E9FF, 0 8px 16px 0 #1A2880; /*sombra*/
 }
 
-#contenedortarjeta{
-	margin-left: 10px;
-	align-items: center;
-	
+/*FILA DE TARJETAS*/
+#row-tarjetas{
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
+
+/*CONTENEDOR DE TARJETA*/
+#container-tarjeta{
+	display: flex;
+	justify-content: center;
 }
 
 a {

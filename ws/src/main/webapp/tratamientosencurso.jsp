@@ -23,14 +23,15 @@
 <body>
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Registro de Tratamientos</h3>
 	<p class="px-3">&#187; Registra un nuevo tratamiento: completa el formulario y pulsa en <strong>Agregar</strong><br>&#187; Modifica un tratamiento existente: selecciónalo en la lista pulsando <strong>Modificar</strong>, modifica sus datos en el formulario y pulsa <strong>Actualizar</strong><br>&#187; Finaliza un tratamiento existente: pulsa a la izquierda del tratamiento, en el botón <strong>Finalizar</strong> </p>
-	<div class="d-flex">
+	<div class="d-flex row">
 		<!-- CONTENEDOR DEL FORMULARIO -->
-		<div class="card col-sm-3 px-3">
+		<div class="card col-lg-3 col-sm-12 px-3">
 			<div class="card-body">
 				<form action="Controlador" method="get"> <!-- se redirecciona al Servlet y actualiza la tabla -->
 					<div class="form-group">
 					<!-- DIV PARA MENSAJES -->
 					<div id="mensajes"><p>${mensaje}</p></div>
+					<div id="mensajesOk"><p>${mensajeOk}</p></div>
 						<label>Selecciona un medicamento</label>
 						<!-- SELECT QUE OBTIENE LOS DATOS DE LA BD -->
 						<select name="idmedicamento" class="form-select text-uppercase">
@@ -72,7 +73,7 @@
 			</div>
 		</div>
 		<!-- CONTENEDOR DE LA TABLA -->
-		<div class="col-sm-9 px-3">
+		<div class="col-lg-9 col-sm-12 px-3">
 			<table class="table table-hover">
 				<thead>
 					<tr>

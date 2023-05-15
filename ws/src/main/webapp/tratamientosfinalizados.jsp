@@ -22,7 +22,7 @@
 	<!-- DIV PARA MENSAJES -->
 	<div class="px-3" id="mensajesOk"><p>${mensaje}</p></div>
 	<!-- CONTENEDOR DE LA TABLA -->
-		<div class="col-sm-8 px-3">
+		<div class="col-12 px-3">
 			<table class="table table-hover">
 				<thead>
 					<tr>

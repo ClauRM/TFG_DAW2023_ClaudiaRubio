@@ -87,7 +87,7 @@ public class ValidarAcceso extends HttpServlet {
 					}
 				} else {
 					// si no lo localiza el usuario en la DB
-					mensaje = email + " no está registrado en CronoMed. Accede desde Nuevo Registro.";
+					mensaje = "Email o contraseña incorrectos. Si no estás registrado accede desde Nuevo Registro.";
 					request.setAttribute("mensaje", mensaje); // envio el mensaje al jsp
 					request.getRequestDispatcher("index.jsp").forward(request, response);// redirijo a la ventana de
 																							// login
@@ -129,6 +129,8 @@ public class ValidarAcceso extends HttpServlet {
 				// se redirecciona a la pagina de index
 			sesion.invalidate(); // eliminar la sesion
 			System.out.println("Cerrando sesión del usuario: " + sesion);
+			mensaje = "Ha cerrado sesión correctamente.";
+			request.setAttribute("mensajeOk", mensaje); // envio el mensaje al jsp
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}

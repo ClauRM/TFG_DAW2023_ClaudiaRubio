@@ -20,7 +20,7 @@
 	<h3 id="titulo1" class="px-3"><img alt="capsule" src="img/capsule.svg"> Listado de Medicamentos</h3>
 	<p class="px-3">A continuación, tienes el listado de todos los medicamentos disponibles en la aplicación:</p>
 	<!-- CONTENEDOR DE LA TABLA -->
-	<div class="col-sm-8 px-3">
+	<div class="col-12 px-3">
 		<table class="table table-hover">
 			<thead>
 				<tr>
