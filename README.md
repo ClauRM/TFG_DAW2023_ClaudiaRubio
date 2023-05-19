@@ -1,6 +1,6 @@
 # TFG DAW2023 | Claudia Rubio
 
-Trabajo final de grado (TFG) superior Desarrollo de Aplicaciones Web | Gestor de tratamiento médico
+Trabajo final de grado superior (TFG) Desarrollo de Aplicaciones Web | Gestor de tratamiento médico
 
 Desarrollo de una aplicación web para controlar un tratamiento médico prescrito por un facultativo, visualizando la dosis y la pauta horaria de administración.
 
