@@ -129,7 +129,7 @@ public class ValidarAcceso extends HttpServlet {
 				// se redirecciona a la pagina de index
 			sesion.invalidate(); // eliminar la sesion
 			System.out.println("Cerrando sesión del usuario: " + sesion);
-			mensaje = "Ha cerrado sesión correctamente.";
+			mensaje = "Has cerrado sesión correctamente.";
 			request.setAttribute("mensajeOk", mensaje); // envio el mensaje al jsp
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
