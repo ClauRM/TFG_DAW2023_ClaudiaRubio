@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import modelo.Usuario;
+import utilidades.Utilidades;
 
 public class UsuarioDB {
 
@@ -26,7 +27,7 @@ public class UsuarioDB {
 			prepareStatement = conection.prepareStatement(consulta);
 			//indico cuales son los parametos de la consulta
 			prepareStatement.setString(1, email);
-			prepareStatement.setString(2, password);
+			prepareStatement.setString(2, Utilidades.encriptar(password)); //password introducida por el usuario y encriptada
 			//ejecuto query
 			resultSet = prepareStatement.executeQuery();
 			
@@ -82,8 +83,6 @@ public class UsuarioDB {
 	public void insertarUsuario(Usuario usuario) {
 
 		int resultado = 0; // resultado de ejecutar la consulta de insercion: 1 ok | 2 nada
-
-		// VALIDAR nombre, email , password
 
 		resultado = gestorDB.insertarUsuarioDB(usuario);
 

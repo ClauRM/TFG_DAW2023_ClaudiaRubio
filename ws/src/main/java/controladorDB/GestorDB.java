@@ -3,6 +3,7 @@ package controladorDB;
 import java.sql.*;
 
 import modelo.Usuario;
+import utilidades.Utilidades;
 
 public class GestorDB {
 
@@ -68,7 +69,11 @@ public class GestorDB {
 			//indico cuales son los parametos de la consulta
 			prepareStatement.setString(1, usuario.getNombre());
 			prepareStatement.setString(2, usuario.getEmail());
-			prepareStatement.setString(3, usuario.getPassword());
+			try {
+				prepareStatement.setString(3, Utilidades.encriptar(usuario.getPassword()));
+			} catch (Exception e) {
+				System.out.println("Error al encriptar password del método insertarUsuarioDB(): " + e.getMessage());
+			}
 			//ejecuto query
 			resultado = prepareStatement.executeUpdate();
 			

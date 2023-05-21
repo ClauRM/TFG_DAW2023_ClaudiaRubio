@@ -30,15 +30,15 @@
 				<form action="ValidarAcceso" method="post"> 
 					<div class="mb-2">
 						<label for="inputuser" class="form-label">Nombre de usuario</label> 
-						<input id="inputuser" name="usuario" type="text" placeholder="Escribe un nombre de usuario para tu perfil" class="form-control" />
+						<input id="inputuser" name="usuario" type="text" placeholder="Escribe un nombre de usuario para tu perfil" class="form-control" required/>
 					</div>
 					<div class="mb-2">
 						<label for="inputemail" class="form-label">Email</label> 
-						<input id="inputemail" name="email" type="email" placeholder="Escribe tu dirección de email" class="form-control" />
+						<input id="inputemail" name="email" type="email" placeholder="Escribe tu dirección de email" class="form-control" required/>
 					</div>
 					<div class="mb-2">
 						<label for="inputpass" class="form-label">Contraseña</label> 
-						<input id="inputpass" name="pass" type="password" placeholder="Escribe una password para tu acceso" class="form-control" aria-describedby="inputpass1" maxlength=6 />
+						<input id="inputpass" name="pass" type="password" placeholder="Escribe una password para tu acceso" class="form-control" aria-describedby="inputpass1" maxlength=6 required/>
 						<div id="inputpass1" class="form-text">Escribe una clave de 6 caracteres</div>
 					</div>
 					<!-- DIV PARA MENSAJES -->

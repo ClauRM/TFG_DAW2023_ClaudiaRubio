@@ -30,11 +30,11 @@
 				<form action="ValidarAcceso" method="post"> <!-- al pulsar Login se redirecciona al Servlet ValidarAcceso.java -->
 					<div class="mb-3">
 						<label for="inputemail" class="form-label">Correo electrónico</label> 
-						<input id="inputemail" name="email" type="email" class="form-control" maxlength=50 placeholder="Escribe tu dirección de email"/>
+						<input id="inputemail" name="email" type="email" class="form-control" maxlength=50 placeholder="Escribe tu dirección de email" required/>
 					</div>
 					<div class="mb-3">
 						<label for="inputpass" class="form-label">Contraseña</label> <input
-							id="inputpass" name="pass" type="password" class="form-control" maxlength=6 placeholder="Escribe tu password"/>
+							id="inputpass" name="pass" type="password" class="form-control" maxlength=6 placeholder="Escribe tu password" required/>
 					</div>
 					
 					<!-- DIV PARA MENSAJES -->

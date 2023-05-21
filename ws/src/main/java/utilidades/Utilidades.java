@@ -1,5 +1,6 @@
 package utilidades;
 
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -73,7 +74,7 @@ public class Utilidades {
 	public static String validaUsuarioRegistro(Usuario usuarioTemporal) {
 		String errores = "";
 		String nombre, email, pass;
-		String caracteresPermitidos="";
+		String caracteresPermitidos = "";
 
 		// valores de las variables
 		nombre = usuarioTemporal.getNombre();
@@ -106,46 +107,46 @@ public class Utilidades {
 
 		// valores de las variables
 		paciente = tratamientoTemporal.getPaciente();
-		
-		//validar nombre paciente
+
+		// validar nombre paciente
 		errores = validaNombre(paciente, 30, caracteresPermitidos);
-		
+
 		try {
 			dosis = tratamientoTemporal.getDosis();
 			horas = tratamientoTemporal.getHoras();
 			duracion = tratamientoTemporal.getDuracion();
-			
-			//validar dosis en unidades max 30
+
+			// validar dosis en unidades max 30
 			errores = errores + validaNumero("dosis", dosis, 30);
-			
-			//validar pauta en horas max 24
+
+			// validar pauta en horas max 24
 			errores = errores + validaNumero("horas", horas, 24);
-			
-			//validar duracion en dias max 15
+
+			// validar duracion en dias max 15
 			errores = errores + validaNumero("duración", duracion, 15);
-			
+
 		} catch (Exception e) {
 			errores = errores + "Revise dosis, pauta o duración. Deben ser numéricos. ";
-			System.out.println("Error método validaTratamiento(). No ha podido convertir a número: "+e.getMessage());
+			System.out.println("Error método validaTratamiento(). No ha podido convertir a número: " + e.getMessage());
 		}
 
 		return errores;
 	}
-	
+
 	public static String validaMedicamento(Medicamento medicamentoTemporal) {
 		String errores = "";
-		String caracteresPermitidos = " .,/%0123456789"; //juego de carateres permitidos
+		String caracteresPermitidos = " .,/%0123456789"; // juego de carateres permitidos
 		String medicamento;
 		int i = 0; // posicion de un caracter del string
 		char caracter;
 		boolean caracterInv = false;
-				
-		//valores de variables
+
+		// valores de variables
 		medicamento = medicamentoTemporal.getMedicamento();
-		
+
 		medicamento = medicamento.trim(); // limpio espacios
 
-		//validacion de nombre medicamento, max. 60 caracteres
+		// validacion de nombre medicamento, max. 60 caracteres
 		errores = validaNombre(medicamento, 60, caracteresPermitidos);
 
 		return errores;
@@ -217,12 +218,56 @@ public class Utilidades {
 		return tratamientosXhoras;
 	}
 
+	public static String encriptar(String password) throws Exception {
+
+		MessageDigest md; // objeto de la clase MessageDigest package java.security
+		byte[] arrayByte; // array de tipo byte (8 bits)
+		StringBuffer passEncriptada = new StringBuffer(); // objeto de la clase StringBuffer para almacenar una cadena
+															// que sera modificada
+		int valor; // almacenar entero
+
+		// tomado de https://www.youtube.com/watch?v=gdvGzP5TFw4
+		try {
+			md = MessageDigest.getInstance("MD5"); // instancia de objeto utilizando el algoritmo MD5
+			arrayByte = md.digest(password.getBytes()); // metodo digest para obtener los bytes del hash del string, y
+														// se convierte en un array de bytes con el metodo getByte
+			// recorrer el array de bytes
+			for (int i = 0; i < arrayByte.length; i++) {
+				// por cada byte del array, se realiza la conversion en una cadena hexadecimal
+				// con el metodo toHexString() de la clase Integer
+				valor = arrayByte[i] & 255;
+				// operacion AND bit a bit con 255, esto asegura que se consideren los 8bits
+				// menos significativos y se descarten los adicionales
+				if (valor < 16) {
+					// si el valor es menor que 16 significa que tiene solo un digito, por lo que se
+					// aniade cero a la izquierda
+					passEncriptada.append("0" + Integer.toHexString(valor));
+				} else {
+					passEncriptada.append(Integer.toHexString(valor));
+				}
+			}
+
+			return passEncriptada.toString(); // utilizando metodo toString de la clase StringBuffer para retornar la
+												// encrptacion en string
+
+		} catch (Exception e) {
+			System.out.println("Error al encriptar password: " + e.getMessage());
+			return null;
+		}
+		
+	}
+
 	/**
-	 * Validación de campo String en función de la longitud máxima y de los caracteres permitidos. Requiere dos parámetros de entrada
-	 * @param nombre, dato String con el texto a validar
-	 * @param longitudMax, dato entero con el número de caracteres máximo permitido en el campo
-	 * @param caracteresPermitidos, dato String con los caracteres especiales permitidos
-	 * @return String con los errores realizados después de la validación. Vacío si no tiene errores
+	 * Validación de campo String en función de la longitud máxima y de los
+	 * caracteres permitidos. Requiere dos parámetros de entrada
+	 * 
+	 * @param nombre,               dato String con el texto a validar
+	 * @param longitudMax,          dato entero con el número de caracteres máximo
+	 *                              permitido en el campo
+	 * @param caracteresPermitidos, dato String con los caracteres especiales
+	 *                              permitidos
+	 * @return String con los errores realizados después de la validación. Vacío si
+	 *         no tiene errores
 	 */
 	// validaciones del nombre
 	private static String validaNombre(String nombre, int longitudMax, String caracteresPermitidos) {
@@ -236,15 +281,17 @@ public class Utilidades {
 
 		// 2. longitud maxima de 20 caracteres
 		if (nombre.length() > longitudMax) {
-			errores = errores + "El nombre debe tener máximo "+ longitudMax +" caracteres. \n";
+			errores = errores + "El nombre debe tener máximo " + longitudMax + " caracteres. \n";
 		}
 
 		// 2. no debe contener caracteres especiales salvo los permitidos
 		// recorro la cadena
 		do {
 			caracter = nombre.charAt(i);
-			// reviso si el caracter esta contenido en el abecedario o en los caracteres especiales permitidos
-			if (!(abecedario.contains(String.valueOf(caracter).toLowerCase()) || caracteresPermitidos.contains(String.valueOf(caracter)))) {
+			// reviso si el caracter esta contenido en el abecedario o en los caracteres
+			// especiales permitidos
+			if (!(abecedario.contains(String.valueOf(caracter).toLowerCase())
+					|| caracteresPermitidos.contains(String.valueOf(caracter)))) {
 				errores = errores + "El nombre no puede contener caracteres especiales. \n";
 				caracterInv = true;
 			}
@@ -288,11 +335,11 @@ public class Utilidades {
 					errores = errores + "El . del email está en posición incorrecta. \n";
 				} else {
 					longitudDominio = email.length() - email.lastIndexOf(".");
-					
-					System.out.println("longitud del email = "+email.length());
-					System.out.println("posicion del ultimo punto = "+email.lastIndexOf("."));
-					System.out.println("longitud email - posicion ultimo punto = "+ longitudDominio);
-					
+
+					System.out.println("longitud del email = " + email.length());
+					System.out.println("posicion del ultimo punto = " + email.lastIndexOf("."));
+					System.out.println("longitud email - posicion ultimo punto = " + longitudDominio);
+
 					// EL DOMINIO DEBE SER .xx o .xxx
 					if (longitudDominio < 3 || longitudDominio > 4) {
 						errores = errores + "Dominio del email incorrecto. \n";
@@ -336,23 +383,27 @@ public class Utilidades {
 
 		return errores;
 	}
-	
+
 	/**
-	 * Valida campo numérico. Recibe dos parámetros: número a validar y número máximo que puede tener el campo
+	 * Valida campo numérico. Recibe dos parámetros: número a validar y número
+	 * máximo que puede tener el campo
+	 * 
 	 * @param numero
 	 * @param longMaxima
-	 * @return String con errores después de efectuar las validaciones. Vacío si no hay errores
+	 * @return String con errores después de efectuar las validaciones. Vacío si no
+	 *         hay errores
 	 */
-	private static String validaNumero (String campo, int numero, int longMaxima) {
+	private static String validaNumero(String campo, int numero, int longMaxima) {
 		String errores = "";
-		
-		//es mayor que 1 y menor que la longitud maxima
+
+		// es mayor que 1 y menor que la longitud maxima
 		if (numero < 1) {
 			errores = "El campo " + campo + " no puede ser menor que 1. ";
-		} else if (numero > longMaxima){
-			errores = "El campo " + campo + " no puede ser mayor que " + longMaxima + ". Si lo requiere puede agregar más tratamientos. ";
-		}		
-		
+		} else if (numero > longMaxima) {
+			errores = "El campo " + campo + " no puede ser mayor que " + longMaxima
+					+ ". Si lo requiere puede agregar más tratamientos. ";
+		}
+
 		return errores;
 	}
 

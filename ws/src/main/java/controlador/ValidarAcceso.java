@@ -107,8 +107,6 @@ public class ValidarAcceso extends HttpServlet {
 			hayErrores = Utilidades.validaUsuarioRegistro(userTemporal); // verifico errores tras validar el usuario
 																			// temporal
 
-			// if(!email.equalsIgnoreCase("") && !pass.equalsIgnoreCase("")&&
-			// !usuario.equalsIgnoreCase("")) {
 			if (hayErrores.contentEquals("") || hayErrores == null) { // si no hay errores
 				// si esta ok, llamar a conexion metodo insertar
 				// paso los valores al metodo insertar en db
