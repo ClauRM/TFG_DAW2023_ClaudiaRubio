@@ -8,3 +8,5 @@ Para el desarrollo de la aplicación se utiliza el patrón de arquitectura MVC o
 
 Después de validar la aplicación, se concluye que puede gestionar de forma sencilla un tratamiento médico a nivel personal y grupal, pudiendo integrar tratamientos asociados a otros miembros de la familia. 
 
+Enlace a video explicativo:
+https://youtu.be/1FEFgY7TY1c?si=QQNSSXVModTM0xQ2
